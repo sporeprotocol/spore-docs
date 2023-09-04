@@ -5,10 +5,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Spore Documentation',
-  tagline: 'Start crafting goods on Nervos CKB with Spore Protocol',
-  organizationName: 'nervosnetwork',
+  title: 'Spore Docs',
   projectName: 'spore-docs',
+  organizationName: 'nervosnetwork',
 
   baseUrl: '/',
   favicon: 'img/logo.svg',
@@ -45,24 +44,26 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'Spore Protocol',
+        title: 'SPORE PROTOCOL',
         logo: {
-          alt: 'Spore Protocol',
           src: 'img/logo.svg',
+          alt: 'SPORE PROTOCOL',
         },
         items: [],
       },
       footer: {
-        // style: 'dark',
-        /*links: [
+        links: [
           {
-            title: 'Docs',
+            title: 'Development',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'TypeScript SDK',
+                href: 'https://github.com/sporeprotocol/spore-sdk',
+              },
+              {
+                label: 'Contracts',
+                href: 'https://github.com/sporeprotocol/spore-contract',
               },
             ],
           },
@@ -70,16 +71,12 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                href: 'https://discord.gg/9eufnpZZ8P',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'Email',
+                href: 'mailto:contact@spore.pro',
               },
             ],
           },
@@ -87,17 +84,17 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'GitHub',
+                href: 'https://github.com/sporeprotocol/spore-docs',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Nervos',
+                href: 'https://www.nervos.org',
               },
             ],
           },
-        ],*/
-        copyright: `©SporeProtocol ${new Date().getFullYear()}. All rights reserved.`,
+        ],
+        copyright: `© ${new Date().getFullYear()} spore.pro`,
       },
       prism: {
         theme: lightCodeTheme,
