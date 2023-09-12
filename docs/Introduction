@@ -1,3 +1,5 @@
+import CardList from '@site/src/components/CardList'
+
 # Introducing Spore Protocol
 
 The on-chain digital asset protocol designed to empower ownership, distribution, and value capture.
@@ -17,4 +19,27 @@ Spore Protocol redefines the game by addressing common limitations in existing N
 
 Dive in:
 
-<placeholder: 4 clickable squares>
+<CardList
+  items={[
+    {
+      href: "docs/basics",
+      title: "Basics",
+      description: "Learn Spore Fundamentals - Quickly grasp the core concepts and components."
+    },
+    {
+      href: "docs/tutorials",
+      title: "Tutorial",
+      description: "Follow Along - Build a toy project, dive in with easy to follow steps and examples."
+    },
+    {
+      href: "docs/recipes",
+      title: "How-To Recipes",
+      description: "Simplified Solutions - Find concise recipes to streamline your production."
+    },
+    {
+      href: "docs/references",
+      title: "Resources",
+      description: Power tools - SDK, API, Contracts, and more!
+    }
+  ]}
+/>
