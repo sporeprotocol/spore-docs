@@ -8,17 +8,19 @@ sidebar_position: 1
 
 A **Spore** can be thought of as a secure file for storing your assets. When you have multiple files you want to organize together, you create a **Cluster**. However, these files aren't stored on a single device; instead, they are stored on a decentralized network that thousands of people all over the world help operate.
 
-![Screenshot 2023-09-07 at 5.31.54 PM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6c5c5566-23a2-4a7f-909a-492d40a9dabf/87fe5c32-5f1c-4c39-94ce-6781b7e504c2/Screenshot_2023-09-07_at_5.31.54_PM.png)
+![spore-cluster.png](static/img/spore-cluster.png)
 
 ### **What is an On-Chain Asset?**
 
 An "on-chain" asset refers to a digital asset with a significant portion of its data directly encoded onto the blockchain. There's a spectrum of "on-chain" attributes, with on-chain NFTs generally being seen as more censorship-resistant, permanent, and secure compared to "off-chain" alternatives. However, the majority of NFTs are more "off-chain" than "on-chain."
 
-![Screenshot 2023-09-07 at 5.49.04 PM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6c5c5566-23a2-4a7f-909a-492d40a9dabf/f8cd5673-948d-431a-8038-b1bb9310875b/Screenshot_2023-09-07_at_5.49.04_PM.png)
+![onchain-spectrum.png](static/img/onchain-spectrum.png)
 
 ### **What Does It Mean to Be Fully On-Chain?**
 
 The Spore Protocol takes your asset fully on-chain, meaning all of its data is encoded and stored directly on the blockchain. This makes your asset more secure and resilient, and it cannot be taken away or destroyed by anyone else when it's in your hands.
+
+![spore-onchain.png](static/img/spore-onchain.png)
 
 ### **What is Minting?**
 
