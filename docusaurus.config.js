@@ -58,7 +58,7 @@ const config = {
       footer: {
         links: [
           {
-            title: 'Development',
+            title: 'Resources',
             items: [
               {
                 label: 'Spore SDK',

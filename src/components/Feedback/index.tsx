@@ -20,10 +20,7 @@ export function sendGtmFeedback(props: {
   if (typeof window !== 'undefined' && "dataLayer" in window) {
     const dataLayer = window.dataLayer;
     (dataLayer['push'] as ((p: any) => void))({
-      event: "PageFeedback",
-      href: window.location.href,
-      host: window.location.host,
-      pathname: window.location.pathname,
+      event: "page_usefulness",
       value: props.result,
     });
   } else {

@@ -24,6 +24,7 @@
 }
 
 .feedback__result {
+  flex: none;
   padding: 0.4rem 0;
   font-size: 0.85rem;
   color: var(--ifm-color-emphasis-800);
