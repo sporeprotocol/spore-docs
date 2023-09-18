@@ -1,7 +1,6 @@
 
 .feedback {
   padding: var(--ifm-global-spacing);
-  margin-top: 3rem;
   gap: 1.25rem;
   display: flex;
   align-items: center;
