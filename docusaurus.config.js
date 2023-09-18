@@ -37,6 +37,9 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        googleTagManager: {
+          containerId: 'GTM-MHR5JHHT',
+        },
       }),
     ],
   ],
@@ -58,11 +61,11 @@ const config = {
             title: 'Development',
             items: [
               {
-                label: 'TypeScript SDK',
+                label: 'Spore SDK',
                 href: 'https://github.com/sporeprotocol/spore-sdk',
               },
               {
-                label: 'Contracts',
+                label: 'Spore Contracts',
                 href: 'https://github.com/sporeprotocol/spore-contract',
               },
             ],

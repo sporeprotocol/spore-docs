@@ -1,0 +1,76 @@
+
+.feedback {
+  padding: var(--ifm-global-spacing);
+  margin-top: 3rem;
+  gap: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background-color: var(--ifm-card-background-color);
+  border-radius: var(--ifm-pagination-nav-border-radius);
+}
+
+.feedback__title {
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  color: var(--ifm-color-primary);
+}
+
+.feedback__description {
+  max-width: 500px;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.feedback__result {
+  padding: 0.4rem 0;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.feedback__buttons {
+  flex: none;
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.feedback__button {
+  padding: 0.5rem 1.5rem;
+  flex: 0 0 auto;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 0.25rem;
+  color: var(--ifm-heading-color);
+  background-color: var(--ifm-breadcrumb-item-background-active);
+  transition: background var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.feedback__button:hover {
+  color: var(--ifm-color-secondary);
+  background-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .feedback__button:hover {
+  color: var(--ifm-color-secondary);
+  background-color: var(--ifm-color-primary);
+}
+
+@media screen and (max-width: 996px) {
+  .feedback {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .feedback__description {
+    max-width: unset;
+  }
+}
