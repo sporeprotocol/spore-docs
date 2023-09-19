@@ -1,18 +1,27 @@
 # Spore Docs
 
-> The documentation site for the Spore Protocol, powered by [Docusaurus 2](https://docusaurus.io/).
+Explore the basics/tutorials/recipes of Spore Protocol on Spore Docs:
 
-The spore-docs provides:
+- `Basics`: Learn Spore Fundamentals - Quickly grasp the core concepts and components.
+- `Tutorials`: Follow Along - Build a toy project, dive in with easy to follow steps and examples.
+- `How-to recipes`: Simplified Solutions - Find concise recipes to streamline your production.
+- `Resources`: Power Tools - Build apps with Spore SDK and find more developer resources.
 
-- `Introduction`: A concise guide on where to start learning/developing.
-- `Basics`: Fundamentals of Spore Protocol for beginners.
-- `Tutorials`: Project-oriented, step-by-step courses/tutorials.
-- `How-to recipes`: Problem-oriented, development focused recipes/solutions.
-- `References`: Development resources and more.
+## Contribution
+
+### [Suggest content](https://github.com/sporeprotocol/spore-docs/issues/new/choose)
+
+Report any issues you encounter, or tell us where we can improve the documentation.
+
+### [Open a pull request](https://github.com/sporeprotocol/spore-docs/compare)
+
+Help us improve or fix the spore-docs by providing actual doc changes.
 
 ## Development
 
-You can edit the spore-docs and review changes in your local environment.
+### Run in development mode
+
+You can edit the documentation locally and review changes immediately in your browser.
 
 1. Install node dependencies via [PNPM](https://pnpm.io/):
 ```shell
@@ -24,12 +33,21 @@ $ pnpm i
 $ pnpm run start
 ```
 
-## Contribution
+### Run production preview
 
-### [Open an issue](https://github.com/sporeprotocol/spore-docs/issues/new/choose) 
+Some features may only be enabled in production mode, to check that everything works as expected, you can build and run in production mode locally.
 
-Report any issues you encounter, or tell us where we can improve the spore-docs.
+1. Build production:
+```shell
+pnpm run build
+```
 
-### [Open a pull request](https://github.com/sporeprotocol/spore-docs/compare)
+2. Run the production for preview:
+```shell
+pnpm run serve
+```
 
-Help us improve or fix the spore-docs by providing actual doc changes.
+## Reference
+
+- The project is licensed in [MIT](./LICENSE). 
+- The project is powered by [Docusaurus 2](https://docusaurus.io/).
