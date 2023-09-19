@@ -42,7 +42,7 @@ export default function Feedback(props: FeedbackProps) {
       {!sent && (
         <div className={styles.feedback__buttons}>
           <button className={styles.feedback__button} onClick={() => sendFeedback(PageFeedbackResult.Useful)}>
-            {props.yes ?? '👍 Yes, helpful'}
+            {props.yes ?? '👍 Yes'}
           </button>
           <button className={styles.feedback__button} onClick={() => sendFeedback(PageFeedbackResult.Unuseful)}>
             {props.no ?? '👎 No'}
