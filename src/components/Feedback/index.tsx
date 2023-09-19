@@ -38,21 +38,14 @@ export default function Feedback(props: FeedbackProps) {
 
   return (
     <div className={styles.feedback} id="feedback">
-      <div>
-        <h3 className={styles.feedback__title}>
-          {props.title ?? 'Was this page helpful?'}
-        </h3>
-        <div className={styles.feedback__description}>
-          {props.description ?? `Your valuable feedback can help us continuously improve the documentation site. Please send a feedback to the page so we can provide even better content to you!`}
-        </div>
-      </div>
+      <div className={styles.feedback__title}>{props.title ?? 'Was this page helpful?'}</div>
       {!sent && (
         <div className={styles.feedback__buttons}>
           <button className={styles.feedback__button} onClick={() => sendFeedback(PageFeedbackResult.Useful)}>
-            {props.yes ?? 'Yes, helpful'}
+            {props.yes ?? '👍 Yes, helpful'}
           </button>
           <button className={styles.feedback__button} onClick={() => sendFeedback(PageFeedbackResult.Unuseful)}>
-            {props.no ?? 'No'}
+            {props.no ?? '👎 No'}
           </button>
         </div>
       )}

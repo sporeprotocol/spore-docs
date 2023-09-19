@@ -26,7 +26,7 @@ export default function CardListItem({ item }: CardListItemProps): JSX.Element {
         </h2>
       )}
       {item.description && (
-        <p>
+        <p className={styles.cardDescription}>
           {item.description}
         </p>
       )}

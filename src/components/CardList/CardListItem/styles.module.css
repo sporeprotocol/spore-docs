@@ -31,6 +31,14 @@
   align-items: center;
 }
 
+.cardDescription {
+  hyphens: auto;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .cardIcon {
   width: 24px;
   height: 24px;

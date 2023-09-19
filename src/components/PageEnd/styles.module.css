@@ -1,0 +1,12 @@
+
+.pageEnd {
+  padding: 4rem 0 3rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.pageEnd__indicator {
+  width: 60%;
+  height: 1px;
+  background-color: var(--ifm-color-emphasis-200);
+}
