@@ -18,8 +18,8 @@ export function sendGtmFeedback(props: {
   result: PageFeedbackResult;
 }) {
   if (typeof window !== 'undefined' && "dataLayer" in window) {
-    const dataLayer = window.dataLayer;
-    (dataLayer['push'] as ((p: any) => void))({
+    const dataLayer = window['dataLayer'] as any[];
+    dataLayer.push?.({
       event: "page_usefulness",
       value: props.result,
     });
