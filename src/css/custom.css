@@ -1,21 +1,23 @@
 /* Importing Inter font from google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
 
-/* You can override the default Infima variables here. */
+/* Light theme overrides */
 :root {
   --ifm-color-primary: #383838;
-  --ifm-color-primary-dark: #323232;
-  --ifm-color-primary-darker: #303030;
-  --ifm-color-primary-darkest: #272727;
-  --ifm-color-primary-light: #3e3e3e;
-  --ifm-color-primary-lighter: #404040;
-  --ifm-color-primary-lightest: #494949;
+  --ifm-color-primary-dark: #272727;
+  --ifm-color-primary-darker: #1c1c1c;
+  --ifm-color-primary-darkest: #111111;
+  --ifm-color-primary-light: #494949;
+  --ifm-color-primary-lighter: #545454;
+  --ifm-color-primary-lightest: #5f5f5f;
+  --ifm-link-color: #0969da;
   --ifm-code-font-size: 95%;
+  --ifm-sidebar-background-color: #fbfbfb;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --ifm-font-family-base: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark theme overrides */
 [data-theme='dark'] {
   --ifm-color-primary: #f1b81e;
   --ifm-color-primary-dark: #e6ab0e;
@@ -24,5 +26,25 @@
   --ifm-color-primary-light: #f3c038;
   --ifm-color-primary-lighter: #f3c444;
   --ifm-color-primary-lightest: #f6d06b;
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-sidebar-background-color: #212121;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+nav.menu {
+  background-color: var(--ifm-sidebar-background-color);
+  border-right: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.table-of-contents__link--active {
+  font-weight: 700;
+}
+
+/* Desktop only styles */
+@media screen and (min-width: 997px) {
+  /* The style for the container of markdown content */
+  main > .container {
+    padding: 3rem !important;
+  }
+}
+
