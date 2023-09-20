@@ -7,7 +7,7 @@ description: Getting started with the basics concepts of Spore Protocol.
 
 ### What is Spore and Cluster?
 
-A **Spore** can be thought of as a secure file for storing your assets. When you have multiple files you want to organize together, you create a **Cluster**. However, these files aren't stored on a single device; instead, they are stored on a decentralized network that thousands of people all over the world help operate.
+A **Spore** can be thought of a valuable digital artifact. When you have multiple artifacts you want to organize together, you create a **Cluster**. However, these artifacts aren't stored in a single location; instead, they are stored on a decentralized network that thousands of people all over the world help operate.
 
 ![spore-cluster.png](../../static/img/recipes/spore-101/spore-cluster.png)
 
@@ -31,11 +31,11 @@ Minting transforms your creation or any item into a unique digital asset on the 
 
 Minting NFTs often involves unpredictable gas fee expenses and the NFTs are not even fully on-chain. 
 
-With Spore Protocol, you are not spending on fees - you acquire ✨ capital ✨. This capital, in CKBytes, secure ownership and reserve a portion of the network's resources to safeguard your creation. 
+With Spore Protocol, you are not spending on fees - you acquire ✨ capital ✨. This capital, in CKBytes, secure ownership and reserve a portion of the network's resources to safeguard your creation. 
 
-With your creation fully on-chain, larger creations need more reserved capital. Don’t worry - the CKBytes used for reservation is not spent; instead, it is locked in your creation itself. Think of it like forging gold into an exquisite artifact - the value is preserved within the artwork itself. If you ever want to melt down the artifact back into its original form or redeem the CKBytes, you have that flexibility. Your creation, your rules.
+With your creation fully on-chain, larger creations need more reserved capital. Don’t worry - the CKBytes used for reservation is not spent; instead, it is locked in your creation itself. Think of it like forging gold into an exquisite artifact - the value is preserved within the work itself. If you ever want to melt down the artifact back into its original form or redeem the CKBytes, you have that flexibility. Your creation, your rules.
 
-### Explore Spores and Clusters on the testnet using this demo!
+### Intrigued？Explore Spores and Clusters on the testnet using this demo!
 
 [Spore Demo](https://a-simple-demo.spore.pro/)
 
