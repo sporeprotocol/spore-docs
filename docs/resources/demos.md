@@ -7,7 +7,8 @@ sidebar_label: Demos
 
 Spore Demos are web application demos that can be run in a browser environment.
 
-They are more complete projects than the [Spore Examples](./examples), developers can study from the demos to understand how fully functional web applications are developed. For example, how to connect wallets like [MetaMask](https://metamask.io) or [JoyID](https://joy.id).
+The demos are more complete projects than the [Spore Examples](./examples), developers can study from the demos to understand how fully functional web applications are developed. 
+For example, how to connect wallets like [MetaMask](https://metamask.io) or [JoyID](https://joy.id).
 
 ### Demo: A simple `Next.js` demo
 

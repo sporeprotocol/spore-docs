@@ -5,9 +5,9 @@ sidebar_label: Examples
 
 # Spore Examples
 
-Spore Examples are minimum viable code snippets or executable files that run on Node.js, each implementing a single feature using [Spore SDK](./spore-sdk). Developers can solve their own development issues or confusion by referring to the examples.
+Spore Examples are minimum viable snippets in a Node environment, each implementing a feature with [Spore SDK](./spore-sdk). 
 
-> If you are looking for a fully functional application as research material, see: [Spore Demos](./demos).
+The examples can show developers how to implement simple, specific features. For example, how to create a Spore Creation transaction with spore-sdk. If you are looking for documentation on how to develop a fully functional application, refer to: [Spore Demos](./demos).
 
 ## Scenario examples
 
