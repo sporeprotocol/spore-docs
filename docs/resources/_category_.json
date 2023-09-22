@@ -1,6 +1,7 @@
 {
   "label": "Resources",
   "position": 4,
+  "collapsed": false,
   "link": {
     "type": "generated-index",
     "description": "Power Tools - Build apps with Spore SDK and find more developer resources."

@@ -40,6 +40,13 @@ nav.menu {
   font-weight: 700;
 }
 
+/* Mobile only styles */
+@media (max-width: 576px) {
+  .markdown h1:first-child {
+    margin-top: 1.25rem;
+  }
+}
+
 /* Desktop only styles */
 @media screen and (min-width: 997px) {
   /* The style for the container of markdown content */

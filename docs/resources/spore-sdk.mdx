@@ -1,0 +1,75 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Spore SDK
+
+[Spore SDK](https://github.com/sporeprotocol/spore-sdk) is a Web environment development kit written in TypeScript, designed to provide developers with the essential tools they need to interact with Spore Protocol and create beautiful things on [Nervos CKB](https://www.nervos.org).
+
+## Features
+
+- ⚡ Composed APIs for efficient spores/clusters interactions with minimal time overhead
+- 🧩 Joint APIs for building advanced transactions as a fun block-building process
+- 🛠️ Versatile utilities for encoding/decoding data of spores/clusters
+- 🎹 Fully written in TypeScript
+
+## Start using spore-sdk
+
+### Installation
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="npm" label="npm" default>
+```
+
+```shell
+npm i @spore-sdk/core
+```
+
+```mdx-code-block
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+```
+
+```shell
+pnpm add @spore-sdk/core
+```
+
+```mdx-code-block
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+```
+
+```shell
+yarn add @spore-sdk/core
+```
+
+```mdx-code-block
+  </TabItem>
+</Tabs>
+```
+
+### Setup Node-polyfills
+
+If you plan to use spore-sdk in a browser environment, you may need to manually add node-related polyfills to your application to ensure that it functions properly.
+For more details, please refer to Lumos' documentation site: [CRA, Vite, Webpack or Other | Lumos](https://lumos-website.vercel.app/recipes/cra-vite-webpack-or-other).
+
+## Development resources
+
+### Running on Node.js
+
+If you want to use spore-sdk in a Node.js environment, there's no extra step needed after the installation.
+
+- For beginners, you can follow the [Creating a spore from scratch](./examples) tutorial to learn the lifecycle of a spore creation.
+- For advanced developers, you can search for code examples by lock scripts in [Spore Examples](./examples).
+
+### Building web applications
+
+If you want to use spore-sdk in a browser environment, such as building web applications with Vite/CRA/Next, etc.,
+you may need to follow the instructions of [Setup Node-polyfills](#setup-node-polyfills) to ensure the spore-sdk can function properly in your project.
+
+- For beginners, you can follow the [Creating a simple on-chain blog](./examples) tutorial to build a blog app with spore-sdk.
+- For more application demos with spore-sdk, refer to [Spore Demos](./demos).
