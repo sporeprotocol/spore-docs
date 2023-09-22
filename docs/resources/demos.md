@@ -10,7 +10,7 @@ Spore Demos are web application demos that can be run in a browser environment.
 The demos are more complete projects than the [Spore Examples](./examples), developers can study from the demos to understand how fully functional web applications are developed. 
 For example, how to connect wallets like [MetaMask](https://metamask.io) or [JoyID](https://joy.id).
 
-### Demo: A simple `Next.js` demo
+### A simple `Next.js` demo
 
 A Spore Protocol Demo based on Next.js + React + Spore SDK, which implements basic functionalities, such as the creation and transfer of clusters, as well as minting, transferring, and destroying of spores. 
 
