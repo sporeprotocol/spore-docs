@@ -13,7 +13,7 @@ This step-by-step guide will help you create your first spore on CKB testnet usi
 
 - An IDE/Editor that supports TypeScript
 - [Node.js](https://nodejs.dev/en/learn/) development environment
-- A package manager such as [yarn](https://classic.yarnpkg.com/lang/en/docs/getting-started/))
+- A package manager such as [yarn](https://classic.yarnpkg.com/lang/en/docs/getting-started/)
 
 ### Project Ingredients
 
@@ -26,9 +26,9 @@ This step-by-step guide will help you create your first spore on CKB testnet usi
 ### 1. Create a CKB Address
 
 #### Method 1
-You can use this generator tool to create a CKB testnet address.
+You can use this [**generator tool**](https://ckb.tools/generator) to create a CKB testnet address.
 #### Method 2
-You can explore your options in the land of CKB Wallets.
+You can explore your options in the land of [CKB Wallets](https://docs.nervos.org/docs/basics/concepts/cryptowallet/#ckb-wallets).
 #### Method 3
 To create an account via ckb-cli, you need to use a testnet RPC node, make sure you have [git](https://git-scm.com/downloads) and [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) installed. Then, in your terminal, run the following commands to install ckb-cli:
 
@@ -144,7 +144,7 @@ touch index.ts
 
 Copy and edit the following code into your **`index.ts`** file, make sure to add your private key in line 107, specify the content type and filename:
 
-```tsx {1,4-6,11} showLineNumbers
+```tsx {107,115,121} showLineNumbers
 import React from 'react';
 import { SporeConfig, createSpore, updateWitnessArgs, isScriptValueEquals, predefinedSporeConfigs, defaultEmptyWitnessArgs } from '@spore-sdk/core';
 import { hd, helpers, HexString, RPC } from '@ckb-lumos/lumos';
@@ -252,7 +252,6 @@ async function main() {
   const config = predefinedSporeConfigs.Aggron4;
 
   // NOTE: Be careful to protect this and do not make your private key public except you know what you are doing!
-  // highlight-next-line
   const privateKey = '0xc153ee57dc8ae3dac3495c828d6f8c3fef6b1d0c74fc31101c064137b3269d6d';
 
   // Create out account/sign helper
@@ -261,14 +260,12 @@ async function main() {
   let { txSkeleton } = await createSpore({
     data: {
       // Specify the content's MIME type
-      // highlight-next-line
       contentType: 'image/png',
       // Extra parameters of contentType
       contentTypeParameters: {
         immortal: true,
       },
       // Fill in the spore's content as bytes,
-      // highlight-next-line
       content: await fetchLocalFile('./image.jpg'),
       // fill in the spores' belonging cluster's id, optional, here we leave it empty
       clusterId: undefined,
