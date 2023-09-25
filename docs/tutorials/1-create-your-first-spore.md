@@ -144,7 +144,7 @@ touch index.ts
 
 Copy and edit the following code into your **`index.ts`** file, make sure to add your private key in line 107, specify the content type and filename:
 
-```tsx {107,115,121} showLineNumbers
+```tsx {108,116,122} showLineNumbers
 import React from 'react';
 import { SporeConfig, createSpore, updateWitnessArgs, isScriptValueEquals, predefinedSporeConfigs, defaultEmptyWitnessArgs } from '@spore-sdk/core';
 import { hd, helpers, HexString, RPC } from '@ckb-lumos/lumos';
