@@ -96,7 +96,7 @@ You'll need to reserve some CKBytes to mint your spore on-chain,
 1. Head over to the **[faucet](https://faucet.nervos.org/)** 
 2. Input your CKB Testnet Address for some testnet tokens
 
-### 3. Pick what to mint as spore
+### 3. Pick What to Mint as Spore
 
 Choose your digital ingredient – an image, video, text or something else. Check and note down the [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types) of your content (e.g., **`image/png`**). Just keep it under 500KB for a successful mint.
 
