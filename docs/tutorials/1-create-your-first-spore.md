@@ -7,17 +7,17 @@ import TabItem from '@theme/TabItem';
 # Creating your first spore from scratch
 
 
-This step-by-step guide will help you create your first spore on CKB testnet using the SDK of Spore Protocol. To follow along, you should be familiar with basic javascript/typescript and know how to install and configure Node.js dev environment.
+This step-by-step guide will help you create your first spore on CKB testnet using the SDK of Spore Protocol. To follow along, you should be familiar with basic TypeScript and know how to install and configure Node.js dev environment.
 
 ### Tools You Need
 
-- An IDE/Editor that supports Javascript/Typescript
+- An IDE/Editor that supports TypeScript
 - [Node.js](https://nodejs.dev/en/learn/) development environment
-- A package manager ([npm](https://docs.npmjs.com/getting-started/) or [yarn](https://classic.yarnpkg.com/lang/en/docs/getting-started/))
+- A package manager such as [yarn](https://classic.yarnpkg.com/lang/en/docs/getting-started/))
 
 ### Project Ingredients
 
-- A CKB address and its private key
+- A CKB testnet address and its private key
 - CKBytes testnet tokens from the [faucet](https://faucet.nervos.org/)
 - The content you’d like to store on-chain
 
@@ -25,11 +25,12 @@ This step-by-step guide will help you create your first spore on CKB testnet usi
 
 ### 1. Create a CKB Address
 
-You can use either a wallet or ckb-cli to create a CKB address. 
-
-For the wallet route, explore your options in the land of **[CKB Wallets](https://docs.nervos.org/docs/basics/concepts/cryptowallet#ckb-wallets)**.
-
-For ckb-cli, you can use a testnet RPC node, make sure you have [git](https://git-scm.com/downloads) and [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) installed. Then, in your terminal, run the following commands to install ckb-cli:
+#### Method 1
+You can use this generator tool to create a CKB testnet address.
+#### Method 2
+You can explore your options in the land of CKB Wallets.
+#### Method 3
+To create an account via ckb-cli, you need to use a testnet RPC node, make sure you have [git](https://git-scm.com/downloads) and [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) installed. Then, in your terminal, run the following commands to install ckb-cli:
 
 ```bash
 git clone https://github.com/nervosnetwork/ckb-cli.git
@@ -64,7 +65,7 @@ lock_hash: 0xe9356d7c82ff1d26002ce7b74d0ed027064031a0bb38d84d84682d21d39e492c
 </TabItem>
 </Tabs>
 
-Get your private key with the follow command by replacing `<lock-arg>` with your lock_arg ☝ and `<extended-privkey-path>` with where you want the key to be stored on your device. We’ll need it later when constructing the transaction.
+Get your private key with the following command by replacing `<lock-arg>` with your lock_arg ☝ and `<extended-privkey-path>` with where you want the key to be stored on your device. We’ll need it later when constructing the transaction.
 
 <Tabs>
 <TabItem value="bash" label="Command">
@@ -84,26 +85,28 @@ c153ee57dc8ae3dac3495c828d6f8c3fef6b1d0c74fc31101c064137b3269d6d
 </TabItem>
 </Tabs>
 
-When you open your exported file, you will find 2 stings as the output, the top one will be your private key, make sure to add **0x** in front of it when constructing the transaction.
+When you open your exported file, you will find 2 stings as the output, **the top one will be your private key**, make sure to add **0x** in front of it when constructing the transaction.
 
 For a more detailed guide on ckb-cli setup and interaction, take a peek at the **[ckb-cli GitHub](https://github.com/nervosnetwork/ckb-cli)**.
 
-### **2. Get Some CKBytes**
+### 2. Get Some CKBytes
 
 You'll need to reserve some CKBytes to mint your spore on-chain, 
 
 1. Head over to the **[faucet](https://faucet.nervos.org/)** 
 2. Input your CKB Testnet Address for some testnet tokens
 
-### **3. Pick what to mint as spore**
+### 3. Pick what to mint as spore
 
 Choose your digital ingredient – an image, video, text or something else. Check and note down the [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types) of your content (e.g., **`image/png`**). Just keep it under 500KB for a successful mint.
+
+---
 
 Now that we've created a testnet wallet, filled it with test CKBytes and a digital content ready to rock on the blockchain, we are ready to do some action.
 
 ## Let's cook up your first spore by following these steps:
 
-### **Step 1: Set Up the Project**
+### Step 1: Set Up the Project
 
 We'll use **`yarn`** as the package manager for this example.
 
@@ -137,31 +140,123 @@ touch index.ts
 
 
 
-### **Step 2: Mix in the Ingredients**
+### Step 2: Mix in the Ingredients
 
-Copy and edit the following code into your **`index.ts`** file, make sure to add your private key, specify the content type and filename:
+Copy and edit the following code into your **`index.ts`** file, make sure to add your private key in line 107, specify the content type and filename:
 
-```tsx
-import { createSpore, predefinedSporeConfigs, createWalletByPrivateKey } from '@spore-sdk/core';
+```tsx {1,4-6,11} showLineNumbers
+import React from 'react';
+import { SporeConfig, createSpore, updateWitnessArgs, isScriptValueEquals, predefinedSporeConfigs, defaultEmptyWitnessArgs } from '@spore-sdk/core';
+import { hd, helpers, HexString, RPC } from '@ckb-lumos/lumos';
+import { secp256k1Blake160 } from '@ckb-lumos/common-scripts';
+import { Address, Hash, Script } from '@ckb-lumos/base';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-// Get local image file and return a ArrayBuffer
+interface Wallet {
+  lock: Script;
+  address: Address;
+  signMessage(message: HexString): Hash;
+  signTransaction(txSkeleton: helpers.TransactionSkeletonType): helpers.TransactionSkeletonType;
+  signAndSendTransaction(txSkeleton: helpers.TransactionSkeletonType): Promise<Hash>;
+}
+
+/**
+ * Create a Secp256k1Blake160 Sign-all Wallet by a private key and a SporeConfig,
+ * providing lock/address, and functions to sign message/transaction and send the transaction on-chain.
+ */
+function createSecp256k1Wallet(privateKey: HexString, config: SporeConfig): Wallet {
+  const Secp256k1Blake160 = config.lumos.SCRIPTS.SECP256K1_BLAKE160!;
+
+  // Generate a lock script from the private key
+  const lock: Script = {
+    codeHash: Secp256k1Blake160.CODE_HASH,
+    hashType: Secp256k1Blake160.HASH_TYPE,
+    args: hd.key.privateKeyToBlake160(privateKey),
+  };
+
+  // Generate address from the lock script
+  const address = helpers.encodeToAddress(lock, {
+    config: config.lumos,
+  });
+
+  // Sign for a message
+  function signMessage(message: HexString): Hash {
+    return hd.key.signRecoverable(message, privateKey);
+  }
+
+  // Sign prepared signing entries,
+  // and then fill signatures into Transaction.witnesses
+  function signTransaction(txSkeleton: helpers.TransactionSkeletonType): helpers.TransactionSkeletonType {
+    const signingEntries = txSkeleton.get('signingEntries');
+    const signatures = new Map<HexString, Hash>();
+    const inputs = txSkeleton.get('inputs');
+
+    let witnesses = txSkeleton.get('witnesses');
+    for (let i = 0; i < signingEntries.size; i++) {
+      const entry = signingEntries.get(i)!;
+      if (entry.type === 'witness_args_lock') {
+        // Skip if the input's lock does not match to the wallet's lock
+        const input = inputs.get(entry.index);
+        if (!input || !isScriptValueEquals(input.cellOutput.lock, lock)) {
+          continue;
+        }
+
+        // Sign message
+        if (!signatures.has(entry.message)) {
+          const sig = signMessage(entry.message);
+          signatures.set(entry.message, sig);
+        }
+
+        // Update signature to Transaction.witnesses
+        const signature = signatures.get(entry.message)!;
+        const witness = witnesses.get(entry.index, defaultEmptyWitnessArgs);
+        witnesses = witnesses.set(entry.index, updateWitnessArgs(witness, 'lock', signature));
+      }
+    }
+
+    return txSkeleton.set('witnesses', witnesses);
+  }
+
+  // Sign the transaction and send it via RPC
+  async function signAndSendTransaction(txSkeleton: helpers.TransactionSkeletonType): Promise<Hash> {
+    // 1. Sign transaction
+    txSkeleton = secp256k1Blake160.prepareSigningEntries(txSkeleton, { config: config.lumos });
+    txSkeleton = signTransaction(txSkeleton);
+
+    // 2. Convert TransactionSkeleton to Transaction
+    const tx = helpers.createTransactionFromSkeleton(txSkeleton);
+
+    // 3. Send transaction
+    const rpc = new RPC(config.ckbNodeUrl);
+    return await rpc.sendTransaction(tx, 'passthrough');
+  }
+
+  return {
+    lock,
+    address,
+    signMessage,
+    signTransaction,
+    signAndSendTransaction,
+  };
+}
+
+// Get local image file and return an ArrayBuffer
 async function fetchLocalFile(src: string) {
   const buffer = readFileSync(resolve(__dirname, src));
   return new Uint8Array(buffer).buffer;
 }
 
-(async function main() {
-  // Use the default configuration
-  let config = predefinedSporeConfigs.Aggron4;
+async function main() {
+  // Use the testnet configuration
+  const config = predefinedSporeConfigs.Aggron4;
 
-  //NOTE: Be careful to secure this and do not make your private key public except you know what you are doing!
+  // NOTE: Be careful to protect this and do not make your private key public except you know what you are doing!
   // highlight-next-line
-  let private_key = '0xc153ee57dc8ae3dac3495c828d6f8c3fef6b1d0c74fc31101c064137b3269d6d';
+  const privateKey = '0xc153ee57dc8ae3dac3495c828d6f8c3fef6b1d0c74fc31101c064137b3269d6d';
 
   // Create out account/sign helper
-  let account = createWalletByPrivateKey(private_key, config);
+  const account = createSecp256k1Wallet(privateKey, config);
 
   let { txSkeleton } = await createSpore({
     data: {
@@ -174,7 +269,7 @@ async function fetchLocalFile(src: string) {
       },
       // Fill in the spore's content as bytes,
       // highlight-next-line
-      content: await fetchLocalFile('./image.png'),
+      content: await fetchLocalFile('./image.jpg'),
       // fill in the spores' belonging cluster's id, optional, here we leave it empty
       clusterId: undefined,
     },
@@ -185,11 +280,11 @@ async function fetchLocalFile(src: string) {
 
   const hash = await account.signAndSendTransaction(txSkeleton);
   console.log('createSpore sent, txHash:', hash);
-})();
-```
+}
 
-> Note: While we use a simplified helper **`createWalletByPrivateKey`** in this recipe, it's not recommended for production projects. Keep your private key safe and never share it publicly.
-> 
+main();
+
+```
 
 ### **Step 3: Send Your Spore On-chain!**
 
