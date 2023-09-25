@@ -43,8 +43,8 @@
   cursor: pointer;
   font-weight: 700;
   text-align: center;
-  border-radius: 0.25rem;
   color: var(--ifm-heading-color);
+  border-radius: var(--ifm-global-radius);
   background-color: var(--ifm-breadcrumb-item-background-active);
   transition: background var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
