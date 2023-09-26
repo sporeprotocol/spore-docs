@@ -20,7 +20,7 @@ You can pack Raw ClusterData into binary bytes with the `packRawSporeData` API f
 import { packRawClusterData } from '@spore-sdk/core';
 
 const packed = packRawSporeData({
-	name: 'cluster name',
+  name: 'cluster name',
   description: 'description of the cluster',
 });
 ```

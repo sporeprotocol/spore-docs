@@ -16,6 +16,7 @@
 
 .embedCard__left {
   padding-right: 1rem;
+  overflow: hidden;
   flex: auto;
 }
 
@@ -27,6 +28,7 @@
 
 .embedCard__description {
   font-size: 0.95rem;
+  overflow-wrap: break-word;
   color: var(--ifm-color-emphasis-700);
 }
 
@@ -37,6 +39,10 @@
 .embedCard__href {
   margin-top: 0.5rem;
   font-size: 0.85rem;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: var(--ifm-color-emphasis-600);
 }
 

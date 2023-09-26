@@ -2,6 +2,8 @@
 sidebar_position: 5
 ---
 
+import EmbedCard from "@site/src/components/EmbedCard";
+
 # Create a Private Cluster
 
 A cluster is like an on-chain folder that groups spores together. In this recipe, you will learn how to create a private cluster that is secured by an owner lock and requires signature verification to unlock. E.g., the [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c). 
@@ -40,7 +42,14 @@ let { txSkeleton } = await createCluster({
 
 A cluster creation transaction involves 3 steps: construct, sign, and send. This recipe focuses on the transaction construction. For a valid on-chain transaction, you'll need to sign the transaction and send it to the chain.
 
-Here's a code example for how to create a cluster using [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c): [spore-sdk/examples/secp256k1/apis/createCluster.ts](https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createCluster.ts)
+Here's a code example for how to create a cluster using [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c):
+
+<EmbedCard
+  title="createCluster.ts"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createCluster.ts"
+  description="Create a Cluster on-chain with CKB Default Lock"
+  className="margin-top--sm"
+/>
 
 ### Immortal by design
 
