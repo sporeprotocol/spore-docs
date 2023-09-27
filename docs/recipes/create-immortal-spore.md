@@ -36,7 +36,7 @@ let { txSkeleton } = await createSpore({
 
 ### Behind the `contentTypeParameters`
 
-The `data.contentTypeParameters` prop in the `createSpore` API is a sugar that simplifies the addition of parameters to a Spore's content type. During processing, it is automatically converted to a string and merged into the `data.contentType` prop.
+The `data.contentTypeParameters` prop in the `createSpore` API simplifies the process of applying parameters to the `contentType` in SporeData. During processing, it is automatically converted to a string and merged into the `data.contentType` prop.
 
 For example, when attempting to create an immortal `.jpg` Spore, you can pass the required extension parameters to `data.contentTypeParameters`. In our case the parameter is `immortal`, like this:
 
