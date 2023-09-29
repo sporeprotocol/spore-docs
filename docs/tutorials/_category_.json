@@ -1,6 +1,7 @@
 {
   "label": "Tutorials",
   "position": 3,
+  "collapsed": false,
   "link": {
     "type": "generated-index",
     "description": "Follow Along - Build a toy project, dive in with easy to follow steps and examples."

@@ -1,6 +1,7 @@
 {
   "label": "Basics",
   "position": 2,
+  "collapsed": false,
   "link": {
     "type": "generated-index",
     "description": "Learn Spore Fundamentals - Quickly grasp the core concepts and components."

@@ -1,0 +1,76 @@
+---
+sidebar_position: 1
+---
+
+import EmbedCard from "@site/src/components/EmbedCard";
+
+# Create a Spore
+
+Spore is the basic unit of Spore Protocol, you can put anything in it to store on-chain. In the recipe, you will learn how to create a spore on-chain using the spore-sdk.
+
+## Background Knowledge
+
+- [What is a Spore? - Spore Protocol 101](/basics/spore-101#what-is-a-spore)
+- [Spore SDK - Resources](/resources/spore-sdk)
+
+## Create a Spore
+
+You can create a spore with the `createSpore` API from spore-sdk:
+
+```tsx
+import { createSpore } from '@spore-sdk/core';
+
+let { txSkeleton } = await createSpore({
+  data: {
+    contentType: CONTENT_MIME_TYPE,
+    content: CONTENT_AS_BYTES,
+  },
+  toLock: OWNER_LOCK,
+  fromInfos: [OWNER_ADDRESS],
+});
+```
+
+- `data` - The spore's data, including file data relevant properties.
+- `toLock` - The lock script specifies the spore's ownership.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
+
+## Extras
+
+### Code example
+
+A spore creation transaction involves 3 steps: construct, sign, and send. This recipe focuses on the transaction construction. For a valid on-chain transaction, you'll need to sign the transaction and send it to the chain.
+
+Here's a code example for how to create a spore with [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c):
+
+<EmbedCard
+  title="createSpore.ts"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createSpore.ts"
+  description="Create a Spore on-chain with CKB Default Lock"
+  className="margin-top--sm"
+/>
+
+### Configure transaction size limits
+
+By default, spore-sdk limits the size of spore creation transactions to be `≤500KB` (500 * 1024 bytes), any spore creation transactions exceeding the size limit will not succeed.
+
+You have the option to lower the limit when calling the `createSpore` API:
+
+```tsx
+import { createSpore } from '@spore-sdk/core';
+
+let { txSkeleton } = await createSpore({
+  ...
+  maxTransactionSize: 400 * 1024,
+});
+```
+
+Or pass a `false` to disable the limit:
+
+```tsx
+import { createSpore } from '@spore-sdk/core';
+
+let { txSkeleton } = await createSpore({
+  ...
+  maxTransactionSize: false,
+});
+```

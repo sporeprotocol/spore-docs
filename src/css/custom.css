@@ -31,6 +31,11 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+.navbar {
+  box-shadow: none;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
 nav.menu {
   background-color: var(--ifm-sidebar-background-color);
   border-right: 1px solid var(--ifm-color-emphasis-200);
