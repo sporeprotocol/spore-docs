@@ -4,7 +4,7 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Creating your first spore from scratch
+# Creating your first spore 
 
 
 This step-by-step guide will help you create your first spore on CKB testnet using the SDK of Spore Protocol. To follow along, you should be familiar with basic TypeScript and know how to install and configure Node.js dev environment.
@@ -26,7 +26,7 @@ This step-by-step guide will help you create your first spore on CKB testnet usi
 ### 1. Create a CKB Address
 
 #### Method 1
-You can use this [**generator tool**](https://ckb.tools/generator) to create a CKB testnet address.
+You can use this [generator tool](https://ckb.tools/generator) to create a CKB testnet address. For this tutorial, note down the randomly generated **private key** and the **Default Lock CKB address** starting with "ckt..." 
 #### Method 2
 You can explore your options in the land of [CKB Wallets](https://docs.nervos.org/docs/basics/concepts/cryptowallet/#ckb-wallets).
 #### Method 3
@@ -142,10 +142,9 @@ touch index.ts
 
 ### Step 2: Mix in the Ingredients
 
-Copy and edit the following code into your **`index.ts`** file, make sure to add your private key in line 107, specify the content type and filename:
+Copy and edit the following code into your **`index.ts`** file, make sure to add your private key (line 107), specify the content type (line 115) and filename (line 121):
 
-```tsx {108,116,122} showLineNumbers
-import React from 'react';
+```tsx {107,115,121} showLineNumbers
 import { SporeConfig, createSpore, updateWitnessArgs, isScriptValueEquals, predefinedSporeConfigs, defaultEmptyWitnessArgs } from '@spore-sdk/core';
 import { hd, helpers, HexString, RPC } from '@ckb-lumos/lumos';
 import { secp256k1Blake160 } from '@ckb-lumos/common-scripts';
