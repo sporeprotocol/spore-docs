@@ -95,7 +95,7 @@ In this recipe you will learn how to create public clusters using two types of l
 ### Quick Recap
 
 - The public cluster uses the `acpLock` as lock script, sharing the same script args as the `ownerLock`.
-- Unlocking the public cluster requires no signature verification and only mandates the payment of a specific amount, ranging from `0` to `10^minCkb` shannon in CKB (1 CKB = 10^8 shannon) to generate spores within it. However, full control is retained solely by the cluster's owner, who can exercise it by providing a CKB default lock signature.
+- Unlocking the public cluster requires no signature verification and only mandates the payment of a specific amount, ranging from `0` to `10^minCkb` shannons in CKB (1 CKB = 10^8 shannons) to generate spores within it. However, full control is retained solely by the cluster's owner, who can exercise it by providing a CKB default lock signature.
 - The Cluster Creation transaction is sponsored by the `ownerLockAddress`. Typically, you can specify any address with sufficient capacity as the sponsor. In this recipe, we've assumed a common and straightforward scenario.
 
 ## Create a Public Cluster With `Omnilock ACP`
@@ -169,7 +169,7 @@ In this case, let’s create a public cluster using Omnilock with CKB default lo
 ### Quick Recap
 
 - The public cluster uses the `acpLock` as lock script, sharing the same script args as the `ownerLock`.
-- Unlocking the public cluster requires no signature verification and only mandates the payment of a specific amount, ranging from `10^0` to `10^minCkb` shannon in CKB (1 CKB = 10^8 shannons) to generate spores within it. However, full control is retained solely by the cluster's owner, who can exercise it by providing a CKB default lock signature.
+- Unlocking the public cluster requires no signature verification and only mandates the payment of a specific amount, ranging from `10^0` to `10^minCkb` shannons in CKB (1 CKB = 10^8 shannons) to generate spores within it. However, full control is retained solely by the cluster's owner, who can exercise it by providing a CKB default lock signature.
 - The Cluster Creation transaction is sponsored by the `ownerLockAddress`. Typically, you can specify any address with sufficient capacity as the sponsor. In the recipe, we've assumed a common and straightforward scenario.
 
 ## Extras
@@ -200,4 +200,4 @@ For example, if an Omnilock ACP cluster has a payment requirement of at least `1
 ### Setting Payment Limits for ACP Lock Scripts
 
 - [`Anyone-can-pay`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) - the payment amount can be set to `10^n` shannons. Alternatively, it can be configured to zero, allowing anyone to unlock the cluster *without* requiring signature or payment amount verification.
-- [`Omnilock ACP`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) - the minimum payment amount can be `10^n` shannon. Unlike Anyone-can-pay lock, Omnilock ACP lock cannot be set up with undefined limit. Therefore, *users must pay* to unlock an Omnilock ACP cluster.
+- [`Omnilock ACP`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) - the minimum payment amount can be `10^n` shannons. Unlike Anyone-can-pay lock, Omnilock ACP lock cannot be set up with undefined limit. Therefore, *users must pay* to unlock an Omnilock ACP cluster.
