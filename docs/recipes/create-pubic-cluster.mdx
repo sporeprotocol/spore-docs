@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 5
 ---
 
 import EmbedCard from "@site/src/components/EmbedCard";
@@ -195,7 +195,7 @@ In this case, let’s create a public cluster using Omnilock with CKB default lo
 
 Public clusters utilizing locks like [Anyone-can-pay](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) or [Omnilock ACP](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) don't require signature verification for unlocking. However, each transaction within these clusters may involve a specific unlocking fee, which directly benefits the owner of the public cluster.
 
-For example, if an Omnilock ACP cluster has a payment requirement of at least `10^0` shannon, any user looking to create spores within the public cluster must include at least `1 shannon` (equivalent to $\frac{1}{100,000,000}$ CKB) as the unlocking fee in the Spore Creation transaction.
+For example, if an Omnilock ACP cluster has a payment requirement of at least `10^0` shannon, any user looking to create spores within the public cluster must include at least `1 shannon` (equivalent to 1/100,000,000 CKB) as the unlocking fee in the Spore Creation transaction.
 
 ### Setting Payment Limits for ACP Lock Scripts
 
