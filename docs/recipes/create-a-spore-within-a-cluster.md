@@ -34,7 +34,7 @@ let { txSkeleton } = await createSpore({
   data: {
     contentType: CONTENT_MIME_TYPE,
     content: CONTENT_AS_BYTES,
-        // highlight-next-line
+    // highlight-next-line
     clusterId: CLUSTER_ID,
   },
   toLock: OWNER_LOCK,
