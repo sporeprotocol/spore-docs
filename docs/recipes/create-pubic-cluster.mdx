@@ -199,5 +199,5 @@ For example, if an Omnilock ACP cluster has a payment requirement of at least `1
 
 ### Setting Payment Limits for ACP Lock Scripts
 
-- [`Anyone-can-pay`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) - the payment amount can be set to `10^n` shannons. Alternatively, it can be configured to zero, allowing anyone to unlock the cluster *without* requiring signature or payment amount verification.
+- [`Anyone-can-pay`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) - the payment amount can be set to `10^n` shannons. Alternatively, it can be configured to “undefined", allowing anyone to unlock the cluster *without* requiring signature or payment amount verification.
 - [`Omnilock ACP`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) - the minimum payment amount can be `10^n` shannons. Unlike Anyone-can-pay lock, Omnilock ACP lock cannot be set up with undefined limit. Therefore, *users must pay* to unlock an Omnilock ACP cluster.
