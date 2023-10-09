@@ -1,0 +1,203 @@
+---
+sidebar_position: 6
+---
+
+import EmbedCard from "@site/src/components/EmbedCard";
+
+
+# Create a Public Cluster
+
+Public clusters are clusters that allow anyone to create Spores within them. 
+
+When compared to Private Cluster, they have the following distinctions:
+
+- `Private Cluster` - Secured by an owner lock and requires signature verification to unlock. Only the owner of the private cluster can unlock and create Spores within it.
+- `Public Cluster` - Anyone can unlock and create spores within public clusters without signature verification from the cluster's owner. The owner has the option to specify a lock script that can be configured to charge users for each transaction they initiate to unlock the public cluster and create spores within it.
+
+In this recipe you will learn how to create public clusters using two types of lock scripts, [Anyone-can-pay](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) lock and Omnilock ACP lock.
+
+## Background Knowledge
+- [What is a Spore? - Spore Protocol 101](/basics/spore-101#what-is-a-spore)
+- [What is a Cluster? - Spore Protocol 101](/basics/spore-101#what-is-a-cluster)
+- [Create a Private Cluster - How-to Recipes](/recipes/create-private-cluster)
+
+## Create a Public Cluster with `Anyone-can-pay` Lock
+
+[Anyone-can-pay](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) lock extends from the CKB default lock and is designed for accepting payments. By using the Anyone-can-pay lock, you can establish a public cluster where anyone can create spores within it, without requiring your signature to validate ownership. Moreover, you have the flexibility to specify an amount that users must pay you in order to unlock and mint within your public cluster.
+
+1. Import relevant tools:
+    
+    ```tsx
+    import { predefinedSporeConfig, createCluster } from '@spore-sdk/core';
+    import { bytes, number } from '@ckb-lumos/codec';
+    import { hd, helpers } from '@ckb-lumos/lumos';
+    ```
+    
+2. Generate a **blake160** using your own private key:
+    
+    ```tsx
+    const blake160 = hd.key.privateKeyToBlake160('<private_key>');
+    ```
+    
+3. Generate lock script and address of CKB default lock using your generated **blake160**:
+    
+    ```tsx
+    const config = predefinedSporeConfig.Aggron4;
+    const Secp256k1Blake160 = config.lumos.SCRIPTS.SECP256K1_BLAKE160!;
+    
+    const ownerLock: Script = {
+      codeHash: Secp256k1Blake160.CODE_HASH,
+      hashType: Secp256k1Blake160.HASH_TYPE,
+      args: blake160,
+    };
+    const ownerLockAddress: string = helpers.encodeToAddress(ownerLock, {
+      config: config.lumos,
+    });
+    ```
+    
+4. Define `minCkb` as the charge for each transaction that references the public cluster. The minimal charge can be 0 if undefined, or *10^minCkb* shannons in CKB (1 CKB = 10^8 shannons).
+    
+    ```tsx
+    // If minCkb == undefined, there is no cost for referencing your cluster
+    // If minCkb >= 0, each transaction that references the cluster requires a minimum capacity cost of 10^minCkb
+    const minCkb: number | undefined = <minimal_price>;
+    const minimalCkb = minCkb !== void 0 
+      ? bytes.hexify(number.Uint8.pack(minCkb as number)) 
+      : '';
+    ```
+    
+5. Generate a lock script of Anyone-can-pay lock using the your generated **blake160**:
+    
+    ```tsx
+    const AnyoneCanPay = config.lumos.SCRIPTS.ANYONE_CAN_PAY!;
+    
+    const acpLock: Script = {
+      codeHash: AnyoneCanPay.CODE_HASH,
+      hashType: AnyoneCanPay.HASH_TYPE,
+      args: `${blake160}${minimalCkb.slice(2)}`,
+    };
+    ```
+    
+6. Create a cluster with the `createCluster` API from spore-sdk. Specify the lock script of Anyone-can-pay as the new cluster’s owner in `toLock`, and the address of your CKB default lock as the sponsor in `fromInfos`:
+    
+    ```tsx
+    let { txSkeleton } = await createCluster({
+      data: {
+        name: 'Name of the public cluster',
+        description: 'A public cluster using ACP lock',
+      },
+      toLock: acpLock,
+      fromInfos: [ownerLockAddress],
+    });
+    ```
+    
+
+### Quick Recap
+
+- The public cluster uses the `acpLock` as lock script, sharing the same script args as the `ownerLock`.
+- Unlocking the public cluster requires no signature verification and only mandates the payment of a specific amount, ranging from `0` to `10^minCkb` shannon in CKB (1 CKB = 10^8 shannon) to generate spores within it. However, full control is retained solely by the cluster's owner, who can exercise it by providing a CKB default lock signature.
+- The Cluster Creation transaction is sponsored by the `ownerLockAddress`. Typically, you can specify any address with sufficient capacity as the sponsor. In this recipe, we've assumed a common and straightforward scenario.
+
+## Create a Public Cluster With `Omnilock ACP`
+
+[Omnilock](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md) is a lock designed to support various transaction verification methods used in popular blockchains, such as Bitcoin, Ethereum and more. Additionally, Omnilock supports a compatible Any-one-can-pay (referred to as ACP) mode, allowing anyone to unlock an Omnilock ACP locked cluster without signature verification, as long as they pay a small fee.
+
+In this case, let’s create a public cluster using Omnilock with CKB default lock as the signature verification method, while enabling the [ACP mode](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) of the lock:
+
+1. Import relevant tools:
+    
+    ```tsx
+    import { predefinedSporeConfig, createCluster } from '@spore-sdk/core';
+    import { bytes, number } from '@ckb-lumos/codec';
+    import { hd, helpers } from '@ckb-lumos/lumos';
+    ```
+    
+2. Generate a **blake160** using your own private-key:
+    
+    ```tsx
+    const blake160 = hd.key.privateKeyToBlake160('<private_key>');
+    ```
+    
+3. Generate lock script and address of Omnilock, based on your generated **blake160**:
+    
+    ```tsx
+    const config = predefinedSporeConfig.Aggron4;
+    const Omnilock = config.lumos.SCRIPTS.OMNILOCK!;
+    
+    const ownerLock: Script = {
+      codeHash: Omnilock.CODE_HASH,
+      hashType: Omnilock.HASH_TYPE,
+      args: `0x00${blake160}`,
+    };
+    const ownerLockAddress: string = helpers.encodeToAddress(ownerLock, {
+      config: config.lumos,
+    });
+    ```
+    
+4. Define `minCkb` as the charge for each transaction that references the public cluster, and the **minimal charge** is *10^minCkb* shannons in CKB ( 1 CKB = 10^8 shannons)
+    
+    ```tsx
+    // People pay at least 10^minCkb of capacity for each transaction that references the cluster
+    const minCkb: number = <minimal_price>;
+    const minimalCkb = bytes.hexify(number.Uint8.pack(minCkb));
+    ```
+    
+5. Generate lock script of Omnilock ACP, based on your generated blake160:
+    
+    ```tsx
+    const acpLock: Script = {
+      codeHash: Omnilock.CODE_HASH,
+      hashType: Omnilock.HASH_TYPE,
+      args: `0x00${blake160}0x02${minimalCkb.slice(2)}00`,
+    };
+    ```
+    
+6. Create a cluster with the `createCluster` API form spore-sdk, specify the lock script of Omnilock ACP as the new clsuter’s onwer, and specify the address of Omnilock as the sponsor:
+    
+    ```tsx
+    let { txSkeleton } = await createCluster({
+      data: {
+        name: 'Name of the public cluster',
+        description: 'A public cluster using Omnilock ACP lock',
+      },
+      toLock: acpLock,
+      fromInfos: [ownerLockAddress],
+    });
+    ```
+    
+
+### Quick Recap
+
+- The public cluster uses the `acpLock` as lock script, sharing the same script args as the `ownerLock`.
+- Unlocking the public cluster requires no signature verification and only mandates the payment of a specific amount, ranging from `10^0` to `10^minCkb` shannon in CKB (1 CKB = 10^8 shannons) to generate spores within it. However, full control is retained solely by the cluster's owner, who can exercise it by providing a CKB default lock signature.
+- The Cluster Creation transaction is sponsored by the `ownerLockAddress`. Typically, you can specify any address with sufficient capacity as the sponsor. In the recipe, we've assumed a common and straightforward scenario.
+
+## Extras
+
+### Code Examples
+
+<EmbedCard
+  title="Anyone-can-pay Cluster"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createSpore.ts"
+  description="Create a public cluster with ACP"
+  className="margin-top--sm"
+/>
+
+<EmbedCard
+  title="OmniLock ACP Cluster"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/omnilock/acp/createAcpCluster.ts"
+  description="Create a public cluster with Omnilock"
+  className="margin-top--sm"
+/>
+
+
+### “Unlocking Fee” of Public Clusters
+
+Public clusters utilizing locks like [Anyone-can-pay](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) or [Omnilock ACP](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) don't require signature verification for unlocking. However, each transaction within these clusters may involve a specific unlocking fee, which directly benefits the owner of the public cluster.
+
+For example, if an Omnilock ACP cluster has a payment requirement of at least `10^0` shannon, any user looking to create spores within the public cluster must include at least `1 shannon` (equivalent to $\frac{1}{100,000,000}$ CKB) as the unlocking fee in the Spore Creation transaction.
+
+### Setting Payment Limits for ACP Lock Scripts
+
+- [`Anyone-can-pay`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) - the payment amount can be set to `10^n` shannons. Alternatively, it can be configured to zero, allowing anyone to unlock the cluster *without* requiring signature or payment amount verification.
+- [`Omnilock ACP`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) - the minimum payment amount can be `10^n` shannon. Unlike Anyone-can-pay lock, Omnilock ACP lock cannot be set up with undefined limit. Therefore, *users must pay* to unlock an Omnilock ACP cluster.
