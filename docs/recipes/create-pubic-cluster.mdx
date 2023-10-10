@@ -78,7 +78,7 @@ In this recipe you will learn how to create public clusters using two types of l
     };
     ```
     
-6. Create a cluster with the `createCluster` API from spore-sdk. Specify the lock script of Anyone-can-pay as the new cluster’s owner in `toLock`, and the address of your CKB default lock as the sponsor in `fromInfos`:
+6. Create a cluster with the `createCluster` API from spore-sdk. Specify the lock script of Anyone-can-pay as the new cluster's owner in `toLock`, and the address of your CKB default lock as the sponsor in `fromInfos`:
     
     ```tsx
     let { txSkeleton } = await createCluster({
@@ -100,9 +100,9 @@ In this recipe you will learn how to create public clusters using two types of l
 
 ## Create a Public Cluster With `Omnilock ACP`
 
-[Omnilock](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md) is a lock designed to support various transaction verification methods used in popular blockchains, such as Bitcoin, Ethereum and more. Additionally, Omnilock supports a compatible Any-one-can-pay (referred to as ACP) mode, allowing anyone to unlock an Omnilock ACP locked cluster without signature verification, as long as they pay a small fee.
+[Omnilock](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md) is a lock designed to support various transaction verification methods used in popular blockchains, such as Bitcoin, Ethereum and more. Additionally, Omnilock supports a compatible Anyone-can-pay (referred to as ACP) mode, allowing anyone to unlock an Omnilock ACP locked cluster without signature verification, as long as they pay a small fee.
 
-In this case, let’s create a public cluster using Omnilock with CKB default lock as the signature verification method, while enabling the [ACP mode](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) of the lock:
+In this case, let's create a public cluster using Omnilock with CKB default lock as the signature verification method, while enabling the [ACP mode](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) of the lock:
 
 1. Import relevant tools:
     
@@ -152,7 +152,7 @@ In this case, let’s create a public cluster using Omnilock with CKB default lo
     };
     ```
     
-6. Create a cluster with the `createCluster` API form spore-sdk, specify the lock script of Omnilock ACP as the new clsuter’s onwer, and specify the address of Omnilock as the sponsor:
+6. Create a cluster with the `createCluster` API form spore-sdk, specify the lock script of Omnilock ACP as the new clsuter's onwer, and specify the address of Omnilock as the sponsor:
     
     ```tsx
     let { txSkeleton } = await createCluster({
@@ -191,7 +191,7 @@ In this case, let’s create a public cluster using Omnilock with CKB default lo
 />
 
 
-### “Unlocking Fee” of Public Clusters
+### "Unlocking Fee" of Public Clusters
 
 Public clusters utilizing locks like [Anyone-can-pay](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) or [Omnilock ACP](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) don't require signature verification for unlocking. However, each transaction within these clusters may involve a specific unlocking fee, which directly benefits the owner of the public cluster.
 
@@ -199,5 +199,5 @@ For example, if an Omnilock ACP cluster has a payment requirement of at least `1
 
 ### Setting Payment Limits for ACP Lock Scripts
 
-- [`Anyone-can-pay`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) - the payment amount can be set to `10^n` shannons. Alternatively, it can be configured to “undefined", allowing anyone to unlock the cluster *without* requiring signature or payment amount verification.
+- [`Anyone-can-pay`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) - the payment amount can be set to `10^n` shannons. Alternatively, it can be configured to "undefined", allowing anyone to unlock the cluster *without* requiring signature or payment amount verification.
 - [`Omnilock ACP`](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) - the minimum payment amount can be `10^n` shannons. Unlike Anyone-can-pay lock, Omnilock ACP lock cannot be set up with undefined limit. Therefore, *users must pay* to unlock an Omnilock ACP cluster.
