@@ -22,6 +22,7 @@ let { txSkeleton } = await createSpore({
     contentType: CONTENT_MIME_TYPE,
     content: CONTENT_AS_BYTES,
     contentTypeParameters: {
+      // highlight-next-line
       immortal: true,
     },
   },
@@ -45,9 +46,11 @@ await createSpore({
   data: {
     content: CONTENT_AS_BYTES,
     contentType: 'image/jpeg',
+    // highlight-start
     contentTypeParameters: {
       immortal: true,
     },
+    // highlight-end
   },
   ...
 });
@@ -59,6 +62,7 @@ The above function call is equivalent to the following:
 await createSpore({
   data: {
     content: CONTENT_AS_BYTES,
+    // highlight-next-line
     contentType: 'image/jpeg;immortal=true',
   },
   ...

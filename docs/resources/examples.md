@@ -15,7 +15,7 @@ These examples serve as practical guides for developers, demonstrating how to im
 
 [Spore-first-example](https://github.com/sporeprotocol/spore-first-example) is a hello world example for spore-sdk, showing you how to upload an image file and create a spore on [Nervos CKB](https://www.nervos.org/) in a split second. This is a well-suited code example for beginners to learn the very basics of Spore Protocol.
 
-- [Follow the tutorial: Creating your first spore from scratch](./examples)
+- [Follow the tutorial: Creating your first spore](./examples)
 - [Run example on StackBlitz](https://stackblitz.com/github/sporeprotocol/spore-first-example?file=src%2Findex.ts)
 - [GitHub repository](https://github.com/sporeprotocol/spore-first-example)
 

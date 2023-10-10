@@ -9,7 +9,7 @@ Cluster is like an on-chain folder that groups spores together. In this recipe, 
 Your target cluster can be either a public cluster or a private cluster, depending on the its lock script.
 
 - `Private Cluster` - In the case of a private cluster,  it can be unlocked using your signature, if you possess the private key paired with that cluster's lock script.
-- `Public Cluster` - In contrast, a public cluster doesn’t require a signature to unlock. In this case, anyone can unlock it, including you.
+- `Public Cluster` - In contrast, a public cluster doesn't require a signature to unlock. In this case, anyone can unlock it, including you.
 
 
 | Target Cluster      | Can I Create a Spore Within It? |
@@ -42,5 +42,5 @@ let { txSkeleton } = await createSpore({
 });
 ```
 
-- `data.clusterId` - The ID of the cluster where the spore intends to be created. The cluster’s ID is equivalent to the type script args of the cluster.
+- `data.clusterId` - The ID of the cluster where the spore intends to be created. The cluster's ID is equivalent to the type script args of the cluster.
 
