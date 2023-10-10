@@ -60,6 +60,7 @@ import { createSpore } from '@spore-sdk/core';
 
 let { txSkeleton } = await createSpore({
   ...
+  // highlight-next-line
   maxTransactionSize: 400 * 1024,
 });
 ```
@@ -71,6 +72,7 @@ import { createSpore } from '@spore-sdk/core';
 
 let { txSkeleton } = await createSpore({
   ...
+  // highlight-next-line
   maxTransactionSize: false,
 });
 ```
