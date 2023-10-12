@@ -10,7 +10,7 @@ const config = {
   organizationName: 'nervosnetwork',
 
   baseUrl: '/',
-  favicon: 'img/logo.svg',
+  favicon: 'img/favicon.svg',
   url: 'https://docs.spore.pro',
 
   onBrokenLinks: 'throw',
@@ -51,7 +51,8 @@ const config = {
       navbar: {
         title: 'SPORE PROTOCOL',
         logo: {
-          src: 'img/logo.svg',
+          src: 'img/logo-light.svg',
+          srcDark: 'img/logo-dark.svg',
           alt: 'SPORE PROTOCOL',
         },
         items: [],
