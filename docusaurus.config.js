@@ -105,6 +105,11 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      algolia: {
+        appId: "OMU3UFN93M",
+        apiKey: "722d27b25476a3bce143c17903284c15",
+        indexName: "spore",
+      },
     }),
 
 };

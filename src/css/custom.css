@@ -45,6 +45,10 @@ nav.menu {
   font-weight: 700;
 }
 
+.DocSearch-Button {
+  border-radius: 4px !important;
+}
+
 /* Mobile only styles */
 @media (max-width: 576px) {
   .markdown h1:first-child {
