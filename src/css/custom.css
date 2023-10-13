@@ -1,52 +1,136 @@
 /* Importing Inter font from google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Tomorrow:wght@300;400;500;700&display=swap');
 
 /* Light theme overrides */
 :root {
-  --ifm-color-primary: #383838;
-  --ifm-color-primary-dark: #272727;
-  --ifm-color-primary-darker: #1c1c1c;
-  --ifm-color-primary-darkest: #111111;
-  --ifm-color-primary-light: #494949;
-  --ifm-color-primary-lighter: #545454;
-  --ifm-color-primary-lightest: #5f5f5f;
-  --ifm-link-color: #0969da;
-  --ifm-code-font-size: 95%;
-  --ifm-sidebar-background-color: #fbfbfb;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-color-primary: #101840;
+  --ifm-color-primary-dark: #0e163a;
+  --ifm-color-primary-darker: #0e1436;
+  --ifm-color-primary-darkest: #0b112d;
+  --ifm-color-primary-light: #121a46;
+  --ifm-color-primary-lighter: #121c4a;
+  --ifm-color-primary-lightest: #151f53;
+  --ifm-font-color-base: #212744;
+  --ifm-heading-color: #101840;
+  /* Fonts */
   --ifm-font-family-base: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  /* General Components */
+  --ifm-link-color: #2D5FF5;
+  --ifm-toc-link-color: #696F8C;
+  --ifm-toc-border-color: #E6E8EF;
+  --ifm-navbar-background-color: #FAFBFF;
+  /* Sidebar */
+  --doc-sidebar-width: 320px !important;
+  --ifm-sidebar-background-color: #FAFBFF;
+  --ifm-sidebar-border-color: var(--ifm-toc-border-color);
+  /* Sidebar Link */
+  --ifm-menu-color: var(--ifm-toc-link-color);
+  --ifm-menu-link-padding-vertical: 0.625rem;
+  --ifm-menu-link-padding-horizontal: 0.5rem;
+  /* Code Block */
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
+  /* DocSearch */
+  --docsearch-border-color: var(--ifm-toc-border-color);
+  --docsearch-placeholder-color: #696F8C;
 }
 
 /* Dark theme overrides */
-[data-theme='dark'] {
-  --ifm-color-primary: #e6be8a;
+html[data-theme='dark'] {
+  --ifm-color-primary: #E4BF76;
   --ifm-color-primary-dark: #e0ad6c;
   --ifm-color-primary-darker: #dca55d;
   --ifm-color-primary-darkest: #d38b2f;
   --ifm-color-primary-light: #eccfa8;
   --ifm-color-primary-lighter: #f0d7b7;
   --ifm-color-primary-lightest: #f9f1e5;
+  --ifm-background-color: #1e1e1e;
+  --ifm-font-color-base: #e8e8e8;
+  --ifm-heading-color: #ffffff;
+  /* General Components */
   --ifm-link-color: var(--ifm-color-primary);
-  --ifm-sidebar-background-color: #212121;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-toc-link-color: #bebebe;
+  --ifm-toc-border-color: var(--ifm-color-emphasis-200);
+  /* Sidebar */
+  --ifm-menu-color: var(--ifm-toc-link-color);
+  --ifm-sidebar-background-color: #272727;
+  --ifm-sidebar-border-color: var(--ifm-toc-border-color);
+  /* Code Block */
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.05);
+  /* DocSearch */
+  --docsearch-border-color: var(--ifm-toc-border-color);
+  --docsearch-placeholder-color: #696F8C;
 }
 
+/* Navbar (Header) */
 .navbar {
   box-shadow: none;
-  border-bottom: 1px solid var(--ifm-color-emphasis-200);
-}
-
-nav.menu {
+  border-bottom: 1px solid var(--ifm-toc-border-color);
   background-color: var(--ifm-sidebar-background-color);
-  border-right: 1px solid var(--ifm-color-emphasis-200);
+}
+.navbar-sidebar {
+  background-color: var(--ifm-sidebar-background-color);
+}
+.navbar__logo {
+  height: 1.75rem;
 }
 
-.table-of-contents__link--active {
+/* Menu (Sidebar) */
+nav.menu {
+  padding-left: 2rem;
+  padding-top: 1.5rem;
+  background-color: var(--ifm-sidebar-background-color);
+  border-right: 1px solid var(--ifm-sidebar-border-color);
+}
+.menu__link--active {
+  color: var(--ifm-menu-color);
+}
+.menu__link--active[aria-current="page"] {
+  color: var(--ifm-link-color);
   font-weight: 700;
 }
 
-.DocSearch-Button {
-  border-radius: 4px !important;
+/* Docs Table of Contents */
+.table-of-contents__link:hover {
+  color: var(--ifm-link-color);
+}
+.table-of-contents__link--active {
+  color: var(--ifm-link-color);
+  font-weight: 700;
+}
+
+/* DocSearch Button */
+.navbar-search-button .DocSearch-Button {
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border: 1px solid var(--docsearch-border-color);
+}
+.navbar-search-button .DocSearch-Button .DocSearch-Search-Icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  stroke-width: 2.4;
+  font-weight: 700;
+  color: var(--docsearch-placeholder-color);
+}
+.navbar-search-button .DocSearch-Button .DocSearch-Button-Placeholder {
+  padding: 0 12px 0 8px;
+}
+.navbar-search-button .DocSearch-Button .DocSearch-Button-Keys {
+  margin-left: 1rem;
+}
+
+/* Doc Content */
+
+.markdown > h1,
+.markdown > h2,
+.markdown > h3 {
+  font-family: 'Tomorrow', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+}
+
+.markdown [class*='codeBlockContainer'] {
+  box-shadow: none;
+  border: 1px solid var(--ifm-toc-border-color);
 }
 
 /* Mobile only styles */
@@ -58,9 +142,18 @@ nav.menu {
 
 /* Desktop only styles */
 @media screen and (min-width: 997px) {
-  /* The style for the container of markdown content */
+  /* Doc content */
   main > .container {
     padding: 3rem !important;
   }
+  /* Doc container container */
+  div[class^="docItemContainer"] {
+    /*margin: 0 auto;*/
+    max-width: 700px;
+  }
+  /* Autogenerated index page */
+  [class^="generatedIndexPage"] {
+    /*margin: 0 auto;*/
+    width: 700px !important;
+  }
 }
-

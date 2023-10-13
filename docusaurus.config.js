@@ -1,7 +1,7 @@
 // @ts-check
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const darkCodeTheme = require('./src/prismThemes/dark');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -49,13 +49,18 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'SPORE PROTOCOL',
         logo: {
-          src: 'img/logo-light.svg',
-          srcDark: 'img/logo-dark.svg',
+          src: 'img/title-light.svg',
+          srcDark: 'img/title-dark.svg',
           alt: 'SPORE PROTOCOL',
         },
-        items: [],
+        items: [
+          {
+            type: 'search',
+            position: 'right',
+            className: 'navbar-search-button',
+          },
+        ],
       },
       footer: {
         links: [
