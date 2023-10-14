@@ -1,6 +1,6 @@
 // @ts-check
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
+const lightCodeTheme = require('./src/prismThemes/light');
 const darkCodeTheme = require('./src/prismThemes/dark');
 
 /** @type {import('@docusaurus/types').Config} */

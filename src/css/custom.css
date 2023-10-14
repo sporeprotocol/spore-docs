@@ -33,6 +33,9 @@
   /* DocSearch */
   --docsearch-border-color: var(--ifm-toc-border-color);
   --docsearch-placeholder-color: #696F8C;
+  /* Markdown */
+  --ifm-blockquote-border-color: var(--ifm-link-color);
+  --ifm-blockquote-border-width: 2px;
 }
 
 /* Dark theme overrides */
@@ -121,17 +124,6 @@ nav.menu {
 }
 
 /* Doc Content */
-.markdown {
-  --ifm-h1-vertical-rhythm-top: 3;
-  --ifm-h2-vertical-rhythm-top: 2.8;
-  --ifm-h3-vertical-rhythm-top: 1.6;
-  --ifm-heading-vertical-rhythm-top: 1.25;
-  --ifm-h1-vertical-rhythm-bottom: 2.4;
-  --ifm-h2-vertical-rhythm-bottom: 1.6;
-  --ifm-h3-vertical-rhythm-bottom: 1.2;
-  --ifm-heading-vertical-rhythm-bottom: 1;
-  --ifm-list-item-margin: 0.5rem;
-}
 .markdown > h1,
 .markdown > h2,
 .markdown > h3 {
@@ -139,23 +131,9 @@ nav.menu {
   font-weight: 700;
   line-height: 1.2;
 }
-.markdown > h2 {
-  font-size: 1.75rem;
-  margin-bottom: calc(var(--ifm-h2-vertical-rhythm-bottom) * var(--ifm-leading));
-}
-.markdown > h3 {
-  font-size: 1.5rem;
-  margin-bottom: calc(var(--ifm-h3-vertical-rhythm-bottom) * var(--ifm-leading));
-}
-.markdown > h4 {
-  font-size: 1.25rem;
-  line-height: 1.4;
-  font-weight: 600;
-}
-
 .markdown [class*='codeBlockContainer'] {
-  box-shadow: none;
   border: 1px solid var(--ifm-toc-border-color);
+  box-shadow: none;
 }
 
 /* Mobile only styles */
@@ -180,5 +158,30 @@ nav.menu {
   [class^="generatedIndexPage"] {
     /*margin: 0 auto;*/
     width: 700px !important;
+  }
+  /* Markdown */
+  .markdown {
+    --ifm-h1-vertical-rhythm-top: 3;
+    --ifm-h2-vertical-rhythm-top: 2.8;
+    --ifm-h3-vertical-rhythm-top: 1.6;
+    --ifm-heading-vertical-rhythm-top: 1.25;
+    --ifm-h1-vertical-rhythm-bottom: 2.4;
+    --ifm-h2-vertical-rhythm-bottom: 1.6;
+    --ifm-h3-vertical-rhythm-bottom: 1.2;
+    --ifm-heading-vertical-rhythm-bottom: 1;
+    --ifm-list-item-margin: 0.5rem;
+  }
+  .markdown > h2 {
+    font-size: 1.75rem;
+    margin-bottom: calc(var(--ifm-h2-vertical-rhythm-bottom) * var(--ifm-leading));
+  }
+  .markdown > h3 {
+    font-size: 1.5rem;
+    margin-bottom: calc(var(--ifm-h3-vertical-rhythm-bottom) * var(--ifm-leading));
+  }
+  .markdown > h4 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 600;
   }
 }
