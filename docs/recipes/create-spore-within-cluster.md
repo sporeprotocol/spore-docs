@@ -11,12 +11,8 @@ Your target cluster can be either a public cluster or a private cluster, dependi
 - `Private Cluster` - In the case of a private cluster,  it can be unlocked using your signature, if you possess the private key paired with that cluster's lock script.
 - `Public Cluster` - In contrast, a public cluster doesn't require a signature to unlock. In this case, anyone can unlock it, including you.
 
+![spore-in-cluster-flowchart.png](../../static/img/recipes/spore-in-cluster-flowchart.png)
 
-| Target Cluster      | Can I Create a Spore Within It? |
-| :--- | :---: |
-| Private cluster you own      | Yes       |
-| Public cluster   | Yes        |
-| Private cluster without key  | No        |
 ## Background Knowledge
 - [What is a Spore? - Spore Protocol 101](/basics/spore-101#what-is-a-spore)
 - [What is a Cluster? - Spore Protocol 101](/basics/spore-101#what-is-a-cluster)
