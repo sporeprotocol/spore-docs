@@ -1,24 +1,17 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 .cardContainer {
-  --ifm-link-color: var(--ifm-color-emphasis-800);
-  --ifm-link-hover-color: var(--ifm-color-emphasis-700);
   --ifm-link-hover-decoration: none;
 
-  box-shadow: 0 1.5px 3px 0 rgb(0 0 0 / 15%);
-  border: 1px solid var(--ifm-color-emphasis-200);
+  flex: auto;
+  padding: 2rem 1.5rem;
+  border: 1px solid var(--ifm-toc-border-color);
+  background-color: var(--ifm-sidebar-background-color);
   transition: all var(--ifm-transition-fast) ease;
   transition-property: border, box-shadow;
+  box-shadow: none;
 }
 
 .cardContainer:hover {
   border-color: var(--ifm-color-primary);
-  box-shadow: 0 3px 6px 0 rgb(0 0 0 / 20%);
 }
 
 .cardContainer *:last-child {
@@ -35,8 +28,9 @@
   hyphens: auto;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  color: var(--ifm-font-color-base);
 }
 
 .cardIcon {

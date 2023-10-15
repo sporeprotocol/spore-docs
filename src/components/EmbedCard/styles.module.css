@@ -1,6 +1,5 @@
 
 .embedCard {
-  --ifm-link-color: var(--ifm-color-emphasis-800);
   --ifm-link-hover-decoration: none;
 
   display: flex;
@@ -10,7 +9,6 @@
 }
 
 .embedCard:hover {
-  --ifm-link-color: #0969da;
   border: 1px solid var(--ifm-color-emphasis-400);
 }
 
@@ -24,6 +22,9 @@
   font-weight: 700;
   font-size: 1.125rem;
   color: var(--ifm-heading-color);
+}
+.embedCard:hover .embedCard__title {
+  color: var(--ifm-link-color);
 }
 
 .embedCard__description {

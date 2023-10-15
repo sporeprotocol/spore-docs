@@ -33,7 +33,7 @@ export default function CardListItem({ item }: CardListItemProps): JSX.Element {
     </>
   );
   
-  const rootClassName = clsx("card padding--lg", styles.cardContainer);
+  const rootClassName = clsx("card", styles.cardContainer);
 
   if (item.href) {
     return (
