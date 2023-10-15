@@ -29,7 +29,7 @@
   --ifm-menu-link-padding-horizontal: 0.5rem;
   /* Code Block */
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
+  --docusaurus-highlighted-code-line-bg: rgba(33, 39, 68, 0.05);
   /* DocSearch */
   --docsearch-border-color: var(--ifm-toc-border-color);
   --docsearch-placeholder-color: #696F8C;
@@ -165,7 +165,7 @@ nav.menu {
     --ifm-h2-vertical-rhythm-top: 2.8;
     --ifm-h3-vertical-rhythm-top: 1.6;
     --ifm-heading-vertical-rhythm-top: 1.25;
-    --ifm-h1-vertical-rhythm-bottom: 2.4;
+    --ifm-h1-vertical-rhythm-bottom: 1.6;
     --ifm-h2-vertical-rhythm-bottom: 1.6;
     --ifm-h3-vertical-rhythm-bottom: 1.2;
     --ifm-heading-vertical-rhythm-bottom: 1;
