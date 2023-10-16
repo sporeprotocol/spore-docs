@@ -184,4 +184,7 @@ nav.menu {
     line-height: 1.4;
     font-weight: 600;
   }
+  .markdown video {
+    padding: 1rem 0;
+  }
 }

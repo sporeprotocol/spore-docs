@@ -1,0 +1,316 @@
+---
+sidebar_position: 2
+---
+import ReactPlayer from 'react-player';
+
+# Connect Wallet
+
+Great start! In order to get started, the first step is to connect to your wallet. By connecting your wallet account, all the content that you create and publish on our on-chain blog will be associated with your wallet and will be securely and permanently stored on the blockchain. This ensures that your content remains safe, immutable, and easily accessible at all times.
+
+To simplify, we will use MetaMask as the chosen wallet. With MetaMask, we can easily interact to get your CKB address and check your balance. To proceed with connect wallet and sign transactions, install the MetaMask browser extension. Download it [here](https://metamask.io/download/).
+
+Next, we'll need to call some of MetaMask's methods on our page. To interact with MetaMask on our page, we'll be using [Wagmi](https://wagmi.sh/) to simplify our logic. Specifically, we'll make use of the `useConnect` and `useAccount` hooks.
+
+First, let's install `wagmi` for our project:
+
+```bash
+npm install wagmi viem --save
+```
+
+We'll add some code in `src/pages/_app.tsx` to initialize the Wagmi configuration:
+
+```tsx
+import type { AppProps } from 'next/app';
+import { WagmiConfig, createConfig, mainnet } from 'wagmi';
+import { createPublicClient, http } from 'viem';
+
+const config = createConfig({
+  autoConnect: true,
+  publicClient: createPublicClient({
+    chain: mainnet,
+    transport: http(),
+  }),
+});
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <WagmiConfig config={config}>
+      <Component {...pageProps} />
+    </WagmiConfig>
+  );
+}
+
+```
+
+This allows us to connect to Ethereum using Wagmi on our page. Next, in `src/pages/index.tsx`, let's add some code to connect to MetaMask using Wagmi and display ETH address:
+
+```tsx
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+
+export default function Home() {
+  const { address, isConnected } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const { disconnect } = useDisconnect();
+
+  return (
+    <div>
+      <div>{address}</div>
+      {isConnected ? (
+        <button onClick={() => disconnect()}>Disconnect</button>
+      ) : (
+        <button onClick={() => connect()}>Connect Wallet</button>
+      )}
+    </div>
+  );
+}
+
+```
+
+Now, you'll see a "Connect Wallet" button in your browser. Clicking it will open the MetaMask popup, and after clicking "Connect," you'll be connected to the wallet and get the ETH address.
+
+
+<ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/89f86274-7cd6-43f2-b69e-d2af01c4bd7b' />
+
+
+## Generate a CKB address
+
+As you may know, MetaMask is primarily used on the Ethereum, while the Spore Protocol is based on Nervos CKB. Therefore, we need to generate the Lock Script for our CKB address based on the ETH address. By using the Omnilock, we can use our Ethereum public and private keys for transaction verification. Once we add the ETH address to the Lock Script, we can use it to generate transactions and sign them using MetaMask. If you're unfamiliar with Nervos CKB and Omnilock, you can check out the following links:
+
+- [Nervos Network](https://www.nervos.org/)
+- [Omnilock, a Universal Lock that Powers Interoperability](https://blog.cryptape.com/omnilock-a-universal-lock-that-powers-interoperability-1)
+
+To use Omnilock, we'll rely on the @ckb-lumos/lumos library to help us. Let's install `@ckb-lumos/lumos` in our project:
+
+```bash
+npm install @ckb-lumos/lumos crypto-browserify --save
+```
+
+`@ckb-lumos/lumos` is a library that can be used in both Node.js and browser environments, we need to configure some node polyfills when using it in the browser. Add the following configuration in `next.config.js` at the root of your project:
+
+```bash
+const webpack = require('webpack');
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  webpack: (config) => { // <- Add some webpack config
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      crypto: require.resolve('crypto-browserify'),
+      buffer: require.resolve('buffer'),
+      encoding: false,
+      path: false,
+      fs: false,
+      stream: false,
+    };
+
+    config.plugins = [
+      ...config.plugins,
+      new webpack.ProvidePlugin({ Buffer: ['buffer', 'Buffer'] }),
+    ];
+    return config;
+  },
+};
+
+module.exports = nextConfig;
+```
+
+Now we can use lumos in our project. In `src/pages/index.tsx`, add the following code to generate the CKB address based on the ETH address:
+
+```tsx
+// src/pages/index.tsx
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+// highlight-start
+import { commons, config, helpers } from '@ckb-lumos/lumos';
+import { useMemo } from 'react';
+// highlight-end
+
+export default function Home() {
+	// highlight-next-line
+  const { address: ethAddress, isConnected } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const { disconnect } = useDisconnect();
+
+	// highlight-start
+  const address = useMemo(() => {
+    if (!ethAddress) return;
+
+    const lock = commons.omnilock.createOmnilockScript({
+      auth: { flag: 'ETHEREUM', content: ethAddress ?? '0x' },
+    });
+    return helpers.encodeToAddress(lock, { config: config.predefined.AGGRON4 });
+  }, [ethAddress]);
+	// highlight-end
+
+  return (
+    <div>
+      <div>{address}</div>
+      {isConnected ? (
+        <button onClick={() => disconnect()}>Disconnect</button>
+      ) : (
+        <button onClick={() => connect()}>Connect Wallet</button>
+      )}
+    </div>
+  );
+}
+```
+
+By using `commons.omnilock.createOmnilockScript` provided by @ckb-lumos/lumos, we can easily generate an Omnilock based on the ETH address. In CKB, the CKB address represents the underlying Lock Script, so we can obtain the CKB address from the omnilock.
+
+Let's change the displayed address on the page from ETH address to CKB address:
+
+```tsx
+// src/pages/index.tsx
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+// highlight-start
+import { commons, config, helpers } from '@ckb-lumos/lumos';
+import { useMemo } from 'react';
+// highlight-end
+
+export default function Home() {
+	// highlight-next-line
+  const { address: ethAddress, isConnected } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const { disconnect } = useDisconnect();
+
+	// highlight-start
+  const address = useMemo(() => {
+    if (!ethAddress) return;
+
+    const lock = commons.omnilock.createOmnilockScript({
+      auth: { flag: 'ETHEREUM', content: ethAddress ?? '0x' },
+    });
+    return helpers.encodeToAddress(lock, { config: config.predefined.AGGRON4 });
+  }, [ethAddress]);
+	// highlight-end
+
+  return (
+	  <div>
+	    {isConnected ? (
+	      <div>
+	        <div>CKB Address: {address}</div>
+	        <button onClick={() => disconnect()}>Disconnect</button>
+	      </div>
+	    ) : (
+	      <button onClick={() => connect()}>Connect Wallet</button>
+	    )}
+	  </div>
+  );
+}
+```
+
+Now, you'll see your CKB address in the browser.
+
+
+<ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/faa6f8b1-b4ff-45b6-9b21-53766363a1f0' />
+
+## Get CKB balance
+
+Now that we have a CKB address, the next step is to retrieve our CKB balance and we need to claim some CKB on the faucet for future transactions.
+
+We are now creating a file to store the logic for querying the balance of the CKB address on the Nervos CKB testnet:
+
+```tsx
+// src/utils/balance.ts
+import { Indexer, config, BI, helpers } from '@ckb-lumos/lumos';
+
+const CKB_RPC_URL = 'https://testnet.ckb.dev/rpc';
+const CKB_INDEXER_URL = 'https://testnet.ckb.dev/indexer';
+
+const indexer = new Indexer(CKB_INDEXER_URL, CKB_RPC_URL);
+
+export async function getCapacities(address: string): Promise<BI> {
+  config.initializeConfig(config.predefined.AGGRON4);
+  const collector = indexer.collector({
+    lock: helpers.parseAddress(address),
+		type: 'empty',
+		data: '0x',
+  });
+
+  let capacities = BI.from(0);
+  for await (const cell of collector.collect()) {
+    capacities = capacities.add(cell.cellOutput.capacity);
+  }
+
+  return capacities;
+}
+```
+
+This logic mainly does the following things: We use the Indexer provided by @ckb-lumos/lumos for querying, so we need to create a new indexer using the testnet's RPC URL and Indexer URL. We generate the lock using the given CKB address for the query, and then add up the capacity of the queried cells to get our final CKB amount.
+
+Now we can use the `getCapacities` function to query the CKB balance and display it on the page. Add the following code to `src/pages/index.tsx` to retrieve and display the CKB balance:
+
+```tsx
+// src/pages/index.tsx
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+// highlight-start
+import { BI, commons, config, helpers } from '@ckb-lumos/lumos';
+import { useEffect, useMemo, useState } from 'react';
+import { getCapacities } from '../utils/balance';
+// highlight-end
+
+export default function Home() {
+  const { address: ethAddress, isConnected } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const { disconnect } = useDisconnect();
+	// highlight-next-line
+  const [balance, setBalance] = useState<BI | null>(null);
+
+  const address = useMemo(() => {
+    if (!ethAddress) return;
+
+    const lock = commons.omnilock.createOmnilockScript({
+      auth: { flag: 'ETHEREUM', content: ethAddress ?? '0x' },
+    });
+    return helpers.encodeToAddress(lock, { config: config.predefined.AGGRON4 });
+  }, [ethAddress]);
+
+	// highlight-start
+  useEffect(() => {
+    if (!address) {
+      return;
+    }
+    getCapacities(address).then((capacities) => {
+      setBalance(capacities.div(10 ** 8));
+    });
+  }, [address]);
+
+  return (
+    <div>
+      {isConnected ? (
+        <div>
+          <div>CKB Address: {address}</div>
+          <div>Balance: {balance?.toNumber() ?? 0} CKB</div>
+          <button onClick={() => disconnect()}>Disconnect</button>
+        </div>
+      ) : (
+        <button onClick={() => connect()}>Connect Wallet</button>
+      )}
+    </div>
+  );
+	// highlight-end
+}
+```
+
+On the page, you will see your CKB address and the corresponding CKB balance. You may have noticed that in the above code, we perform some calculations after obtaining the amount of CKB from `getCapacities`. This is because the unit of CKB Cell Capacity is shannons, and 1 CKB represents 1 byte, so we need to divide capacities by 10 to the power of 8 to get the balance of CKB.
+
+Since we are using a new CKB address generated by Omnilock + ETH address, you will see that the displayed balance is 0. We need to claim some testnet CKB on the [Nervos Pudge Faucet](https://faucet.nervos.org/) to support our subsequent transactions. After you claim CKB on the Faucet, you will be able to see the corresponding CKB balance on the page.
+
+![](https://github.com/sporeprotocol/spore-docs/assets/9718515/24460459-5320-4de9-b441-cfa3e4612025)
+
+Now we have completed the functionality of connecting the wallet and retrieving the CKB address and balance. Next, we will start building our on-chain blog, including the ability to create new site, publish and retrieve blog posts.
+
+> 💡 You can check out the connect-wallet branch on the associated code repository to view all the code for this stage: `git checkout 01-connect-wallet`
+
