@@ -2,13 +2,16 @@
 sidebar_position: 2
 ---
 
-# Create an Immortal Spore
+# Create Immortal Spore
 
-`Immortal` is an internal Spore Extension that can be enabled on Spores to unlock immortality. The immortal spores are indestructible and persist permanently on-chain, immune even to their owner's destruction.
+:::info Background knowledge
 
-## Background Knowledge
 - [What is a Spore? - Spore Protocol 101](/basics/spore-101#what-is-a-spore)
 - [Spore SDK - Resources](/resources/spore-sdk)
+
+:::
+
+`Immortal` is an internal Spore Extension that can be enabled on Spores to unlock immortality. The immortal spores are indestructible and persist permanently on-chain, immune even to their owner's destruction.
 
 ## Create an Immortal Spore
 

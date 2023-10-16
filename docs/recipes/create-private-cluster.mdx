@@ -4,16 +4,18 @@ sidebar_position: 4
 
 import EmbedCard from "@site/src/components/EmbedCard";
 
-# Create a Private Cluster
+# Create Private Cluster
+
+:::info Background knowledge
+
+- [What is a Cluster? - Spore Protocol 101](/basics/spore-101#what-is-a-cluster)
+- [Spore SDK - Resources](/resources/spore-sdk)
+
+:::
 
 A cluster is like an on-chain folder that groups spores together. In the recipe, you will learn how to create a private cluster that is secured by an owner lock and requires signature verification to unlock. E.g., the [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c).
 
 You can also create a public cluster that anyone can pay an unlocking fee to create spores within it. To learn more about it, please refer to: [Creating a Public Cluster](/recipes/create-private-cluster).
-
-## Background Knowledge
-
-- [What is a Cluster? - Spore Protocol 101](/basics/spore-101#what-is-a-cluster)
-- [Spore SDK - Resources](/resources/spore-sdk)
 
 ## Create a Private Cluster
 

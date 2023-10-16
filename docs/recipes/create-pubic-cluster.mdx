@@ -5,7 +5,15 @@ sidebar_position: 5
 import EmbedCard from "@site/src/components/EmbedCard";
 
 
-# Create a Public Cluster
+# Create Public Cluster
+
+:::info Background knowledge
+
+- [What is a Spore? - Spore Protocol 101](/basics/spore-101#what-is-a-spore)
+- [What is a Cluster? - Spore Protocol 101](/basics/spore-101#what-is-a-cluster)
+- [Create a Private Cluster - How-to Recipes](/recipes/create-private-cluster)
+
+:::
 
 Public clusters are clusters that allow anyone to create Spores within them. 
 
@@ -14,12 +22,7 @@ When compared to Private Cluster, they have the following distinctions:
 - `Private Cluster` - Secured by an owner lock and requires signature verification to unlock. Only the owner of the private cluster can unlock and create Spores within it.
 - `Public Cluster` - Anyone can unlock and create spores within public clusters without signature verification from the cluster's owner. The owner has the option to specify a lock script that can be configured to charge users for each transaction they initiate to unlock the public cluster and create spores within it.
 
-In this recipe you will learn how to create public clusters using two types of lock scripts, [Anyone-can-pay](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) lock and [Omnilock ACP](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) lock.
-
-## Background Knowledge
-- [What is a Spore? - Spore Protocol 101](/basics/spore-101#what-is-a-spore)
-- [What is a Cluster? - Spore Protocol 101](/basics/spore-101#what-is-a-cluster)
-- [Create a Private Cluster - How-to Recipes](/recipes/create-private-cluster)
+In this recipe, you will learn how to create public clusters using two types of lock scripts, [Anyone-can-pay](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0026-anyone-can-pay/0026-anyone-can-pay.md) lock and [Omnilock ACP](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0042-omnilock/0042-omnilock.md#anyone-can-pay-mode) lock.
 
 ## Create a `Anyone-can-pay` Cluster
 
