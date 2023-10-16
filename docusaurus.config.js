@@ -48,6 +48,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: 'img/embed/spore-docs.png',
       navbar: {
         logo: {
           src: 'img/title-light.svg',
