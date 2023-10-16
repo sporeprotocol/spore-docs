@@ -123,6 +123,14 @@ nav.menu {
   margin-left: 1rem;
 }
 
+/* Pagination */
+.pagination-nav__link--prev .pagination-nav__label::before {
+  content: none;
+}
+.pagination-nav__link--next .pagination-nav__label::after {
+  content: none;
+}
+
 /* Doc Content */
 .markdown > h1,
 .markdown > h2,
