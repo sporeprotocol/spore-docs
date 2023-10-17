@@ -11,8 +11,7 @@ Here we will truly start using the Spore Protocol to create an on-chain blog. Fi
 
 Let's start with the simplest part. When creating a site, we need a form to input the site name and description, and we need a button to request the transaction for creating the site (i.e., creating a Spore Cluster). We add the following code in `src/pages/index.ts`:
 
-```tsx
-// src/pages/index.tsx
+```tsx title="/src/pages/index.tsx"
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { BI, commons, config, helpers } from '@ckb-lumos/lumos';
@@ -92,8 +91,7 @@ npm install @spore-sdk/core --save
 
 Since we want to create a cluster to represent our site, we will use the `createCluster` method. We add the following code in the `handleCreateSite` function in `src/pages/index.tsx`:
 
-```tsx
-// src/pages/index.tsx
+```tsx title="/src/pages/index.tsx"
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 // highlight-next-line
@@ -173,8 +171,7 @@ Let's explain the purpose of this code step by step:
 
 So good so far, let's implement `signTransaction`. Create the `src/utils/transaction.ts` file and add the following code:
 
-```tsx
-// src/utils/transaction.ts
+```tsx title="/src/utils/transaction.ts"
 import { commons, config, helpers } from '@ckb-lumos/lumos';
 import { blockchain } from '@ckb-lumos/base';
 import { bytes } from '@ckb-lumos/codec';
@@ -235,8 +232,8 @@ This implementation may be a bit complex and requires some background knowledge 
 
 In summary, the `signTransaction` function roughly follows this logic: First, we need to get the `signingEntries` from the passed `txSkeleton` and use MetaMask to sign the messages within. After signing, we need to perform some processing (mainly to handle the ECDSA recoveryID v parameter) and use the methods provided by @ckb-lumos/lumos to pack the signature into the witness corresponding to Omnilock. We then fill it back into the `txSkeleton` and generate the signed transaction for sending to the Nervos CKB.
 
-```tsx
-// src/pages/index.tsx
+```tsx title="/src/pages/index.tsx"
+// highlight-next-line
 import { signTransaction } from '@/utils/transaction';
 
 // ...
@@ -250,8 +247,7 @@ After adding the implementation of `signTransaction`, we can create our site. Af
 
 After creating the site, we cannot see it yet. At this stage, we can only see the Spore Cluster Cell in CKB Explorer. Now let's add some code to display it on the page. Add the following code in `src/pages/index.tsx`:
 
-```tsx
-// src/pages/index.tsx
+```tsx title="/src/pages/index.tsx"
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 // highlight-next-line
@@ -319,8 +315,7 @@ The logic here is simple and similar to getting the capacities of the  CKB addre
 
 Then we display them:
 
-```tsx
-// src/pages/index.tsx
+```tsx title="/src/pages/index.tsx"
 return (
     <div>
       <div>
@@ -376,8 +371,7 @@ Okay, next we need to add a new page as the homepage of the site. Although we do
 
 Since there will be a new page, we need to add a copy of the logic for connecting wallet to the new page because we haven't persisted the connect state. Here we extract the logic for connecting wallet into `src/hooks/useWallet.ts` file:
 
-```tsx
-// src/hooks/useWallet.ts
+```tsx title="/src/hooks/useWallet.ts"
 import { BI, commons, config, helpers } from '@ckb-lumos/lumos';
 import { useEffect, useMemo, useState } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
@@ -437,8 +431,7 @@ We have already explained the part about connecting to the wallet before, so we 
 
 At the same time, we delete unnecessary imports and replace the relevant parts :
 
-```tsx
-// src/pages/index.tsx
+```tsx title="/src/pages/index.tsx"
 // highlight-start
 import { Indexer, RPC } from '@ckb-lumos/lumos';
 import { useEffect, useState } from 'react';
@@ -471,8 +464,7 @@ export default function Home() {
 
 Then we add a new page `src/pages/site/[id].tsx`:
 
-```tsx
-// src/pages/site/[id].tsx
+```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
 import { Indexer } from '@ckb-lumos/lumos';
 import { predefinedSporeConfigs, unpackToRawClusterData } from '@spore-sdk/core';
@@ -528,9 +520,7 @@ As shown above, the logic here for fetch all site information is not much differ
 
 Oh, by the way, don't forget to add links on all previous sites that redirect to this new site's homepage:
 
-```tsx
-// src/pages/index.tsx
-
+```tsx title="/src/pages/index.tsx"
 export default function Home() {
 	// ...
 
@@ -558,5 +548,7 @@ Now we can jump to the homepage in the list of all sites. Although there is curr
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/a1e7cc83-40d9-4b5f-afca-6b912ac73d6f' />
 
-> 💡 You can check out the create-site branch on the associated code repository to view all the code for this stage: `git checkout 02-create-site`
+:::tip
+You can check out the create-site branch on the associated code repository to view all the code for this stage: `git checkout 02-create-site`
+:::
 

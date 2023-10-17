@@ -9,8 +9,7 @@ Just like before, we need a submission form before publishing a post. To simplif
 
 Create a new page to create a new post and publish it:
 
-```tsx
-// src/pages/post/new.tsx
+```tsx title="/src/pages/post/new.tsx"
 import useWallet from '@/hooks/useWallet';
 import { signTransaction } from '@/utils/transaction';
 import { RPC } from '@ckb-lumos/lumos';
@@ -83,8 +82,7 @@ export default function NewPost() {
 
 Then let's add a button on the homepage of the site to navigate to this new page for publish post:
 
-```tsx
-// src/page/site/[id].tsx
+```tsx title="/src/page/site/[id].tsx"
 export default function SitePage() {
   // ...
 
@@ -136,8 +134,7 @@ We have published a new blog post, and now we need to query them from the blockc
 
 Add some code in `src/pages/site/[id].tsx` to display all posts:
 
-```tsx
-// src/pages/site/[id].tsx
+```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
 import { Indexer } from '@ckb-lumos/lumos';
 import {
@@ -229,8 +226,7 @@ After loading on the homepage of the site, we use Indexer to retrieve all Spore 
 
 After obtaining and saving the post data, we need to display it on the page:
 
-```tsx
-// src/pages/site/[id].tsx
+```tsx title="/src/pages/site/[id].tsx"
 export default function SitePage() {
   // ...
 
@@ -268,8 +264,7 @@ export default function SitePage() {
 
 We are almost done, now we just need to display the blog post data saved in Spore. We add a new page in our project to display the blog post:
 
-```tsx
-// src/pages/post/[id].tsx
+```tsx title="/src/pages/post/[id].tsx"
 import { Indexer } from '@ckb-lumos/lumos';
 import {
   SporeData,
@@ -346,9 +341,7 @@ This may sound ordinary and not very exciting. However, on Nervos CKB, things ar
 
 Alright then! Let's add the delete functionality and retrieve your CKB tokens back. We simply add their respective delete buttons after each post in the list on our site's homepage:
 
-```tsx
-// src/pages/site/[id].tsx
-
+```tsx title="/src/pages/site/[id].tsx"
 export default function SitePage() {
 	// ...
 
@@ -387,8 +380,7 @@ export default function SitePage() {
 
 Now let's implement the logic for when a delete button is clicked; it's similar to what we did when creating posts before but this time we will use `destroySpore`, which is provided by Spore SDK:
 
-```tsx
-// src/pages/site/[id].tsx
+```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
 import { Indexer, OutPoint, RPC } from '@ckb-lumos/lumos';
 import {
@@ -510,5 +502,7 @@ That's it! We have implemented the functionality to delete blog posts. If you ob
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/00717f4f-d1fe-4f5f-b7d1-e137805d9d5a' />
 
-> 💡 You can check out the publish-post branch on the associated code repository to view all the code for this stage: `git checkout 03-publish-post`
+:::tip
+You can check out the publish-post branch on the associated code repository to view all the code for this stage: `git checkout 03-publish-post`
+:::
 
