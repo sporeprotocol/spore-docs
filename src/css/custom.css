@@ -124,6 +124,12 @@ nav.menu {
 }
 
 /* Pagination */
+.pagination-nav__label {
+  color: var(--ifm-font-color-base);
+}
+.pagination-nav__sublabel {
+  color: var(--ifm-toc-link-color);
+}
 .pagination-nav__link--prev .pagination-nav__label::before {
   content: none;
 }
