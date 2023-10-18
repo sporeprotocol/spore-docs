@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Set up an account on Nervos CKB
+# Set Up Account
 
 In this section, we'll guide you through the process of creating a Nervos CKB "account" and acquiring testnet CKBytes, so you have enough capital to create your fully on-chain asset.
 
