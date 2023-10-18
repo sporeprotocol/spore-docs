@@ -1,0 +1,4 @@
+.cardListItem {
+  display: flex;
+  flex-direction: column;
+}

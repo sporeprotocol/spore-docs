@@ -1,7 +1,7 @@
 // @ts-check
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('./src/prismThemes/light');
+const darkCodeTheme = require('./src/prismThemes/dark');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -48,14 +48,20 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: 'img/embed/spore-docs.png',
       navbar: {
-        title: 'SPORE PROTOCOL',
         logo: {
-          src: 'img/logo-light.svg',
-          srcDark: 'img/logo-dark.svg',
+          src: 'img/title-light.svg',
+          srcDark: 'img/title-dark.svg',
           alt: 'SPORE PROTOCOL',
         },
-        items: [],
+        items: [
+          {
+            type: 'search',
+            position: 'right',
+            className: 'navbar-search-button',
+          },
+        ],
       },
       footer: {
         links: [
@@ -104,6 +110,11 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      algolia: {
+        appId: "OMU3UFN93M",
+        apiKey: "722d27b25476a3bce143c17903284c15",
+        indexName: "spore",
       },
     }),
 

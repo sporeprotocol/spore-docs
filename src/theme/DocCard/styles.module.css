@@ -6,9 +6,9 @@
   transition: none;
   box-shadow: none;
   padding: 1.5rem;
+  transition-property: border, box-shadow;
   border: 1px solid var(--ifm-toc-border-color);
   background-color: var(--ifm-sidebar-background-color);
-  transition-property: border, box-shadow;
 }
 
 .cardContainer:hover {
@@ -21,21 +21,9 @@
 
 .cardTitle {
   font-size: 1.2rem;
-  display: flex;
-  align-items: center;
 }
 
 .cardDescription {
-  hyphens: auto;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  font-size: 0.8rem;
   color: var(--ifm-font-color-base);
-}
-
-.cardIcon {
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
 }
