@@ -3,23 +3,38 @@ sidebar_position: 2
 ---
 import ReactPlayer from 'react-player';
 
-# Connect wallet
+# Stage 1: Set up Wallet
 
-Great start! In order to get started, the first step is to connect to your wallet. By connecting your wallet account, all the content that you create and publish on our on-chain blog will be associated with your wallet and will be securely and permanently stored on the blockchain. This ensures that your content remains safe, immutable, and easily accessible at all times.
+Great start! The initial stage of developing a decentralized application involves setting up and linking your wallet. To kick things off, we'll first configure MetaMask and then generate a CKB address for login.
 
-To simplify, we will use MetaMask as the chosen wallet. With MetaMask, we can easily interact to get your CKB address and check your balance. To proceed with connect wallet and sign transactions, install the MetaMask browser extension. Download it [here](https://metamask.io/download/).
+👉 You can explore the **`01-connect-wallet`** branch in the repository using the command **`git checkout 01-connect-wallet`** to view all the code for this stage.
 
-Next, we'll need to call some of MetaMask's methods on our page. To interact with MetaMask on our page, we'll be using [Wagmi](https://wagmi.sh/) to simplify our logic. Specifically, we'll make use of the `useConnect` and `useAccount` hooks.
+## Step 1: Set up MetaMask
 
-First, let's install `wagmi` for our project:
+Let’s get a wallet ready for interaction with the decentralized application we are building. By establishing this connection, all the content you create and publish on our on-chain blog will be associated with your wallet, ensuring its secure and permanent storage on the blockchain. This approach guarantees the safety, immutability, and easy access to your content.
+
+#### You Need:
+
+- [Wagmi](https://wagmi.sh/)
+- Files: **`src/pages/_app.tsx`** and **`src/pages/index.tsx`**
+- Browser Extension: [MetaMask](https://metamask.io/download/)
+
+**1. Install MetaMask:**
+
+Download and install the MetaMask browser extension from [this link](https://metamask.io/download).
+
+**2. Streamline Interactions with Wagmi:**
+
+We'll simplify our interactions with MetaMask using the [Wagmi](https://wagmi.sh/) library. Start by installing Wagmi for your project with this command:
 
 ```bash
 npm install wagmi viem --save
 ```
+**3. Initialize Wagmi configuration:**
 
-We'll add some code in `src/pages/_app.tsx` to initialize the Wagmi configuration:
+In `src/pages/_app.tsx` include the following code to initialize the Wagmi configuration to establish connection within our application.
 
-```tsx title="/src/pages/index.tsx"
+```tsx title="src/pages/_app.tsx"
 import type { AppProps } from 'next/app';
 import { WagmiConfig, createConfig, mainnet } from 'wagmi';
 import { createPublicClient, http } from 'viem';
@@ -42,7 +57,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
 ```
 
-This allows us to connect to Ethereum using Wagmi on our page. Next, in `src/pages/index.tsx`, let's add some code to connect to MetaMask using Wagmi and display ETH address:
+**4. Connect to MetaMask:**
+
+In `src/pages/index.tsx`, incorporate the code to connect to MetaMask using Wagmi and display your ETH address:
 
 ```tsx title="/src/pages/index.tsx"
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
@@ -69,28 +86,33 @@ export default function Home() {
 
 ```
 
-Now, you'll see a "Connect Wallet" button in your browser. Clicking it will open the MetaMask popup, and after clicking "Connect," you'll be connected to the wallet and get the ETH address.
+Once you complete these steps, you'll notice a "Connect Wallet" button in your browser. Clicking it will open the MetaMask pop-up. After you click "Connect," you'll be successfully connected to your wallet, and your ETH address will be displayed.
 
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/89f86274-7cd6-43f2-b69e-d2af01c4bd7b' />
 
 
-## Generate a CKB address
+## Step 2: Generate the CKB address
 
-As you may know, MetaMask is primarily used on the Ethereum, while the Spore Protocol is based on Nervos CKB. Therefore, we need to generate the Lock Script for our CKB address based on the ETH address. By using the Omnilock, we can use our Ethereum public and private keys for transaction verification. Once we add the ETH address to the Lock Script, we can use it to generate transactions and sign them using MetaMask. If you're unfamiliar with Nervos CKB and Omnilock, you can check out the following links:
+To facilitate communication between MetaMask and the Nervos CKB-based Spore Protocol, we need to generate a Lock Script for the CKB address based on the ETH address. This process utilizes [Omnilock](https://blog.cryptape.com/omnilock-a-universal-lock-that-powers-interoperability-1), which enables transaction verification using your Ethereum public and private keys. After adding the ETH address to the Lock Script, it can be used to create and sign transactions using MetaMask.
 
-- [Nervos Network](https://www.nervos.org/)
-- [Omnilock, a Universal Lock that Powers Interoperability](https://blog.cryptape.com/omnilock-a-universal-lock-that-powers-interoperability-1)
+#### You Need:
 
-To use Omnilock, we'll rely on the @ckb-lumos/lumos library to help us. Let's install `@ckb-lumos/lumos` in our project:
+- Library: `@ckb-lumos/lumos`
+- Files: `next.config.js` and `src/pages/index.tsx`
+
+**1. Install @ckb-lumos/lumos:**
+To use Omnilock, install the **`@ckb-lumos/lumos`** library along with **`crypto-browserify`** in your project using this command:
 
 ```bash
 npm install @ckb-lumos/lumos crypto-browserify --save
 ```
 
-`@ckb-lumos/lumos` is a library that can be used in both Node.js and browser environments, we need to configure some node polyfills when using it in the browser. Add the following configuration in `next.config.js` at the root of your project:
+**2. Configure Node Polyfills:**
 
-```bash title="/next.config.js"
+`@ckb-lumos/lumos` is a library that can be used in both Node.js and browser environments. Add the following configuration to your **`next.config.js`** file located at the root of your project for using in browser environment.
+
+```js title="/next.config.js"
 const webpack = require('webpack');
 
 /** @type {import('next').NextConfig} */
@@ -118,7 +140,9 @@ const nextConfig = {
 module.exports = nextConfig;
 ```
 
-Now we can use lumos in our project. In `src/pages/index.tsx`, add the following code to generate the CKB address based on the ETH address:
+**3. Generate CKB address:**
+
+In your **`src/pages/index.tsx`** file, add the following code to generate the CKB address based on your ETH address:
 
 ```tsx title="/src/pages/index.tsx"
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
@@ -159,28 +183,25 @@ export default function Home() {
   );
 }
 ```
+- **`commons.omnilock.createOmnilockScript`** - generate an Omnilock based on the ETH address. In CKB, the CKB address represents the underlying Lock Script, so we can obtain the CKB address from the omnilock.
 
-By using `commons.omnilock.createOmnilockScript` provided by @ckb-lumos/lumos, we can easily generate an Omnilock based on the ETH address. In CKB, the CKB address represents the underlying Lock Script, so we can obtain the CKB address from the omnilock.
+**4. Display the CKB address:**
 
-Let's change the displayed address on the page from ETH address to CKB address:
+Change the displayed address on your web page from the ETH address to the newly generated CKB address by adding the following code in the same **`src/pages/index.tsx`** file:
 
 ```tsx title="/src/pages/index.tsx"
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
-// highlight-start
 import { commons, config, helpers } from '@ckb-lumos/lumos';
 import { useMemo } from 'react';
-// highlight-end
 
 export default function Home() {
-	// highlight-next-line
   const { address: ethAddress, isConnected } = useAccount();
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   });
   const { disconnect } = useDisconnect();
 
-	// highlight-start
   const address = useMemo(() => {
     if (!ethAddress) return;
 
@@ -189,8 +210,8 @@ export default function Home() {
     });
     return helpers.encodeToAddress(lock, { config: config.predefined.AGGRON4 });
   }, [ethAddress]);
-	// highlight-end
 
+	// highlight-start
   return (
 	  <div>
 	    {isConnected ? (
@@ -204,21 +225,27 @@ export default function Home() {
 	  </div>
   );
 }
+	// highlight-end
+
 ```
 
-Now, you'll see your CKB address in the browser.
-
+Upon completion, you'll see your CKB address in the browser, successfully established a connection between your Ethereum and Nervos CKB addresses.
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/faa6f8b1-b4ff-45b6-9b21-53766363a1f0' />
 
-## Get CKB balance
+## Step 3: Retrieve wallet balance
 
-Now that we have a CKB address, the next step is to retrieve our CKB balance and we need to claim some CKB on the faucet for future transactions.
+Now that we have a CKB address, the next step is to retrieve address’ CKB balance and claim some testnet CKB from the faucet to support future transactions. 
 
-We are now creating a file to store the logic for querying the balance of the CKB address on the Nervos CKB testnet:
+#### You Need:
+
+- Files: `src/utils/balance.ts` and `src/pages/index.tsx`
+
+**1. Set up balance query:**
+
+Create a file named **`src/utils/balance.ts`** to store the logic for querying the balance of your CKB address on the Nervos CKB testnet:
 
 ```tsx title="/src/utils/balance.ts"
-// src/utils/balance.ts
 import { Indexer, config, BI, helpers } from '@ckb-lumos/lumos';
 
 const CKB_RPC_URL = 'https://testnet.ckb.dev/rpc';
@@ -243,9 +270,17 @@ export async function getCapacities(address: string): Promise<BI> {
 }
 ```
 
-This logic mainly does the following things: We use the Indexer provided by @ckb-lumos/lumos for querying, so we need to create a new indexer using the testnet's RPC URL and Indexer URL. We generate the lock using the given CKB address for the query, and then add up the capacity of the queried cells to get our final CKB amount.
+Here's what this logic accomplishes:
 
-Now we can use the `getCapacities` function to query the CKB balance and display it on the page. Add the following code to `src/pages/index.tsx` to retrieve and display the CKB balance:
+- Create a indexer using the testnet's RPC URL and Indexer URL.
+- Initialize the CKB testnet configuration and creates a collector to query your CKB address.
+- Adds up the capacity of the queried cells to calculate your total CKB balance.
+
+Now we can use the `**getCapacities**` function to query the CKB balance and display it on the page.
+
+**2. Retrieve and Display CKB Balance**
+
+In your **`src/pages/index.tsx`** file, add the following code to use the `**getCapacities**` function:
 
 ```tsx title="/src/pages/index.tsx"
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
@@ -301,15 +336,19 @@ export default function Home() {
 }
 ```
 
-On the page, you will see your CKB address and the corresponding CKB balance. You may have noticed that in the above code, we perform some calculations after obtaining the amount of CKB from `getCapacities`. This is because the unit of CKB Cell Capacity is shannons, and 1 CKB represents 1 byte, so we need to divide capacities by 10 to the power of 8 to get the balance of CKB.
+Upon visiting your web page, you will see your CKB address and its corresponding CKB balance. It's important to note that we perform calculations after querying your CKB balance. This is necessary because the CKB Cell Capacity is measured in shannons, and 1 CKB represents 1 byte. Therefore, we divide the capacities by 10^8 to obtain the balance in CKB.
 
-Since we are using a new CKB address generated by Omnilock + ETH address, you will see that the displayed balance is 0. We need to claim some testnet CKB on the [Nervos Pudge Faucet](https://faucet.nervos.org/) to support our subsequent transactions. After you claim CKB on the Faucet, you will be able to see the corresponding CKB balance on the page.
+**3. Claim Testnet CKB**
+
+the balance displayed might be 0 since you are using a new CKB address generated through Omnilock. To fund your CKB address, you'll need to claim testnet CKB from the [Nervos Pudge Faucet](https://faucet.nervos.org/) to support your future transactions. After claiming CKB from the faucet, you will see your updated CKB balance on the page.
 
 ![](https://github.com/sporeprotocol/spore-docs/assets/9718515/24460459-5320-4de9-b441-cfa3e4612025)
 
-Now we have completed the functionality of connecting the wallet and retrieving the CKB address and balance. Next, we will start building our on-chain blog, including the ability to create new site, publish and retrieve blog posts.
+With these steps completed, you now have the ability to connect your wallet, retrieve your CKB address, and check your CKB balance, laying the foundation for building your on-chain blog.
 
-:::tip
-You can check out the connect-wallet branch on the associated code repository to view all the code for this stage: `git checkout 01-connect-wallet`
-:::
+---
+
+Let’s proceed to build the on-chain blog site →
+
+
 
