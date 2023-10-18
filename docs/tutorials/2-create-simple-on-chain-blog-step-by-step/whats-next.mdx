@@ -2,16 +2,19 @@
 sidebar_position: 5
 ---
 
-# What's next
+# Wrap-up
 
-We have basically completed the development of this simple on-chain blog. However, you may have noticed that our data is currently being requested directly from Nervos CKB RPC on the webpage. In Spore, data is actually immutable, so we don't need to query it every time. Here, we can switch to using SSR (Server-Side Rendering) supported by Next.js to implement it. The specific implementation details are not the focus of this tutorial in this tutorail.
+That's a wrap for our tutorial. Let's summarize the the steps we've covered:
 
-That's it, the tutorial ends here. Let's summarize the process we implemented briefly. First, in step one, we connect to a wallet using MetaMask and Wgami for convenience. Then, we create a Spore Cluster Cell through a form to represent our site. With the help of Spore SDK, we generate transaction and use Lumos' RPC to send them. Next, we retrieve data from the blockchain using Indexer and display it.
+- We began by connecting to a wallet using MetaMask and wgami
+- Then, we created a Cluster to represent our site with a simple form. Using the Spore SDK, we sent transactions to the blockchain using Lumos' RPC.
+- We retrieved data from the blockchain using Indexer and displayed it on your blog site.
+- After setting up the site, we added a form to publish blog posts. While the process is similar to creating a site, Spore gives you more room for data and a broader range of content types.
+- We linked these posts to the Cluster we made earlier
+- Finally, we used the same approach to retrieve data from the blockchain and display all blog posts on blog site.
 
-After creating the site, we add another form to publish blog posts. The process is similar to creating a site but different in that Spore Cell can carry more data and has high flexibility in content types. It can be associated with the previously created Spore Cluster Cell.
+You might have noticed that we are currently fetching data directly from Nervos CKB RPC on the blog site. However, since Spore data is actually immutable, there's no need to keep querying it. To address this, we can shift to using SSR (Server-Side Rendering) supported by Next.js. However, the specific implementation details of SSR are beyond the scope of this tutorial.
 
-Finally, using the same method as before, we query for all blog posts on the blockchain and display them on the page.
+With this foundational knowledge of creating an on-chain blog, you can take it further. You can add your preferred text editor, support images, or enable the upload of related resource files to the blockchain (creating multiple Spore Cells when publishing posts) and more!
 
-If you are familiar with these steps mentioned above then this whole process is very simple. With this implementation of an on-chain blog completed here if you want further development you can add your favorite text editor or support images or related resource files being uploaded onto chain (creating multiple Spore Cells when publishing an posts). You can also improve its webpage style to make it beautiful!
-
-Looking forward to your final achievements.
+We're excited to see what you achieve 🤩
