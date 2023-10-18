@@ -228,7 +228,7 @@ export default function Home() {
       fromInfos: [address],
       toLock: lock,
     });
-    const tx = await signTransaction(txSkeleton); // <- Not implemented yet, so the code will throw an error.
+    const tx = await signTransaction(txSkeleton);
     const rpc = new RPC(predefinedSporeConfigs.Aggron4.ckbNodeUrl);
     const hash = await rpc.sendTransaction(tx, 'passthrough');
     console.log(hash);
@@ -501,7 +501,7 @@ export default function SitePage() {
         setSiteInfo({
           id: cell.cellOutput.type!.args,
           name: unpacked.name,
-          description: unpack.description,
+          description: unpacked.description,
         });
       }
     })();
@@ -529,6 +529,12 @@ The logic here is quite similar to how we queried data before. We retrieve all t
 Modify `src/pages/index.tsx` file to establish navigation to the homepage from blog site
 
 ```tsx title="/src/pages/index.tsx"
+// ...
+// highlight-next-line
+import Link from 'next/link';
+
+// ...
+
 export default function Home() {
 	// ...
 
@@ -557,7 +563,9 @@ With these changes, your on-chain blog site is now ready for use!
 You can create a new blog site, and when you confirm the MetaMask signature request, you'll find the transaction hash in your browser's DevTools console. You can copy the hash and look it up on the [CKB Explorer](https://pudge.explorer.nervos.org/). 
 
 As an example, you can see my transaction for creating a blog site:
+
 https://pudge.explorer.nervos.org/transaction/0xc2c2ea9d99a2f2819efd95cdace0672817474d51881ca0edbc66cbb5eaa0cbae 
+
 This is the Cluster that we’ve just created on the blockchain, representing our site.
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/a1e7cc83-40d9-4b5f-afca-6b912ac73d6f' />
