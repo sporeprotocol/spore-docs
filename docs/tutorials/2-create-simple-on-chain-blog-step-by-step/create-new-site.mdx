@@ -2,12 +2,150 @@
 sidebar_position: 3
 ---
 import ReactPlayer from 'react-player';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-# Create new site
+# Stage 2: Create Blog Site
 
-Here we will truly start using the Spore Protocol to create an on-chain blog. First, we need to understand two concepts in the Spore Protocol, with the main one being Spore. Spore is built on the Cell model and is a Cell of Type Script for Spore. We primarily use it to store data, and in this tutorial, it will be used to store blog posts. The other concept is Cluster, which is a Cell of Type Script for Spore Cluster. It represents a collection of Cells, and we will use it to represent our site.
+In this stage, we will dive into the practical steps of using the Spore Protocol to create an on-chain blog. 
 
-![](https://github.com/sporeprotocol/spore-docs/assets/9718515/95b21e95-42c6-4898-8a9b-2572aa730a23)
+:::tip
+👉 You can explore the [`02-create-site`](https://github.com/sporeprotocol/spore-blog-tutorial/tree/02-create-site/src) branch in the repository using the command `git checkout 02-create-site` to view all the code for this stage.
+:::
+
+### **Concepts to Know**
+
+Before we get into the practical steps, it's essential to grasp two key concepts in the Spore Protocol:
+
+1. **Spore**: Spore is a fundamental component used for storing data on the blockchain. In our blog, we'll use Spore to store the actual blog posts.
+2. **Cluster**: A Cluster is a collection of Spores. In our case, it will represent our entire blog site.
+
+## Step 1: Set up
+
+**You Need:**
+
+- Files: **`src/pages/index.tsx`** and `**src/hooks/useWallet.ts**`
+
+** 1. Create `src/hooks/useWallet.ts`**
+
+To prepare for future pages on our blog site, we need to segregate the logic for connecting the wallet into a separate file called `useWallet.ts` from the `index.tsx` file. This change is essential because we haven't persisted the connection state. Here's the code for `src/hooks/useWallet.ts`:
+
+```tsx title="/src/hooks/useWallet.ts"
+import { BI, commons, config, helpers } from '@ckb-lumos/lumos';
+import { useEffect, useMemo, useState } from 'react';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { getCapacities } from '@/utils/balance';
+
+export default function useWallet() {
+  const { address: ethAddress, isConnected } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const { disconnect } = useDisconnect();
+  const [balance, setBalance] = useState<BI | null>(null);
+
+  const lock = useMemo(() => {
+    if (!ethAddress) return;
+
+    return commons.omnilock.createOmnilockScript(
+      {
+        auth: { flag: 'ETHEREUM', content: ethAddress ?? '0x' },
+      },
+      { config: config.predefined.AGGRON4 },
+    );
+  }, [ethAddress]);
+
+  const address = useMemo(
+    () =>
+      lock
+        ? helpers.encodeToAddress(lock, {
+            config: config.predefined.AGGRON4,
+          })
+        : undefined,
+    [lock],
+  );
+
+  useEffect(() => {
+    if (!address) {
+      return;
+    }
+    getCapacities(address).then((capacities) => {
+      setBalance(capacities.div(10 ** 8));
+    });
+  }, [address]);
+
+  return {
+    address,
+    lock,
+    balance,
+    isConnected,
+    connect,
+    disconnect,
+  };
+}
+```
+
+** 2. Import the `useWallet` module**
+
+In `src/pages/index.tsx`, include the following statement
+
+```tsx title="/src/pages/index.tsx"
+import useWallet from '@/hooks/useWallet';
+```
+
+Remove any unnecessary imports, and then replace the relevant parts with the following:
+
+
+<Tabs>
+<TabItem value="tsx" label="Before">
+
+```tsx title="/src/pages/index.tsx"
+export default function Home() {
+	// highlight-start
+  const { address: ethAddress, isConnected } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const { disconnect } = useDisconnect();
+  const [balance, setBalance] = useState<BI | null>(null);
+
+  const address = useMemo(() => {
+    if (!ethAddress) return;
+
+    const lock = commons.omnilock.createOmnilockScript({
+      auth: { flag: 'ETHEREUM', content: ethAddress ?? '0x' },
+    });
+    return helpers.encodeToAddress(lock, { config: config.predefined.AGGRON4 });
+  }, [ethAddress]);
+
+  useEffect(() => {
+    if (!address) {
+      return;
+    }
+    getCapacities(address).then((capacities) => {
+      setBalance(capacities.div(10 ** 8));
+    });
+  }, [address]);
+// highlight-end
+```
+
+</TabItem>
+<TabItem value="tsx" label="After">
+
+```tsx title="/src/pages/index.tsx"
+export default function Home() {
+	// highlight-start
+  const { address, lock, balance, isConnected, connect, disconnect } =
+    useWallet();
+// highlight-end
+```
+
+</TabItem>
+</Tabs>
+
+
+---
 
 Let's start with the simplest part. When creating a site, we need a form to input the site name and description, and we need a button to request the transaction for creating the site (i.e., creating a Spore Cluster). We add the following code in `src/pages/index.ts`:
 
