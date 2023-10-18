@@ -24,7 +24,7 @@ Before we get into the practical steps, it's essential to grasp two key concepts
 
 **You Need:**
 
-- Files: **`src/pages/index.tsx`** and `**src/hooks/useWallet.ts**`
+- Files: **`src/pages/index.tsx`** and **`src/hooks/useWallet.ts`**
 
 ** 1. Create `src/hooks/useWallet.ts`**
 
@@ -97,6 +97,12 @@ import useWallet from '@/hooks/useWallet';
 Remove any unnecessary imports, and then replace the relevant parts with the following:
 
 ```tsx title="/src/pages/index.tsx"
+// highlight-start
+import { Indexer, RPC } from '@ckb-lumos/lumos';
+import { useEffect, useState } from 'react';
+// highlight-end
+import useWallet from '@/hooks/useWallet';
+
 export default function Home() {
 	// highlight-start
   const { address, lock, balance, isConnected, connect, disconnect } =
@@ -105,172 +111,30 @@ export default function Home() {
 
 ```
 
+## Step 2: Construct transaction
 
+In this step, we will create transactions to set up a blog site on the blockchain by
 
+1. Constructing transactions to store the relevant content.
+2. Signing the constructed transaction.
+3. Sending the signed transaction to the blockchain.
 
----
+#### You Need:
 
-Let's start with the simplest part. When creating a site, we need a form to input the site name and description, and we need a button to request the transaction for creating the site (i.e., creating a Spore Cluster). We add the following code in `src/pages/index.ts`:
+- Spore SDK
+- Files: **`src/pages/index.tsx`** and **`src/utils/transaction.ts`**
 
-```tsx title="/src/pages/index.tsx"
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import { BI, commons, config, helpers } from '@ckb-lumos/lumos';
-import { useEffect, useMemo, useState } from 'react';
-import { getCapacities } from '../utils/balance';
+**1. Install the Spore SDK**
 
-export default function Home() {
-  const { address: ethAddress, isConnected } = useAccount();
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
-  const { disconnect } = useDisconnect();
-  const [balance, setBalance] = useState<BI | null>(null);
-	// highlight-start
-  const [siteName, setSiteName] = useState('');
-  const [siteDescription, setSiteDescription] = useState('');
-	// highlight-end
-
-	// ...
-
-	// highlight-start
-  const handleCreateSite = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(siteName, siteDescription);
-  };
-
-  if (!isConnected) {
-    return <button onClick={() => connect()}>Connect Wallet</button>;
-  }
-
-  return (
-    <div>
-      <div>
-        <div>CKB Address: {address}</div>
-        <div>Balance: {balance?.toNumber() ?? 0} CKB</div>
-        <button onClick={() => disconnect()}>Disconnect</button>
-      </div>
-      <div>
-        <h2>Create Site</h2>
-        <form onSubmit={handleCreateSite}>
-          <div>
-            <label htmlFor="name">Name: </label>
-            <input
-              type="text"
-              id="name"
-              value={siteName}
-              onChange={(e) => setSiteName(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="description">Description: </label>
-            <input
-              type="text"
-              id="description"
-              value={siteDescription}
-              onChange={(e) => setSiteDescription(e.target.value)}
-            />
-          </div>
-          <button type="submit">Create</button>
-        </form>
-      </div>
-    </div>
-  );
-	// highlight-end
-}
-```
-
-Now we have a simple form that, when the "Create" button is clicked, will get the values of `name` and `description`.
-
-## Request transaction
-
-Now let's generate our first transaction using the [Spore SDK](https://github.com/sporeprotocol/spore-sdk), which is a TypeScript SDK for the Spore Protocol. It provides methods to simplify the process of generating transactions. First, we need to install the SDK in our project:
+The [Spore SDK](https://github.com/sporeprotocol/spore-sdk), built in TypeScript, simplifies the process of creating transactions for the Spore Protocol. Before we begin, let's install the SDK in our project:
 
 ```bash
 npm install @spore-sdk/core --save
 ```
 
-Since we want to create a cluster to represent our site, we will use the `createCluster` method. We add the following code in the `handleCreateSite` function in `src/pages/index.tsx`:
+**2. Implement transaction logic**
 
-```tsx title="/src/pages/index.tsx"
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-// highlight-next-line
-import { BI, RPC, commons, config, helpers } from '@ckb-lumos/lumos';
-import { useEffect, useMemo, useState } from 'react';
-import { getCapacities } from '../utils/balance';
-// highlight-next-line
-import { createCluster, predefinedSporeConfigs } from '@spore-sdk/core';
-
-export default function Home() {
-  // ...
-
-	// highlight-start
-  const lock = useMemo(() => {
-    if (!ethAddress) return;
-    const lock = commons.omnilock.createOmnilockScript(
-      {
-        auth: { flag: 'ETHEREUM', content: ethAddress ?? '0x' },
-      },
-      { config: config.predefined.AGGRON4 },
-    );
-    return lock;
-  }, [ethAddress]);
-
-  const address = useMemo(() => {
-    if (!lock) return;
-    return helpers.encodeToAddress(lock, { config: config.predefined.AGGRON4 });
-  }, [lock]);
-	// highlight-end
-
-  useEffect(() => {
-    if (!address) {
-      return;
-    }
-    getCapacities(address).then((capacities) => {
-      setBalance(capacities.div(10 ** 8));
-    });
-  }, [address]);
-
-	// highlight-start
-  const handleCreateSite = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!address || !lock) return;
-
-    const { txSkeleton } = await createCluster({
-      data: {
-        name: siteName,
-        description: siteDescription,
-      },
-      fromInfos: [address],
-      toLock: lock,
-    });
-    const tx = await signTransaction(txSkeleton); // <- Not implemented yet, so the code will throw an error.
-    const rpc = new RPC(predefinedSporeConfigs.Aggron4.ckbNodeUrl);
-    const hash = await rpc.sendTransaction(tx, 'passthrough');
-    console.log(hash);
-  };
-	// highlight-end
-
-  if (!isConnected) {
-    return <button onClick={() => connect()}>Connect Wallet</button>;
-  }
-
-  return (
-    <div>
-     // ...
-    </div>
-  );
-}
-```
-
-Let's explain the purpose of this code step by step:
-
-- First, we use `createCluster` to generate the transaction for creating the cluster. The parameters include the `name` and `description` fields from the form we created earlier. These are the field names for the data that can be stored in the Spore Cluster Cell, so we pass them directly. `fromInfos` indicates from where the transaction’s sponsors specifies to collect capacity, i.e., who will pay the transaction capacity & fee. `toLock` indicates who owns the final created Spore Cluster Cell. In our tutorial, both of these are ourselves, so we fill in our lock and address.
-- Next, we call `signTransaction` to sign the transaction. Specifically, the page will use MetaMask to sign the transaction. We haven't implemented this yet, but we will do so later.
-- Finally, we send the signed transaction to the blockchain using the RPC of the Nervos CKB testnet. After `rpc.sendTransaction` is called, it will return a transaction hash. However, this does not mean that the transaction is confirmed. We still need to wait for the block on the blockchain to be mined and confirmed for the transaction to be considered successful.
-
-So good so far, let's implement `signTransaction`. Create the `src/utils/transaction.ts` file and add the following code:
+To simplify the transaction creation and signing process, create the `src/utils/transaction.ts` file with the following code:
 
 ```tsx title="/src/utils/transaction.ts"
 import { commons, config, helpers } from '@ckb-lumos/lumos';
@@ -329,40 +193,168 @@ export async function signTransaction(
 
 ```
 
-This implementation may be a bit complex and requires some background knowledge of Nervos CKB to understand. If you are not familiar with it, you can simply copy and use this code.
+This signTransaction function streamlines the process of signing transactions. It extracts signingEntries from the provided txSkeleton and signs the messages within using MetaMask. After signing, it handles the ECDSA recoveryID v parameter and uses @ckb-lumos/lumos methods to pack the signature into the Omnilock witness. This process results in the generation of a signed transaction that is ready to send to the Nervos CKB blockchain.
 
-In summary, the `signTransaction` function roughly follows this logic: First, we need to get the `signingEntries` from the passed `txSkeleton` and use MetaMask to sign the messages within. After signing, we need to perform some processing (mainly to handle the ECDSA recoveryID v parameter) and use the methods provided by @ckb-lumos/lumos to pack the signature into the witness corresponding to Omnilock. We then fill it back into the `txSkeleton` and generate the signed transaction for sending to the Nervos CKB.
+**3. Create Cluster** 
 
-```tsx title="/src/pages/index.tsx"
-// highlight-next-line
-import { signTransaction } from '@/utils/transaction';
-
-// ...
-```
-
-After adding the implementation of `signTransaction`, we can create our site. After confirming the MetaMask signature request, you can see the transaction hash in the console of the DevTools. You can copy it and query it on [CKB Explorer](https://pudge.explorer.nervos.org/). For example, you can see my transaction for creating a website: [https://pudge.explorer.nervos.org/transaction/0xc2c2ea9d99a2f2819efd95cdace0672817474d51881ca0edbc66cbb5eaa0cbae](https://pudge.explorer.nervos.org/transaction/0xc2c2ea9d99a2f2819efd95cdace0672817474d51881ca0edbc66cbb5eaa0cbae)
-
-<ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/8db0a31a-a3ae-4d79-9f25-56a7a08ef42f' />
-
-## Display all sites
-
-After creating the site, we cannot see it yet. At this stage, we can only see the Spore Cluster Cell in CKB Explorer. Now let's add some code to display it on the page. Add the following code in `src/pages/index.tsx`:
+We will use the `createCluster` method from the Spore SDK in conjunction with the `signTransaction` function created earlier to establish a cluster that represents our blog site. In your `src/pages/index.tsx` file, include the following import statement:
 
 ```tsx title="/src/pages/index.tsx"
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-// highlight-next-line
-import { BI, Indexer, RPC, commons, config, helpers } from '@ckb-lumos/lumos';
-import { useEffect, useMemo, useState } from 'react';
-import { getCapacities } from '../utils/balance';
-// highlight-start
 import {
   createCluster,
   predefinedSporeConfigs,
   unpackToRawClusterData,
 } from '@spore-sdk/core';
-// highlight-end
 import { signTransaction } from '@/utils/transaction';
+```
+
+Create `handleCreateSite` function in `src/pages/index.tsx`:
+
+```tsx title="/src/pages/index.tsx"
+
+export default function Home() {
+  // ...
+
+	// highlight-start
+  const handleCreateSite = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!address || !lock) return;
+
+    const { txSkeleton } = await createCluster({
+      data: {
+        name: siteName,
+        description: siteDescription,
+      },
+      fromInfos: [address],
+      toLock: lock,
+    });
+    const tx = await signTransaction(txSkeleton); // <- Not implemented yet, so the code will throw an error.
+    const rpc = new RPC(predefinedSporeConfigs.Aggron4.ckbNodeUrl);
+    const hash = await rpc.sendTransaction(tx, 'passthrough');
+    console.log(hash);
+  };
+	// highlight-end
+
+  if (!isConnected) {
+    return <button onClick={() => connect()}>Connect Wallet</button>;
+  }
+
+  return (
+    <div>
+     // ...
+    </div>
+  );
+}
+```
+
+Here's the breakdown of this code:
+
+1. We start by using the `createCluster` method to generate a transaction for creating the cluster. The provided parameters include the `name` and `description` fields from the form you created earlier. These fields correspond to the data that will be stored in the Spore Cluster Cell, and they are passed directly.
+2. The `fromInfos` parameter specifies the source of the transaction's sponsors, essentially determining who covers the transaction capacity and fees. Similarly, the `toLock` parameter indicates the owner of the final Spore Cluster Cell. In our tutorial, both of these attributes are set to ourselves, using our lock and address.
+3. Following the creation of the transaction, we call the `signTransaction` function to sign it. This process involves utilizing MetaMask for signing the transaction.
+4. Lastly, we send the signed transaction to the blockchain by using the RPC of the Nervos CKB testnet. It's important to note that receiving a transaction hash does not guarantee the transaction's success. We must wait for the blockchain to mine and confirm the transaction for it to be considered successful.
+
+## Step 3: Create input form and display blog sites
+
+In this step, we are
+
+1. Creating an input form to capture the site name and description.
+2. Adding a button to request the transaction for creating the site (creating a Spore Cluster).
+3. Displaying the created sites on the page after a successful transaction.
+
+Setting up an input form is straight forward, displaying created sites involves querying ClusterData.
+
+#### You Need:
+
+- Spore SDK and CKB-lumos
+- Files: **`src/pages/index.tsx`** 
+
+**1. Setup form**
+
+Modify the code in `src/pages/index.tsx` to set up the input form:
+
+```tsx title="/src/pages/index.tsx"
+import { Indexer, RPC } from '@ckb-lumos/lumos';
+import { useEffect, useState } from 'react';
+import {
+  createCluster,
+  predefinedSporeConfigs,
+  unpackToRawClusterData,
+} from '@spore-sdk/core';
+import { signTransaction } from '@/utils/transaction';
+import useWallet from '@/hooks/useWallet';
+
+export default function Home() {
+  const { address, lock, balance, isConnected, connect, disconnect } =
+    useWallet();
+	// highlight-start
+  const [siteName, setSiteName] = useState('');
+  const [siteDescription, setSiteDescription] = useState('');
+	// highlight-end
+
+	// ...
+
+	// highlight-start
+
+  if (!isConnected) {
+    return <button onClick={() => connect()}>Connect Wallet</button>;
+  }
+
+  return (
+    <div>
+      <div>
+        <div>CKB Address: {address}</div>
+        <div>Balance: {balance?.toNumber() ?? 0} CKB</div>
+        <button onClick={() => disconnect()}>Disconnect</button>
+      </div>
+      <div>
+        <h2>Create Site</h2>
+        <form onSubmit={handleCreateSite}>
+          <div>
+            <label htmlFor="name">Name: </label>
+            <input
+              type="text"
+              id="name"
+              value={siteName}
+              onChange={(e) => setSiteName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="description">Description: </label>
+            <input
+              type="text"
+              id="description"
+              value={siteDescription}
+              onChange={(e) => setSiteDescription(e.target.value)}
+            />
+          </div>
+          <button type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+  );
+	// highlight-end
+}
+```
+
+Now you have a simple form that captures the values of name and description when the "Create" button is clicked.
+
+<ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/8db0a31a-a3ae-4d79-9f25-56a7a08ef42f' />
+
+**2. Display sites**
+
+Next, modify the code in `src/pages/index.tsx` to query and display successfully created sites.
+
+```tsx title="/src/pages/index.tsx"
+import { Indexer, RPC } from '@ckb-lumos/lumos';
+import { useEffect, useState } from 'react';
+import {
+  createCluster,
+  predefinedSporeConfigs,
+  unpackToRawClusterData,
+} from '@spore-sdk/core';
+import { signTransaction } from '@/utils/transaction';
+import useWallet from '@/hooks/useWallet';
 
 // highlight-start
 export type Site = {
@@ -373,8 +365,10 @@ export type Site = {
 // highlight-end
 
 export default function Home() {
-  // ...
-
+  const { address, lock, balance, isConnected, connect, disconnect } =
+    useWallet();
+  const [siteName, setSiteName] = useState('');
+  const [siteDescription, setSiteDescription] = useState('');
 	// highlight-next-line
   const [sites, setSites] = useState<Site[]>([]);
 
@@ -409,14 +403,7 @@ export default function Home() {
 	// highlight-end
 
   // ...
-}
-```
 
-The logic here is simple and similar to getting the capacities of the  CKB address earlier. The difference is that besides passing lock into `indexer.collector`, we also pass in Type Script corresponding to Spore Cluster, which means we are querying for cells with Type Script type as Spore Cluster and belong to us. After obtaining these Spore Cluster Cells, we need to use `unpackToRawClusterData` provided by Spore SDK to get the data from the cell. After collecting the data from the Indexer, we save it in the `sites` state.
-
-Then we display them:
-
-```tsx title="/src/pages/index.tsx"
 return (
     <div>
       <div>
@@ -462,108 +449,27 @@ return (
   );
 ```
 
-This way, we have obtained the Spore Cluster that we just created from the blockchain, which is our site.
+This process shares similarities with our previous step when we fetched CKB address balance. However, the main difference is that this time, we're not just looking for any cells associated with our address. We're specifically seeking cells with a Type Script defined as a Spore Cluster.
 
+To accomplish this, we use the `indexer.collector` method, which allows us to specify this Type Script in addition to our account's lock. This ensures that we retrieve only the Spore Cluster cells that belong to us.
+
+Once we have these Spore Cluster Cells, we use the `unpackToRawClusterData` function from the Spore SDK to extract the data stored within each cell. After processing the data and making it readable, we store this information in the `sites` state for future use.
+
+Now you have a simple form that captures the values of `name` and `description` when the "Create" button is clicked. The blog sites will be listed on the page after their successful creation.
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/f53b4633-4fb4-4b64-bbea-2d369b711f2e' />
 
-## Add site homepage
+## Step 4: Initialize homepage for blog sites
 
-Okay, next we need to add a new page as the homepage of the site. Although we don't have any blog posts now, we need to have a site homepage and then add the functionality to publish post on top of it, and the published posts will be displayed on the site homepage.
+In this step, we'll create a new page that serves as the homepage for our blog sites. This homepage is where you will manage your potential blog posts.
 
-Since there will be a new page, we need to add a copy of the logic for connecting wallet to the new page because we haven't persisted the connect state. Here we extract the logic for connecting wallet into `src/hooks/useWallet.ts` file:
+#### You Need:
 
-```tsx title="/src/hooks/useWallet.ts"
-import { BI, commons, config, helpers } from '@ckb-lumos/lumos';
-import { useEffect, useMemo, useState } from 'react';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import { getCapacities } from '@/utils/balance';
+- Spore SDK
+- Files: **`src/pages/index.tsx`** and **`src/pages/site/[id].tsx`**
 
-export default function useWallet() {
-  const { address: ethAddress, isConnected } = useAccount();
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
-  const { disconnect } = useDisconnect();
-  const [balance, setBalance] = useState<BI | null>(null);
+1. **Create a new page**
 
-  const lock = useMemo(() => {
-    if (!ethAddress) return;
-
-    return commons.omnilock.createOmnilockScript(
-      {
-        auth: { flag: 'ETHEREUM', content: ethAddress ?? '0x' },
-      },
-      { config: config.predefined.AGGRON4 },
-    );
-  }, [ethAddress]);
-
-  const address = useMemo(
-    () =>
-      lock
-        ? helpers.encodeToAddress(lock, {
-            config: config.predefined.AGGRON4,
-          })
-        : undefined,
-    [lock],
-  );
-
-  useEffect(() => {
-    if (!address) {
-      return;
-    }
-    getCapacities(address).then((capacities) => {
-      setBalance(capacities.div(10 ** 8));
-    });
-  }, [address]);
-
-  return {
-    address,
-    lock,
-    balance,
-    isConnected,
-    connect,
-    disconnect,
-  };
-}
-```
-
-We have already explained the part about connecting to the wallet before, so we won't go into it again here. I suggest you directly copy this code into your project because it is not the focus of this tutorial.
-
-At the same time, we delete unnecessary imports and replace the relevant parts :
-
-```tsx title="/src/pages/index.tsx"
-// highlight-start
-import { Indexer, RPC } from '@ckb-lumos/lumos';
-import { useEffect, useState } from 'react';
-// highlight-end
-import {
-  createCluster,
-  predefinedSporeConfigs,
-  unpackToRawClusterData,
-} from '@spore-sdk/core';
-import { signTransaction } from '@/utils/transaction';
-import useWallet from '@/hooks/useWallet';
-
-type Site = {
-  id: string;
-  name: string;
-  description: string;
-};
-
-export default function Home() {
-	// highlight-next-line
-  const { address, lock, balance, isConnected, connect, disconnect } =
-    useWallet();
-  const [siteName, setSiteName] = useState('');
-  const [siteDescription, setSiteDescription] = useState('');
-  const [sites, setSites] = useState<Site[]>([]);
-
-  // ...
-}
-```
-
-Then we add a new page `src/pages/site/[id].tsx`:
+Create a new file named `src/pages/site/[id].tsx` within the "site" directory. This page will represent the homepage for an individual blog site. Here's the code:
 
 ```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
@@ -617,9 +523,11 @@ export default function SitePage() {
 }
 ```
 
-As shown above, the logic here for fetch all site information is not much different from before. The only difference is that we get the id parameter (which is the cluster id) from the router to use as a query parameter in `indexer.collector`. We query type for Spore Cluster and args for the current id of Spore Cluster Cell. After that, we unpack it and save it to `siteInfo` and display it on the page.
+The logic here is quite similar to how we query data before. We retrieve all the site information, but with one key difference: we get the id parameter (which represents the cluster id) from the router and use it as a query parameter in indexer.collector. This allows us to query the Spore Cluster based on its type and its id (passed as the args). Once we have the data, we unpack it and store it in siteInfo, which is then displayed on the page.
 
-Oh, by the way, don't forget to add links on all previous sites that redirect to this new site's homepage:
+**2. Link to previous sites:**
+
+Modify `src/pages/index.tsx` file to establish navigation to the homepage from blog site
 
 ```tsx title="/src/pages/index.tsx"
 export default function Home() {
@@ -645,11 +553,12 @@ export default function Home() {
 }
 ```
 
-Now we can jump to the homepage in the list of all sites. Although there is currently only the name and description, don't worry, everything will be added soon.
+With these changes, your on-chain blog site is now ready for use! 
+
+You can create a new blog site, and when you confirm the MetaMask signature request, you'll find the transaction hash in your browser's DevTools console. You can copy the hash and look it up on the [CKB Explorer](https://pudge.explorer.nervos.org/). As an example, you can see my transaction for creating a blog site: https://pudge.explorer.nervos.org/transaction/0xc2c2ea9d99a2f2819efd95cdace0672817474d51881ca0edbc66cbb5eaa0cbae This is the Cluster that we’ve just created on the blockchain, representing our site.
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/a1e7cc83-40d9-4b5f-afca-6b912ac73d6f' />
 
-:::tip
-You can check out the create-site branch on the associated code repository to view all the code for this stage: `git checkout 02-create-site`
-:::
+---
+Let's move on to the next stage for publishing, displaying, and deleting blog posts on the homepage. →
 
