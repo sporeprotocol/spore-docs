@@ -13,11 +13,11 @@ Great start! The initial stage of developing a decentralized application involve
 
 ## Step 1: Set up MetaMask
 
-Let’s get a wallet ready for interaction with the decentralized application we are building. By establishing this connection, all the content you create and publish on our on-chain blog will be associated with your wallet, ensuring its secure and permanent storage on the blockchain. This approach guarantees the safety, immutability, and easy access to your content.
+Let’s get a wallet ready for interaction with the decentralized application we are building. By establishing this connection, all the content you create and publish on our on-chain blog will be associated with your wallet address, ensuring its secure and permanent storage on the blockchain. This approach guarantees the safety, immutability, and easy access to your content.
 
 #### You Need:
 
-- [Wagmi](https://wagmi.sh/)
+- [wagmi](https://wagmi.sh/)
 - Files: **`src/pages/_app.tsx`** and **`src/pages/index.tsx`**
 - Browser Extension: [MetaMask](https://metamask.io/download/)
 
@@ -25,9 +25,9 @@ Let’s get a wallet ready for interaction with the decentralized application we
 
 Download and install the MetaMask browser extension from [this link](https://metamask.io/download).
 
-**2. Streamline Interactions with Wagmi:**
+**2. Streamline interactions with wagmi:**
 
-We'll simplify our interactions with MetaMask using the [Wagmi](https://wagmi.sh/) library. Start by installing Wagmi for your project with this command:
+We'll simplify our interactions with MetaMask using the [wagmi](https://wagmi.sh/) library. Start by installing wagmi for your project with this command:
 
 ```bash
 npm install wagmi viem --save
@@ -340,7 +340,7 @@ export default function Home() {
 
 Upon visiting your web page, you will see your CKB address and its corresponding CKB balance. It's important to note that we perform calculations after querying your CKB balance. This is necessary because the CKB Cell Capacity is measured in shannons, and 1 CKB represents 1 byte. Therefore, we divide the capacities by 10^8 to obtain the balance in CKB.
 
-**3. Claim Testnet CKB**
+**3. Claim testnet CKB**
 
 The balance displayed might be 0 since you are using a new CKB address generated through Omnilock. To fund your CKB address, you'll need to claim testnet CKB from the [Nervos Pudge Faucet](https://faucet.nervos.org/) to support your future transactions. After claiming CKB from the faucet, you will see your updated CKB balance on the page.
 
