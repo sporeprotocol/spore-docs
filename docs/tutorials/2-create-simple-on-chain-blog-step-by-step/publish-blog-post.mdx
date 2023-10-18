@@ -24,7 +24,7 @@ To publish blog posts, we need to set up a submission form and handle transactio
 #### You Need:
 
 - Spore SDK
-- Files: `**src/pages/post/new.tsx**` and `**src/page/site/[id].tsx**`
+- Files: **`src/pages/post/new.tsx`** and **`src/page/site/[id].tsx`**
 
 **1. Implement Spore transaction**
 
@@ -111,7 +111,7 @@ After generating the unsigned transaction using `createSpore`, as before, we cal
 
 **2. Add button to publish posts**
 
-In `src/page/site/[id].tsx` add the following code to add a button include a button on the site's homepage, allowing users create new posts.
+In `src/page/site/[id].tsx`, modify the following code to add a button include a button on the site's homepage, allowing users create new posts.
 
 ```tsx title="/src/page/site/[id].tsx"
 export default function SitePage() {
@@ -149,7 +149,8 @@ The title and content entered will be saved in Spore using JSON format
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/33b92ce2-00f4-42c0-af0c-cab74a405f2c' />
 <br/>
 The transaction  I requested in the video:
-[https://pudge.explorer.nervos.org/transaction/0x40959ca68f00c3b2e2dfc99344d4be9503e63962885add4d5b15339ca6e825cb](https://pudge.explorer.nervos.org/transaction/0x40959ca68f00c3b2e2dfc99344d4be9503e63962885add4d5b15339ca6e825cb)
+
+https://pudge.explorer.nervos.org/transaction/0x40959ca68f00c3b2e2dfc99344d4be9503e63962885add4d5b15339ca6e825cb
 
 ## List published blog posts
 
@@ -157,7 +158,7 @@ Now that we've created and published blog posts, it’s time to retrieve from th
 
 #### You Need:
 
-- Files: `**src/page/site/[id].tsx**`
+- Files: **`src/page/site/[id].tsx`**
 
 **1. Display post titles**
 
@@ -166,11 +167,14 @@ In `src/pages/site/[id].tsx`, add the following code to display all posts title 
 ```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
 import { Indexer } from '@ckb-lumos/lumos';
+  // highlight-start
 import {
+  bufferToRawString,
   predefinedSporeConfigs,
   unpackToRawClusterData,
   unpackToRawSporeData,
 } from '@spore-sdk/core';
+  // highlight-end
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Site } from '..';
@@ -299,14 +303,14 @@ import {
 } from '@spore-sdk/core';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useRemark } from 'react-remark';
+//import { useRemark } from 'react-remark';
 import { Post } from '../site/[id]';
 
 export default function Post() {
   const router = useRouter();
   const { id } = router.query;
   const [post, setPost] = useState<Post>();
-  const [reactContent, setMarkdownSource] = useRemark();
+  //const [reactContent, setMarkdownSource] = useRemark();
 
   useEffect(() => {
     if (!id) {
@@ -423,6 +427,7 @@ Now, let's implement the logic for deleting a post. It's similar to what you did
 
 ```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
+	// highlight-start
 import { Indexer, OutPoint, RPC } from '@ckb-lumos/lumos';
 import {
   bufferToRawString,
@@ -431,17 +436,21 @@ import {
   unpackToRawClusterData,
   unpackToRawSporeData,
 } from '@spore-sdk/core';
+	// highlight-end
 import { useRouter } from 'next/router';
+    // highlight-next-line
 import { useCallback, useEffect, useState } from 'react';
 import { Site } from '..';
+	// highlight-start
 import Link from 'next/link';
 import { signTransaction } from '@/utils/transaction';
+	// highlight-end
 
 export type Post = {
   id: string;
   title: string;
   content: string;
-	// highlight-next-line
+// highlight-next-line
   outPoint: OutPoint;
 };
 
@@ -453,7 +462,7 @@ export default function SitePage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const { address } = useWallet();
 
-	// highlight-start
+    // highlight-start
   const fetchPosts = useCallback(async () => {
     const indexer = new Indexer(predefinedSporeConfigs.Aggron4.ckbIndexerUrl);
     const { script } = predefinedSporeConfigs.Aggron4.scripts.Spore;
@@ -484,7 +493,7 @@ export default function SitePage() {
     }
     setPosts(posts);
   }, [id, lock]);
-	// highlight-end
+    // highlight-end
 
   useEffect(() => {
     if (!id) {
@@ -507,11 +516,11 @@ export default function SitePage() {
         });
       }
     })();
-		// highlight-next-line
+    // highlight-next-line
     fetchPosts();
   }, [id, lock, fetchPosts]);
 
-	// highlight-start
+    // highlight-start
   const handlePostDelete = async (id: string) => {
     if (!address) return;
 
@@ -528,7 +537,7 @@ export default function SitePage() {
     setTimeout(() => fetchPosts(), 1000);
     console.log(hash);
   };
-	// highlight-end
+    // highlight-end
 
   return ...
 }
