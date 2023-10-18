@@ -96,53 +96,16 @@ import useWallet from '@/hooks/useWallet';
 
 Remove any unnecessary imports, and then replace the relevant parts with the following:
 
-
-<Tabs>
-<TabItem value="tsx" label="Before">
-
-```tsx
-export default function Home() {
-	// highlight-start
-  const { address: ethAddress, isConnected } = useAccount();
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
-  const { disconnect } = useDisconnect();
-  const [balance, setBalance] = useState<BI | null>(null);
-
-  const address = useMemo(() => {
-    if (!ethAddress) return;
-
-    const lock = commons.omnilock.createOmnilockScript({
-      auth: { flag: 'ETHEREUM', content: ethAddress ?? '0x' },
-    });
-    return helpers.encodeToAddress(lock, { config: config.predefined.AGGRON4 });
-  }, [ethAddress]);
-
-  useEffect(() => {
-    if (!address) {
-      return;
-    }
-    getCapacities(address).then((capacities) => {
-      setBalance(capacities.div(10 ** 8));
-    });
-  }, [address]);
-// highlight-end
-```
-
-</TabItem>
-<TabItem value="tsx" label="After">
-
-```tsx 
+```tsx title="/src/pages/index.tsx"
 export default function Home() {
 	// highlight-start
   const { address, lock, balance, isConnected, connect, disconnect } =
     useWallet();
-// highlight-end
+	// highlight-end
+
 ```
 
-</TabItem>
-</Tabs>
+
 
 
 ---
