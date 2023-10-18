@@ -100,7 +100,7 @@ Remove any unnecessary imports, and then replace the relevant parts with the fol
 <Tabs>
 <TabItem value="tsx" label="Before">
 
-```tsx title="/src/pages/index.tsx"
+```tsx
 export default function Home() {
 	// highlight-start
   const { address: ethAddress, isConnected } = useAccount();
@@ -133,7 +133,7 @@ export default function Home() {
 </TabItem>
 <TabItem value="tsx" label="After">
 
-```tsx title="/src/pages/index.tsx"
+```tsx 
 export default function Home() {
 	// highlight-start
   const { address, lock, balance, isConnected, connect, disconnect } =
