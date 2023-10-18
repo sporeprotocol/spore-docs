@@ -291,6 +291,7 @@ We're almost there! After successfully publishing a blog post, the next step is 
 #### You Need:
 
 - Files: **`src/page/post/[id].tsx`**
+- [react-remark](https://www.npmjs.com/package/react-remark#react-remark)
 
 Create a new file `src/pages/post/[id].tsx` and add the following code to create a new page in our project to display the blog post:
 
@@ -303,14 +304,14 @@ import {
 } from '@spore-sdk/core';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-//import { useRemark } from 'react-remark';
+import { useRemark } from 'react-remark';
 import { Post } from '../site/[id]';
 
 export default function Post() {
   const router = useRouter();
   const { id } = router.query;
   const [post, setPost] = useState<Post>();
-  //const [reactContent, setMarkdownSource] = useRemark();
+  const [reactContent, setMarkdownSource] = useRemark();
 
   useEffect(() => {
     if (!id) {
