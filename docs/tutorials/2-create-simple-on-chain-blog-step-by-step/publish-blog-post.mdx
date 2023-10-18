@@ -3,11 +3,32 @@ sidebar_position: 4
 ---
 import ReactPlayer from 'react-player';
 
-# Publish blog post
+# Stage 3: Manage Blog Posts
 
-Just like before, we need a submission form before publishing a post. To simplify the process, we won't use any text editor here. Instead, we will use a simple textarea for input. You can replace it with any text editor component you prefer.
+Now that we have our blog site ready, it's time to fill it with some blog posts. Remember, a blog site is essentially a Cluster, and each blog post is a Spore. 
 
-Create a new page to create a new post and publish it:
+[infographic]
+
+In this stage, we'll guide you through the process of publishing, displaying, and deleting blog posts.
+
+:::tip
+👉 You can explore the [`03-publish-post`](https://github.com/sporeprotocol/spore-blog-tutorial/tree/03-publish-post/src) branch in the repository using the command git checkout 03-publish-post to view all the code for this stage.
+:::
+
+We are taking off at full speed. While we've already used **`createCluster`** in the Spore SDK, it's time to introduce **`createSpore`**. All our blog posts are stored as Spores, fully and immutably on the blockchain.
+
+## Publish blog post
+
+To publish blog posts, we need to set up a submission form and handle transactions. In this tutorial, we'll use a simple text area input for simplicity.
+
+#### You Need:
+
+- Spore SDK
+- Files: `**src/pages/post/new.tsx**` and `**src/page/site/[id].tsx**`
+
+**1. Implement Spore transaction**
+
+Create `src/pages/post/new.tsx` and add the following code to generate a transaction that creates a new blog post and publishes it on the blog site page:
 
 ```tsx title="/src/pages/post/new.tsx"
 import useWallet from '@/hooks/useWallet';
@@ -79,8 +100,18 @@ export default function NewPost() {
   );
 }
 ```
+In the above code, we use the `createSpore` function to generate transactions for creating a Spore Cell, which represents a blog post. The process is similar to using `createCluster`, but now we include more content within the Spore.
 
-Then let's add a button on the homepage of the site to navigate to this new page for publish post:
+There are two key fields related to content in the Spore: `contentType` and `content`. For our blog posts, we save the title and content in binary format. We mark `contentType` as 'application/json' so that when we retrieve the Spore Cell later, we can parse the data as a JSON string. This approach allows you to save any type of content, making Spore a versatile solution.
+
+Another important aspect is the `clusterId` field in the `createSpore` data. This field associates the Spore with a Cluster, indicating to which blog site it belongs. We use this field to query all Spores associated with a specific clusterId, which means all posts on our site in this tutorial.
+
+After generating the unsigned transaction using `createSpore`, as before, we call `signTransaction` to request a MetaMask signature. Once signed, the transaction is sent to the blockchain and awaits confirmation. You will see the transaction hash in the console, and you can check its status on the CKB Explorer.
+
+
+**2. Add button to publish posts**
+
+In `src/page/site/[id].tsx` add the following code to add a button include a button on the site's homepage, allowing users create new posts.
 
 ```tsx title="/src/page/site/[id].tsx"
 export default function SitePage() {
@@ -104,14 +135,9 @@ export default function SitePage() {
   );
 }
 ```
+**3. Test your first post**
 
-We are taking off at full speed. We have already used `createCluster` in the Spore SDK before, now it's time to use the heavyweight `createSpore`, which is our protagonist. All our blog posts are stored in Spore, fully on the blockchain and immutable.
-
-In the above code, we use `createSpore` to generate transactions for create Spore Cell. It is similar to how we used `createCluster` before but with more content saved in Spore.
-
-There are two fields related to content in Spore: `contentType` and `content`. For our blog posts, we will save the title and content of each post in `content`, using binary format. Then we mark `contentType` as `application/json`, so that when we retrieve the Spore Cell later, we can unpack data and treat it as JSON string. You may notice that with both `contentType` and `content`, any content can be saved, that's how powerful Spore is.
-
-The title and content entered will be saved in Spore using JSON format, and later on, we will parse data from Spore in the same way.
+The title and content entered will be saved in Spore using JSON format
 
 ```tsx
 {
@@ -120,19 +146,22 @@ The title and content entered will be saved in Spore using JSON format, and late
 }
 ```
 
-Another point to note in the `createSpore` data is the `clusterId` field. This field is used to associate Spore with a Cluster. With this field, we can query all Spores associated with a specific clusterId, which means all posts on our site in this tutorial.
-
-After generate the unsigned transaction using `createSpore`, just like before, we call `signTransaction` to request MetaMask for signature. Once signed, it will be sent to the blockchain and wait for confirmation. As mentioned earlier, you will see the transaction hash in the console and can check its status on CKB Explorer.
-
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/33b92ce2-00f4-42c0-af0c-cab74a405f2c' />
+<br/>
+The transaction  I requested in the video:
+[https://pudge.explorer.nervos.org/transaction/0x40959ca68f00c3b2e2dfc99344d4be9503e63962885add4d5b15339ca6e825cb](https://pudge.explorer.nervos.org/transaction/0x40959ca68f00c3b2e2dfc99344d4be9503e63962885add4d5b15339ca6e825cb)
 
-Here is the transaction  I requested in the video: [https://pudge.explorer.nervos.org/transaction/0x40959ca68f00c3b2e2dfc99344d4be9503e63962885add4d5b15339ca6e825cb](https://pudge.explorer.nervos.org/transaction/0x40959ca68f00c3b2e2dfc99344d4be9503e63962885add4d5b15339ca6e825cb)
+## List published blog posts
 
-## Show all blog posts
+Now that we've created and published blog posts, it’s time to retrieve from the blockchain and showcase your published blog posts on your blog site’ homepage.
 
-We have published a new blog post, and now we need to query them from the blockchain and display them on the page. Obviously, you may already know how to do it. Following the implementation of displaying all site lists, we can easily achieve it.
+#### You Need:
 
-Add some code in `src/pages/site/[id].tsx` to display all posts:
+- Files: `**src/page/site/[id].tsx**`
+
+**1. Display post titles**
+
+In `src/pages/site/[id].tsx`, add the following code to display all posts title on blog site:
 
 ```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
@@ -219,16 +248,6 @@ export default function SitePage() {
   }, [id, lock]);
 
   // ...
-}
-```
-
-After loading on the homepage of the site, we use Indexer to retrieve all Spore Cells that belong to you from the blockchain. Then we filter them based on `contentType` and `clusterId`, ensuring that we get only the blog posts for this current site that we want. Then as mentioned before, we unpack the data and parse it using JSON string format, and finally save it in the `posts` state.
-
-After obtaining and saving the post data, we need to display it on the page:
-
-```tsx title="/src/pages/site/[id].tsx"
-export default function SitePage() {
-  // ...
 
   return (
     <div>
@@ -257,12 +276,19 @@ export default function SitePage() {
   );
 }
 ```
+When your website's homepage loads, this code uses the Indexer to retrieve all the Spore linked to your account on the blockchain. The code then filters these Spore based on their `contentType` and `clusterId`, ensuring that only the blog `posts` relevant to your site are obtained. We then unpack the data and parse it as a JSON string, and then save it in the posts state.
 
 ![](https://github.com/sporeprotocol/spore-docs/assets/9718515/226de0c2-5a73-494c-9245-23f98e2a3498)
 
-## Display blog post
+## Display blog post content
 
-We are almost done, now we just need to display the blog post data saved in Spore. We add a new page in our project to display the blog post:
+We're almost there! After successfully publishing a blog post, the next step is to display the blog post data saved in Spore. 
+
+#### You Need:
+
+- Files: **`src/page/post/[id].tsx`**
+
+Create a new file `src/pages/post/[id].tsx` and add the following code to create a new page in our project to display the blog post:
 
 ```tsx title="/src/pages/post/[id].tsx"
 import { Indexer } from '@ckb-lumos/lumos';
@@ -325,21 +351,33 @@ export default function Post() {
 }
 ```
 
-The steps are similar to before. We use the spore id passed in from the page route as a query condition, combined with Spore Type Script, we can query the specific Spore Cell we need. Then unpack & JSON parse, and after obtaining our data, display it. By now, we have repeated this process several times already. I believe you already know how to retrieve the desired data on Nervos CKB.
-
-While writing this part of the code, I thought about putting The Nervos CKB Whitepaper on the blockchain. Therefore, I used `react-remark` to render Markdown content here. If you don't need it, you can ignore this part. You can see an example at [The Nervos Network Positioning Paper - Spore Blog Tutorial](https://spore-blog-tutorial.vercel.app/post/0x40a190ca8f5c64c66381e87769f5816a624c4f7868dc2c5246584dbb9574b20a), and this post was developed and published following the steps in this tutorial.
-
-Now let's take a look at the blog post we just created with only "Hello World" content.
+This code creates a new page that will display the content of your blog post. It takes the Spore ID from the page's URL as a query parameter. The page then retrieves the Spore Cell associated with that ID, unpack and parse the JSON data , then displays the post's title and content. Now you should be able to view the blog post you created with "Hello World" content.
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/2078678a-b732-495a-9cac-26077fb632e8' />
+<br/>
 
-## Delete post
+:::note
+While writing this part of the code, I thought about putting The Nervos CKB Whitepaper on the blockchain. Therefore, I used `react-remark` to render Markdown content here. If you don't need it, you can ignore this part. You can see an example at [The Nervos Network Positioning Paper - Spore Blog Tutorial](https://spore-blog-tutorial.vercel.app/post/0x40a190ca8f5c64c66381e87769f5816a624c4f7868dc2c5246584dbb9574b20a), and this post was developed and published following the steps in this tutorial.
+:::
 
-With the publication of posts, there naturally needs to be a function to delete posts. Due to the immutable nature of Spore, modifying the content of an post can only be achieved by delete and republish.
 
-This may sound ordinary and not very exciting. However, on Nervos CKB, things are different from other blockchain-based blogging platforms like Mirror or xLog. When publishing content on these platforms, the fees paid during transactions disappear. But on CKB, storage space equals value. Therefore, when you publish a blog post, the amount of storage space you occupy corresponds to the number of CKB tokens being used. Only a small amount of CKB is used for transaction fees. And when you delete this blog post, those occupied CKB tokens are unlocked again and can be used once more. This encourages everyone to store valuable content on the blockchain. Exciting, isn't it?
 
-Alright then! Let's add the delete functionality and retrieve your CKB tokens back. We simply add their respective delete buttons after each post in the list on our site's homepage:
+## Delete blog post
+
+In this step, you'll add the feature to delete blog posts. Due to the immutable nature of Spore, editing a post involves deleting it and then republishing it.
+
+This may seem like a standard feature, but it's quite unique when it comes to Spore Protocol. In contrast to other blockchain-based blogging platforms like Mirror or xLog, where heavy transaction fees are spent when publishing content, Spore operates differently. When you publish a blog post, the storage space it occupies corresponds to the number of CKB tokens being locked. While transaction fees are relatively small, freeing up the storage space by deleting posts allows you to reclaim these locked CKB tokens.
+
+Let's add the delete feature and reclaim your CKB tokens!. 
+
+#### You Need:
+
+- Spore SDK
+- Files: **`/src/pages/site/[id].tsx`**
+
+**1. Create delete button**
+
+In `/src/pages/site/[id].tsx`, aadd the following code to create a "Delete" button for each post in the list on your site's homepage:
 
 ```tsx title="/src/pages/site/[id].tsx"
 export default function SitePage() {
@@ -377,8 +415,11 @@ export default function SitePage() {
   );
 }
 ```
+The button is only displayed if the user is connected to their wallet.
 
-Now let's implement the logic for when a delete button is clicked; it's similar to what we did when creating posts before but this time we will use `destroySpore`, which is provided by Spore SDK:
+**2. Implement “Delete” transaction**
+
+Now, let's implement the logic for deleting a post. It's similar to what you did when creating posts, but this time you'll use `destroySpore`, a function provided by the Spore SDK. Modify `/src/pages/site/[id].tsx` with the following:
 
 ```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
@@ -493,16 +534,25 @@ export default function SitePage() {
 }
 ```
 
-It looks similar to before, the only thing we need to pay attention to is the `outPoint` field. We just need to pass the outPoint of the Spore Cell obtained from query the blog post list earlier. The rest of the transaction-related steps are exactly the same as before.
+The critical part here is obtaining the `outPoint` of the Spore Cell associated with the post you want to delete. This can be done by querying the post using its cluster ID and post ID, as you did when displaying the post content. Once you have the `outPoint`, you can use the `destroySpore` function to delete the post.
 
-That's it! We have implemented the functionality to delete blog posts. If you observe closely, you will notice that your CKB balance increases after an post is deleted!
-
+After deletion, you'll notice that your CKB balance increases. This is because the storage space previously occupied by the post is freed up, and you can use those CKB tokens again.
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/47eda882-cb8f-478a-b54b-c1400be35279' />
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/00717f4f-d1fe-4f5f-b7d1-e137805d9d5a' />
 
-:::tip
-You can check out the publish-post branch on the associated code repository to view all the code for this stage: `git checkout 03-publish-post`
-:::
+<br/><br/>
 
+That's it! You've successfully implemented the feature to delete blog posts. It's a unique feature of Nervos CKB, where storage space on the blockchain holds value, and deleting posts reclaims valuable tokens.
+
+---
+
+### Check point:
+Congratulations on successfully creating your on-chain blog!
+
+In this tutorial, you learned how to:
+
+1. Integrate Wallet for DApp
+2. Set up your project with CKB-Lumos and Spore SDK.
+3. Create and manage Spores and Cluster
