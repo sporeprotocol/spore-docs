@@ -2,30 +2,43 @@
 sidebar_position: 1
 ---
 
-# Creating simple on-chain blog
+# Creating Simple On-Chain Blog
+
+This tutorial will guide you through the process of using the Spore Protocol to build an on-chain blog. By the end, you'll have your own basic on-chain blog, similar to the one demonstrated here: [https://spore-blog-tutorial.vercel.app](https://spore-blog-tutorial.vercel.app/)
+
+You can find the code repository for this tutorial at: [https://github.com/sporeprotocol/spore-blog-tutorial](https://github.com/sporeprotocol/spore-blog-tutorial). In this repository, you can explore different branches to see the code at various stages of development. We will clearly indicate which branch corresponds to each stage as we progress.
+
+## Tools You Need
+
+- **npm**: package manager
+- **Next.js**: to quickly set up our project
+- **React**: for handling view logic
+- **Spore SDK**: software development kit used to interact with the Spore Protocol in TypeScript
+- **Lumos**: for building DApps on Nervos CKB
+- **Wallet**: for interacting with the DApp, we are using Metamask for this tutorial
 
 ## Getting started
 
-This tutorial will guide you through the process of using the Spore Protocol to create an on-chain blog. With the Spore Protocol, you can store your blog posts fully on the blockchain and allow others to access them. Following my footsteps will realize a simple on-chain blog, just like the online demo I deployed here: [https://spore-blog-tutorial.vercel.app](https://spore-blog-tutorial.vercel.app/)
-
-Here is the code repository that goes along with this tutorial: [https://github.com/sporeprotocol/spore-blog-tutorial](https://github.com/sporeprotocol/spore-blog-tutorial). You can view or checkout different branches to see the code at different stages. I will also let you know which branch corresponds to each stage when it ends.
-
-## Prerequisites
-
-Before we get started, let's take a look at the technology stack used in this tutorial:
-
-- **Next.js**: We'll use Next.js as our framework to quickly set up our project.
-- **React**: We'll use React to handle some simple view logic, but feel free to use any other framework you prefer.
-- **Spore SDK**: This TypeScript SDK is based on Lumos and allows us to interact with the Spore Protocol.
-- **Lumos**: A powerful Nervos CKB dapp framework used to interact with CKB.
-
-First, we need a scaffold to build upon. For this tutorial, we'll use Next.js as the foundation for our project. You can clone the basic project code by running the following command:
+First, we need a framework to build upon. In this tutorial, we'll use Next.js as the foundation for our project. You can clone the basic project code by running the following command:
 
 ```bash
 git clone -b 00-base https://github.com/sporeprotocol/spore-blog-tutorial.git
 ```
 
-In the project directory, run `npm install` and `npm run dev`. You can then access [http://localhost:3000](http://localhost:3000/) and see "Hello World" displayed on the browser.
+In the **project directory**, run `npm install` and `npm run dev`
+
+```bash
+npm install
+npm run dev
+```
+
+You can then go to [http://localhost:3000](http://localhost:3000/) and see "Hello World" displayed on the browser.
 
 ![](https://github.com/sporeprotocol/spore-docs/assets/9718515/c2da8b98-8136-46c3-922d-273bc332b48c)
 
+---
+### Upcoming Stages:
+
+1. Set up wallet as log-in for the application
+2. Build up the blog site
+3. Publish your blog posts on-chain!
