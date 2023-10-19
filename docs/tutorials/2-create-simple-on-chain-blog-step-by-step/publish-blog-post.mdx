@@ -291,8 +291,19 @@ We're almost there! After successfully publishing a blog post, the next step is 
 #### You Need:
 
 - Files: **`src/page/post/[id].tsx`**
-- [react-remark](https://www.npmjs.com/package/react-remark#react-remark)
+- Rendering tool: [react-remark](https://github.com/remarkjs/react-remark)
 
+**1. Install `react-remark` as the took to render markdown into React using remark
+
+```bash
+npm install --save react-remark
+```
+
+:::note
+While writing this part of the code, I thought about putting The Nervos CKB Whitepaper on the blockchain. Therefore, I used `react-remark` to render Markdown content here. If you don't need it, you can ignore this part. You can see an example at [The Nervos Network Positioning Paper - Spore Blog Tutorial](https://spore-blog-tutorial.vercel.app/post/0x40a190ca8f5c64c66381e87769f5816a624c4f7868dc2c5246584dbb9574b20a), and this post was developed and published following the steps in this tutorial.
+:::
+
+**2. Create page for posts**
 Create a new file `src/pages/post/[id].tsx` and add the following code to create a new page in our project to display the blog post:
 
 ```tsx title="/src/pages/post/[id].tsx"
@@ -360,12 +371,6 @@ This code creates a new page that will display the content of your blog post. It
 
 <ReactPlayer controls url='https://github.com/sporeprotocol/spore-docs/assets/9718515/2078678a-b732-495a-9cac-26077fb632e8' />
 <br/>
-
-:::note
-While writing this part of the code, I thought about putting The Nervos CKB Whitepaper on the blockchain. Therefore, I used `react-remark` to render Markdown content here. If you don't need it, you can ignore this part. You can see an example at [The Nervos Network Positioning Paper - Spore Blog Tutorial](https://spore-blog-tutorial.vercel.app/post/0x40a190ca8f5c64c66381e87769f5816a624c4f7868dc2c5246584dbb9574b20a), and this post was developed and published following the steps in this tutorial.
-:::
-
-
 
 ## Delete blog post
 
