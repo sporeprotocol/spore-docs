@@ -54,4 +54,4 @@ Now that you have your CKB Address (Nervos CKB "account"), it's time to claim so
 
 ## Next
 
-With your "account" set up and loaded, let's proceed to create your first spore on Nervos CKB Testnet: [Create your first spore on-chain](./create-spore).
+With your "account" set up and loaded, let's proceed to create your first spore on Nervos CKB Testnet ->
