@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Explore the code
+# Explore the Code
 
 In the [previous section](./create-spore), you created your first spore on-chain by running the [`spore-first-example`](https://github.com/sporeprotocol/spore-first-example). In this section, we'll break down the code powering the example.
 
