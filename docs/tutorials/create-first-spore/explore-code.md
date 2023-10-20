@@ -273,4 +273,4 @@ Additional resources for your reference:
 
 ## What's next?
 
-For more practical recipes on how to use the Spore SDK, visit: [How-to Recipes](/category/how-to).
+For more practical recipes on how to use the Spore SDK, visit: [How-to Recipes](/category/how-to-recipes).
