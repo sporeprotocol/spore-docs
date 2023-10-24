@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Assign Cluster to Spore
+# Create Spore Within Cluster
 
 :::info Background knowledge
 
@@ -13,7 +13,7 @@ sidebar_position: 6
 
 :::
 
-Cluster is like an on-chain folder that groups spores together. In this recipe, you will learn how to assign a cluster when creating a spore given that the cluster can be unlocked by you.
+Cluster is like an on-chain folder that groups spores together. In this recipe, you will learn how to create a spore within a cluster given that it can be unlocked by you.
 
 Your target cluster can be either a public cluster or a private cluster, depending on the its lock script.
 
@@ -22,9 +22,9 @@ Your target cluster can be either a public cluster or a private cluster, dependi
 
 ![spore-in-cluster-flowchart.png](../../static/img/recipes/spore-in-cluster/flowchart.png)
 
-## Assign Cluster to Spore
+## Create a Spore Within a Cluster
 
-You can create a spore and assign a cluster to it by specifying the `data.clusterId` when calling the `createSpore` API from spore-sdk:
+You can create a spore within a cluster by specifying the `data.clusterId` when calling the `createSpore` API from spore-sdk:
 
 ```tsx
 import { createSpore } from '@spore-sdk/core';
@@ -41,5 +41,5 @@ let { txSkeleton } = await createSpore({
 });
 ```
 
-- `data.clusterId` - The ID of the cluster being assigned to the new spore. The cluster's ID is equivalent to the type script args of the cluster.
+- `data.clusterId` - The ID of the cluster where the spore intends to be created. The cluster's ID is equivalent to the type script args of the cluster.
 
