@@ -1,0 +1,60 @@
+---
+sidebar_position: 4
+description: Getting started with the basics concepts of Spore Protocol.
+---
+# Basic Operations
+
+
+
+The operations of Spore encompass three fundamental types: **mint**, **transfer**, and **destroy**.
+
+It is important to follow these rules when operating:
+
+- An operation is a transaction that adhere to specific rules defined by Spore protocol;
+- The same Spore should not undergo more than one operation in a single transaction. For example, performing both transfer and destroy operation on a spore in a single transaction is not allowed;
+- Each operation must include the rules governing the Input Cell, Output Cell, and CellDeps fields of a transaction.
+
+
+## Mint
+
+Minting consumes capacities from inputs, thus establishing the direct relationship between Spore’s content and the intrinsic value.
+
+Think of minting as filling a container by “transferring” capacity into it and locking it. This action declares the capacity and occupies the space. The extra capacity can be unlocked later and serve any purpose, which is the mechanism that enables zero-fee transactions.
+
+A mint operation creates a new spore. It must follow:
+
+1. There shall be a spore cell in the Outputs;
+2. The spore cell in rule 1 shall not be in the Inputs;
+3. The type args of the spore cell in rule 1 shall follow the [TypeID rules](https://github.com/nervosnetwork/ckb/blob/develop/script/src/type_id.rs#L46);
+
+If a spore cell’s `cluster_id` was set during minting, the operation should follow these additional rules:
+
+1. The referenced cluster with the target `cluster_id` must exists in CellDeps;
+2. The transaction should include an ownership proof of the referenced cluster. Valid proofs can be either of the following:
+    - Existence in Inputs and Outputs of the referenced cluster;
+    - Existence in Inputs of a cell with the same lock script to the referenced cluster;
+
+
+## Transfer
+
+The transfer operation can be think of as "refresh." It involves consuming a spore cell and creating another with the same Spore ID, ensuring all fields remain unchanged.
+
+This process does not result in any extra fees since the expenses are deducted from the cell's capacity.
+
+To execute a transfer operation successfully, the following conditions must be satisfied:
+
+1. There shall be a spore cell in the Inputs.
+2. The spore cell in rule 1 shall be unlockable.
+3. The spore cell in rule 1 shall be in the Outputs.
+
+Additionally, it's important to note that a transfer operation modifies the lock script of a spore, particularly when dealing with dynamic content. Changes to parameters, such as block number and height, may influence the resulting output.
+
+## Destroy
+
+The destroy operation is like undoing the creation, consuming a specific spore cell and returning the capacity it held.
+
+It must follow:
+
+1. There shall be a spore cell in the Inputs;
+2. The spore cell in rule 1 shall exclude the `immortal=true` parameter in the `content-type` field.
+3. The spore cell in rule 1 shall not be in the Outputs;

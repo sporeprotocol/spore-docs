@@ -1,0 +1,66 @@
+---
+sidebar_position: 3
+description: Getting started with the basics concepts of Spore Protocol.
+---
+# Tech FAQ
+> Spore protocol is engineered to embed value into on-chain contents and non-fungible tokens.
+
+
+
+### Is Spore an NFT?
+
+Yes and no. Spore is a new standard for non-fungible tokens that establish an intrinsic link between the token’s content and its value. Also, the content held by Spore is not only fully and permanently on-chain, but generative and dynamic as well.
+
+
+### Why include the `content field` in Spore itself?
+
+Spore directly includes the `content` field, meaning the content is entirely on-chain. To understand the significance of this innovation, let's draw a comparison with ERC-721, a widely recognized NFT standard.
+
+In ERC-721, the primary interface for content-related information is the `tokenURI` function, which is not directly associated with any on-chain operations, creating a potential vulnerability in the NFTs. Additionally, other ERC-721 interfaces appear as adaptations from ERC-20 with merely adjusted definitions.
+
+In contrast, Spore's development centers around solving these core challenges—how to store content on-chain and how to transform this content into valuable assets. By including the `content` field directly within the NFT, Spore makes the content an intrinsic, immutable part of the blockchain.
+
+### Why combine `content` and `content-type`?
+
+We combine `content` and `content-type` for two main reasons:
+
+- Adhering to the MIME standard, a widely adopted and established convention in Web2
+- Facilitating seamless integration with existing web services
+
+The `content-type` field further enhances the interpretability of content in Spore, a feature that ERC-721 lacks.
+
+The combination of `content` and `content-type` can not only ensures the security and permanence of NFTs, but also enhances the compatibility with Web2 through these key features:
+
+- Extensibility: Seamlessly integrates with dynamic content engines and other customized logics.
+- Programming Flexibility: Spore supports multiple languages, such as Lua and JavaScript, facilitating robust blockchain interactions.
+- User-Friendly Design: Accessibility through JoyID, Google Passkey, and WebAuthn, with concealed transaction fees.
+
+### How Spore enables immutability with `code_hash`?
+
+Opting `code_hash: data1` over `code_hash: type` ensures that the version, once specified, remains unchanged over time, also guarantees the predictability of each version's behavior and the foreseeability of the results. Each upgrade necessitates a new contract and a new deployment. This way, the Spore owner is guaranteed with:
+
+1. Correct behavior of the Spores, as long as the script hash is correct
+2. Prevention of any future alterations to the Spore’s behavior
+3. Consistent behavior in both the test and production environments, as it is the same contract being deployed
+
+This approach differs from ERC-721, which only defines an interface, leaving the behavior of ERC-721 tokens ambiguous until the their code is examined.
+
+### How can Spore’s tokenomics benefit creators and owners?
+
+For Spore creators, owning CKBytes opens up two income flows: direct and indirect. Direct income comes from selling their Spores and get paid in fiat or cryptocurrency. Indirect income is generated from their use of on-chain space, aligning with CKB tokenomics which ensures that the more CKBytes are in use, fewer are locked up.
+
+For Spore buyers, whenever they buy a Spore, they simultaneously own a portion of the space on CKB. As a result, they not only own non-fungible assets secured permanently on-chain, they also gain CKBytes by using the on-chain space where their Spores are stored.
+
+Such tokenomics creates a sense of ownership and engagement among creators and holders, fostering a platform that is not only created by people but also owned by the same community it serves.
+
+### What is “Zero-fee Transfer“?
+
+Unlike minting NFTs on networks like Ethereum, where unpredictable amount of gas are incurred for network processing, Spore Protocol develops a zero-fee transfer solution. You no longer need CKB to send or receive Spores, or any token for this matter. Every Spore comes pre-fueled with "gas," ensuring frictionless and fee-free transactions. Whether you can send a spore or melt it to unlock the CKB, there is no additional fees to worry about.
+
+### Why there's no need to deploy contract in Spore?
+
+Unlike Ethereum where smart contracts are for generating outputs, contracts in CKB are for verification. A verification process is executed by applying the Spore type to a cell, each time when a cell is created, transferred, or destroyed.
+
+### Why is Spore‘s value redeemable?
+
+This is due to the inherent "one-to-one" connection between the content and its value. The worth of anything contained within Spore is directly equivalent to the value associated with the content. When a Spore is destroyed, the remaining value is immediately reclaimed.

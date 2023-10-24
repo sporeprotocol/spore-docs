@@ -24,7 +24,7 @@ import EmbedCard from "@site/src/components/EmbedCard";
 - 🛠️ Versatile utilities for encoding/decoding data of spores/clusters
 - 🎹 Fully written in TypeScript
 
-## Getting started
+## Start using spore-sdk
 
 ### Installation
 
@@ -60,25 +60,23 @@ yarn add @spore-sdk/core
 </Tabs>
 ```
 
-### Building browser env dapps
+### Setup Node-polyfills
 
-The Spore SDK is built on top of [Lumos](https://github.com/ckb-js/lumos), an open-source dapp framework for Nervos CKB. Lumos incorporates certain Node-polyfills into its implementation, such as `crypto-browserify` and `buffer`, to provide specific functionalities.
+If you plan to use spore-sdk in a browser environment, you may need to manually add node-related polyfills to your application to ensure that it functions properly.
+For more details, please refer to Lumos' documentation site: [CRA, Vite, Webpack or Other | Lumos](https://lumos-website.vercel.app/recipes/cra-vite-webpack-or-other).
 
-If you intend to use the Spore SDK in a browser environment, it's important to note that you may need to manually add Node-polyfills to your application. This ensures that the Spore SDK functions properly in the browser. For detailed instructions on how to add these polyfills, refer to the Lumos documentation: [CRA, Vite, Webpack or Other](https://lumos-website.vercel.app/recipes/cra-vite-webpack-or-other).
+## Development resources
 
-## Development
+### Running on Node.js
 
-### Running in Node.js
+If you want to use spore-sdk in a Node.js environment, there's no extra step needed after the installation.
 
-If you want to use the Spore SDK in a Node.js environment, there's no extra step needed after the installation.
-
-- For beginners, you can follow the [Creating Your First Spore](/tutorials/create-first-spore) tutorial to learn about spore creation and how to sign a basic transaction with the [CKB Default lock](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c).
-- For advanced developers, you can search for code examples in [Spore Examples](./examples).
+- For beginners, you can follow the [Creating your first spore](/tutorials/create-first-spore) tutorial to learn about spore creation.
+- For advanced developers, you can search for code examples by lock scripts in [Spore Examples](./examples).
 
 ### Building web applications
 
-If you want to use the Spore SDK in a browser environment, such as building web applications with Vite/CRA/Next, etc.,
-you may need to follow the instructions of [Setup Node-polyfills](#setup-node-polyfills) to ensure the Spore SDK can function properly in your project.
+If you want to use spore-sdk in a browser environment, such as building web applications with Vite/CRA/Next, etc.,
+you may need to follow the instructions of [Setup Node-polyfills](#setup-node-polyfills) to ensure the spore-sdk can function properly in your project.
 
-- For beginners, you can start by following the [Create Simple On-Chain Blog](/tutorials/create-on-chain-blog) tutorial, a comprehensive guide on how to build a dapp, including wallet integration.
-- For more application demos with the Spore SDK, refer to [Spore Demos](./demos).
+- For more application demos with spore-sdk, refer to [Spore Demos](./demos).
