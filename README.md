@@ -23,14 +23,14 @@ Help us improve or fix the spore-docs by providing actual doc changes.
 
 You can edit the documentation locally and review changes immediately in your browser.
 
-1. Install node dependencies via [PNPM](https://pnpm.io/):
+1. Install node dependencies via [pnpm](https://pnpm.io/):
 ```shell
-$ pnpm i
+pnpm i
 ```
 
 2. Run the spore-docs in development mode:
 ```shell
-$ pnpm run start
+pnpm run start
 ```
 
 ### Run production preview
