@@ -5,17 +5,20 @@ description: Getting started with the basics concepts of Spore Protocol.
 # Technical Design
 > Spore protocol is engineered to embed value into on-chain contents and non-fungible tokens.
 
-Spore is built on the [Cell model](https://docs.nervos.org/docs/basics/concepts/cell-model/), an extension of of Bitcoin UTXO, providing enhanced asset ownership and proof-based verification capabilities
+Spore is built on the [Cell model](https://docs.nervos.org/docs/basics/concepts/cell-model/), an extension of of Bitcoin UTXO, providing enhanced asset ownership and proof-based verification capabilities.
 
 There are two defined cell types: `Spore Cell` and `Spore Cluster Cell`, of which Spore cell is the fundamental and the only necessary unit in the protocol. Other cell types are optional and may serve as extension cells, providing extra information to a Spore.
 
 ![spore-cluster.png](../../static/img/basics/tech-design/spore-cluster.png)
 
-As illustrated above, Spore cells come in three forms:
+As illustrated above,
 
-- Multiple Spores cells (Spore #1, #2) assigned to a cluster (Spore Cluster #1)
-- A single Spore cell (Spore #4) assigned to a cluster (Spore Cluster #2)
-- A standalone Spore cell, i.e., a Spore without a cluster (Spore #3)
+- Multiple Spores cells (Spore #1, #2) can be assigned to one Cluster (Spore Cluster #1)
+- A single Spore cell (Spore #4) can be assigned to a cluster (Spore Cluster #2)
+- A standalone Spore cell, i.e., a Spore can exist without a Cluster (Spore #3)
+- A Spore cell cannot be assigned to multiple Clusters
+- Importantly, Cluster Cells don't contain Spore Cells
+
 
 Spore Protocol is anchored around the following key functionalities:
 

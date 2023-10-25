@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Create Spore Within Cluster
+# Tag Spore With Cluster
 
 :::info Background knowledge
 
@@ -13,7 +13,15 @@ sidebar_position: 6
 
 :::
 
-Cluster is like an on-chain folder that groups spores together. In this recipe, you will learn how to create a spore within a cluster given that it can be unlocked by you.
+Clusters serve as on-chain tagging tools that group Spores together. In this recipe, you’ll learn how to use a Cluster as a tag when creating a Spore. 
+
+:::caution
+
+- You can only utilize a Cluster as a tag if it can be unlocked by you to use. 
+- You cannot tag a Spore after its creation; you'll need to destroy and then tag it during the creation process.
+- Each Spore can be associated with only one Cluster.
+
+:::
 
 Your target cluster can be either a public cluster or a private cluster, depending on the its lock script.
 
@@ -22,9 +30,9 @@ Your target cluster can be either a public cluster or a private cluster, dependi
 
 ![spore-in-cluster-flowchart.png](../../static/img/recipes/spore-in-cluster/flowchart.png)
 
-## Create a Spore Within a Cluster
+## Tag a Spore With a Cluster
 
-You can create a spore within a cluster by specifying the `data.clusterId` when calling the `createSpore` API from spore-sdk:
+You can tag a spore with a cluster by specifying the `data.clusterId` when calling the `createSpore` API from spore-sdk:
 
 ```tsx
 import { createSpore } from '@spore-sdk/core';
@@ -41,5 +49,5 @@ let { txSkeleton } = await createSpore({
 });
 ```
 
-- `data.clusterId` - The ID of the cluster where the spore intends to be created. The cluster's ID is equivalent to the type script args of the cluster.
+- `data.clusterId` - The ID of the cluster to be assigned to the spore. The cluster's ID is equivalent to the type script args of the cluster.
 
