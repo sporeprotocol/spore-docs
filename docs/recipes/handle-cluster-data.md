@@ -4,15 +4,7 @@ sidebar_position: 7
 
 # Encode/decode ClusterData
 
-:::info Background knowledge
-
-- [What is a Cluster? - Spore Protocol 101](/basics/spore-101#what-is-a-cluster)
-- [Create a Private Cluster - How-to Recipes](/recipes/create-private-cluster)
-- [Spore SDK - Resources](/resources/spore-sdk)
-
-:::
-
-ClusterData is the [Cell data](https://docs.nervos.org/docs/reference/cell/#cell-data) of Cluster Cell, and spore-sdk provides utilities to encode/decode ClusterData between JSON and binary bytes. In the recipe, you will learn how to use these utilities properly.
+In the recipe, you will learn how to use the utilities of [spore-sdk](/resources/spore-sdk) to encode/decode [ClusterData](/basics/spore-tech-def#cluster-cell) between JSON and binary bytes.
 
 ## Encode ClusterData
 
