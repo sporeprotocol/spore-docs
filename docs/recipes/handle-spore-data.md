@@ -4,15 +4,7 @@ sidebar_position: 3
 
 # Encode/decode SporeData
 
-:::info Background knowledge
-
-- [What is a Spore? - Spore Protocol 101](/basics/spore-101#what-is-a-spore)
-- [Create a Spore - How-to Recipes](/recipes/create-spore)
-- [Spore SDK - Resources](/resources/spore-sdk)
-
-:::
-
-SporeData is the [Cell data](https://docs.nervos.org/docs/reference/cell/#cell-data) of Spore Cell, and spore-sdk provides utilities to encode/decode SporeData between JSON and binary bytes. In the recipe, you will learn how to use these utilities properly.
+In the recipe, you will learn how to use the utilities of [spore-sdk](/resources/spore-sdk) to encode/decode [SporeData](/basics/spore-tech-def#spore-cell) between JSON and binary bytes.
 
 ## Encode SporeData
 
