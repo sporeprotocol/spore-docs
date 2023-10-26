@@ -274,3 +274,5 @@ Additional resources for your reference:
 ## What's next?
 
 For more practical recipes on how to use the Spore SDK, visit: [How-to Recipes](/category/how-to-recipes).
+
+If you are a dapp developer, feel free to try out building an on-chain blog app with Spore: [Create Simple On-Chain Blog](/tutorials/create-on-chain-blog).
