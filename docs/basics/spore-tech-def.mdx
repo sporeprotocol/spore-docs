@@ -13,11 +13,12 @@ There are two defined cell types: `Spore Cell` and `Spore Cluster Cell`, of whic
 
 As illustrated above,
 
-- Multiple Spores cells (Spore #1, #2) can be assigned to one Cluster (Spore Cluster #1)
-- A single Spore cell (Spore #4) can be assigned to a cluster (Spore Cluster #2)
-- A standalone Spore cell, i.e., a Spore can exist without a Cluster (Spore #3)
+- Multiple Spores cells (Spore #1, #2) can be assigned to a Cluster (Cluster #1)
+- A single Spore cell (Spore #4) can be assigned to a cluster (Cluster #2)
+- A standalone Spore cell can exist without being associated with any Cluster (Spore #3)
 - A Spore cell cannot be assigned to multiple Clusters
-- Importantly, Cluster Cells don't contain Spore Cells
+
+Importantly, Cluster Cells don't *contain* Spore Cells.
 
 
 Spore Protocol is anchored around the following key functionalities:
@@ -41,7 +42,7 @@ option BytesOpt (Bytes);
 
 ### Spore Cell
 
-Every **Spore** must follow this data structure:
+Every Spore must follow this data structure:
 
 ```css
 table SporeData {
@@ -53,7 +54,7 @@ table SporeData {
 
 ### Cluster Cell
 
-Every **Cluster** must follow this data structure.
+Every Cluster must follow this data structure.
 
 ```css
 table ClusterData {
