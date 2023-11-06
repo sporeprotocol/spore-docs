@@ -2,11 +2,11 @@
 sidebar_position: 9
 ---
 
-# Configure Zero-fee Transfer Feature
+# Modify Zero-fee Transfer 
 
 Every spore, when created, is fueled with 1 CKBytes as “gas” that covers about `100,000` future transactions. This default setting, referred as the  [Zero-fee Transfer](/basics/spore-101#do-i-need-to-hold-ckb-to-transfer-and-receive-spores) feature enables recipients to transact spores without additional costs.
 
-## Configure Zero-fee Transfer Feature
+## Modify Zero-fee Transfer Feature
 
 If you want to modify this feature by adding additional CKBytes, or if the spore was created without the capacity margin, you can utilize the `transferSpore` API to "refuel":
 
