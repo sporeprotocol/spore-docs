@@ -1,0 +1,47 @@
+---
+sidebar_position: 4
+---
+
+import EmbedCard from "@site/src/components/EmbedCard";
+
+# Melt Spore
+
+In this recipe, you will learn how to melt a [spore](/basics/spore-101#what-is-a-spore) back into its [locked up CKBytes](/basics/spore-101#is-there-a-cost-to-mint-a-spore).
+
+:::caution
+Immortal spores cannot be melted.
+:::
+
+## Melt a Spore
+
+You can melt a regular spore using the `meltSpore` API from [spore-sdk](https://docs.spore.pro/resources/spore-sdk):
+```tsx
+import { meltSpore } from '@spore-sdk/core';
+
+let { txSkeleton } = await meltSpore({
+  outPoint: {
+    txHash: '0x76cede56c91f8531df0e3084b3127686c485d08ad8e86ea948417094f3f023f9',
+    index: '0x0',
+  },
+  fromInfos: [OWNER_ADDRESS],
+});
+```
+
+- `outPoint` - Specifies the spore you want to melt, identified by its transaction hash and index.
+- `fromInfos` - The transaction's sponsor, specifies where to collect capacity from.
+
+## Extras
+
+### Code example
+
+For a valid on-chain transaction, you'll need to sign the transaction skeleton and send it to the chain.
+
+Here's a code example for how to melt a spore using [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c):
+
+<EmbedCard
+  title="meltSpore.ts"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/b3e5e9c8f0243567d6eb06f1b759b3e4829bacb9/examples/secp256k1/apis/destroySpore.ts"
+  description="Melt an on-chain Spore "
+  className="margin-top--sm"
+/>
+
