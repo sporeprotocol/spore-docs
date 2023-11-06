@@ -2,7 +2,7 @@
 sidebar_position: 9
 ---
 
-# Disable Zero-fee Transfer Feature
+# Disable Zero-fee Transfer
 
 By default, Spores are created with the [Zero-fee Transfer](/basics/spore-101#do-i-need-to-hold-ckb-to-transfer-and-receive-spores) feature enabled, allowing the receiver to interact with the Spore without the need to possess or deposit additional tokens in their wallet. However, you have the flexibility to disable or enable this feature during Spore/Cluster ***creation*** and ***transfer***, depending on your specific application needs.
 
