@@ -27,7 +27,7 @@ let { txSkeleton } = await transferSpore({
 
 - `outPoint` - Specifies the target spore for configuration, identified by its transaction hash and index.
 - `toLock` - The lock script of the new owner/recipient of the spore (which remains with the original owner in this case).
-- `fromInfos` - The transaction's sponsor, specifies where to collect capacity from.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
 - `capacityMargin` - Capacity allocated as future transaction fees.
 - `useCapacityMarginAsFee`- Specifies whether to pay fee with the target spore's capacity margin, default to "true", if false, the transaction is paid with capacity collected from the `fromInfos`
 
