@@ -17,7 +17,7 @@ import { BI } from '@ckb-lumos/lumos';
 let { txSkeleton } = await transferSpore({
   outPoint: SPORE_OUTPOINT,
   toLock: OWNER_LOCK,
-  fromInfos: [OWNER_ADDRESS],
+  fromInfos: [SPONSOR_ADDRESS],
   // highlight-start
   capacityMargin: BI.from(1_0000_0000), // Add 1 CKB as margin, default is 0
   useCapacityMarginAsFee: false, // Disable the feature
