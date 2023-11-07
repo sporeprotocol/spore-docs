@@ -28,7 +28,7 @@ let { txSkeleton } = await createSpore({
 
 - `data` - The spore's data, including file data relevant properties.
 - `toLock` - The lock script specifies the spore's ownership.
-- `fromInfos` - The transaction's sponsor, specifies where to collect capacity from.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
 - `capacityMargin` - Additional capacity allocated as future transaction fees. By setting it to zero, indicates no additional capacity is allocated for transaction fees, thus turning off the “Zero-fee Transfer” feature for the spore being created.
 
 :::info
