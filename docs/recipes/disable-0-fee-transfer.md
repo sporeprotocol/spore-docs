@@ -20,7 +20,7 @@ let { txSkeleton } = await createSpore({
     content: CONTENT_AS_BYTES,
   },
   toLock: OWNER_LOCK,
-  fromInfos: [OWNER_ADDRESS],
+  fromInfos: [SPONSOR_ADDRESS],
     // highlight-next-line
   capacityMargin: BI.from(0), // No capacity margin will be added
 });
