@@ -33,7 +33,7 @@ let { txSkeleton } = await createSpore({
     clusterId: CLUSTER_ID,
   },
   toLock: OWNER_LOCK,
-  fromInfos: [OWNER_ADDRESS],
+  fromInfos: [SPONSOR_ADDRESS],
 });
 ```
 
