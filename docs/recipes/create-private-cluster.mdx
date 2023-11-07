@@ -24,13 +24,13 @@ let { txSkeleton } = await createCluster({
     description: 'Description of the cluster',
   },
   toLock: OWNER_LOCK,
-  fromInfos: [ONWER_ADDRESS],
+  fromInfos: [SPONSOR_ADDRESS],
 });
 ```
 
 - `data` - The cluster's data, including name and description.
 - `toLock` - The lock script specifies the new cluster's ownership.
-- `fromInfos` - The transaction's sponsor, specifies where to collect capacity from.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
 
 ## Extras
 
