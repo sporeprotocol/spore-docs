@@ -51,7 +51,7 @@ let { txSkeleton } = await transferSpore({
   },
   toLock: RECEIVER_LOCK_SCRIPT,
     // highlight-next-line
-  fromInfos: [OWNER_ADDRESS],
+  fromInfos: [SPONSOR_ADDRESS],
     // highlight-next-line
   useCapacityMarginAsFee: false,
 });
