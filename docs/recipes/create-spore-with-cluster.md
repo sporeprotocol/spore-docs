@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 5
 ---
 
 # Create Spore With Cluster
@@ -33,7 +33,7 @@ let { txSkeleton } = await createSpore({
     clusterId: CLUSTER_ID,
   },
   toLock: OWNER_LOCK,
-  fromInfos: [OWNER_ADDRESS],
+  fromInfos: [SPONSOR_ADDRESS],
 });
 ```
 
