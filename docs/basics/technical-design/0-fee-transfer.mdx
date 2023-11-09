@@ -1,0 +1,37 @@
+---
+sidebar_position: 2
+---
+# Zero-Fee Transfer
+
+
+The *Zero-Fee Transfer* feature is a mechanism designed to facilitate transactions without the recipient or sender incurring network fees each time a transaction occurs. Here's a breakdown of how it works:
+
+### Initialization:
+
+When a spore or cluster is created, 1 CKByte is reserved as fee for future transactions. This extra amount is known as the "capacity margin", specified by the `capacityMargin` prop of the `createSpore` & `createCluster` API.
+    
+### Purpose of Capacity Margin:
+
+This capacity margin is not part of the actual capacity of the asset but is reserved exclusively to cover the transaction fees that would typically be required to move the asset from one user to another on the blockchain.
+    
+### Enabling Zero Fees for Users:
+
+When a spore is transferred, the transaction uses the reserved CKBytes from the `capacityMargin` to cover the network fee, thus obviating the need for either the sender or receiver to pay out of wallet. This creates a user experience where a new holder doesn’t need to source fees in order to interact with spores.
+    
+### Sustainable Transfer Capacity:
+    
+The amount of capacity margin determines how many times the asset can be transferred before the fees must be replenished. The default setting is 1 CKB, which could potentially cover about 100,000 transactions.
+    
+### Customization:
+    
+Developers have the flexibility to adjust the `capacityMargin` based on projected usage patterns or needs. You can choose to have a larger capacity margin to cover more transactions or set it to zero to disable this feature initially.
+    
+### [Bonus] Preserving Privacy:
+    
+By eliminating the need to transfer CKBytes for every spore interactions, the protocol also enhances privacy. It avoids the potential risk of linking addresses via funding transactions, which is a common method of tracking and de-anonymizing users on public blockchains.
+
+### In essence, Zero-Fee Transfer:
+
+- Optimizes the user experience by making transactions more seamless and private.
+- Bridges the complexities of blockchain technologies and the user-friendly experience of conventional Web2 applications by removing the friction of needing to have the native blockchain currency for transaction fees.
+- Makes it easier and more convenient for users to interact with spore and drive adoption.
