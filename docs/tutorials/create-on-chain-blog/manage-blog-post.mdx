@@ -433,7 +433,7 @@ The button is only displayed if the user is connected to their wallet.
 
 **2. Implement “Delete” transaction**
 
-Now, let's implement the logic for deleting a post. It's similar to what you did when creating posts, but this time you'll use `destroySpore`, a function provided by the Spore SDK. Modify `/src/pages/site/[id].tsx` with the following:
+Now, let's implement the logic for deleting a post. It's similar to what you did when creating posts, but this time you'll use `meltSpore`, a function provided by the Spore SDK. Modify `/src/pages/site/[id].tsx` with the following:
 
 ```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
@@ -441,7 +441,7 @@ import useWallet from '@/hooks/useWallet';
 import { Indexer, OutPoint, RPC } from '@ckb-lumos/lumos';
 import {
   bufferToRawString,
-  destroySpore,
+  meltSpore,
   predefinedSporeConfigs,
   unpackToRawClusterData,
   unpackToRawSporeData,
@@ -537,7 +537,7 @@ export default function SitePage() {
     const post = posts.find((post) => post.id === id);
     if (!post) return;
 
-    const { txSkeleton } = await destroySpore({
+    const { txSkeleton } = await meltSpore({
       outPoint: post.outPoint,
       fromInfos: [address],
     });
@@ -553,7 +553,7 @@ export default function SitePage() {
 }
 ```
 
-The critical part here is obtaining the `outPoint` of the Spore Cell associated with the post you want to delete. This can be done by querying the post using its cluster ID and post ID, as you did when displaying the post content. Once you have the `outPoint`, you can use the `destroySpore` function to delete the post.
+The critical part here is obtaining the `outPoint` of the Spore Cell associated with the post you want to delete. This can be done by querying the post using its cluster ID and post ID, as you did when displaying the post content. Once you have the `outPoint`, you can use the `meltSpore` function to delete the post.
 
 After deletion, you'll notice that your CKB balance increases. This is because the storage space previously occupied by the post is freed up, and you can use those CKB tokens again.
 
