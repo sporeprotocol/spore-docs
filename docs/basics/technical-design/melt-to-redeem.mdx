@@ -1,0 +1,26 @@
+---
+sidebar_position: 1
+---
+# Redeemable Intrinsic Value
+
+
+Spore is an unique class of digital assets linked to the native currency of the Nervos Network, [CKBytes](https://www.nervos.org/ckbpage) (CKB). This intrinsic connection ensures that every Spore has a foundational value that reflects the amount of CKBytes allocated to it during its creation.
+
+### Value Creation and Minting Process:
+
+When someone mints a spore, they effectively reserve a specific amount of storage space on the CKB blockchain, which is quantified in CKBytes. This process is comparable to claiming a piece of real estate within the digital realm of the Nervos CKB, or sourcing previous metal to craft a piece of fine jewelry. The `Capacity` field within `SporeData` represents this reserved resource and the amount of CKBytes committed.
+
+### Economic Model of CKBytes:
+
+With CKB’s controlled supply and strategic halving mechanism, CKBytes inherit a deflationary quality. Consequently, as the finite supply meets an increasing demand for on-chain space - driven by the minting of new spores and other activities - naturally enhance the value of the existing CKBytes (and thereby, the spores).
+
+### Redemption of Intrinsic Value:
+
+Spores can be melted back into the underlying CKBytes any time. This is achieved through the **`meltSpore`** API provided by the [spore-sdk](https://docs.spore.pro/resources/spore-sdk), granting owners the flexibility to convert their digital assets into CKBytes currency whenever they choose.
+
+### Tokenomics and Intrinsic Value Growth:
+
+As the utilization of on-chain space on the Nervos CKB grows, the value of the CKBytes locked within each Spore naturally appreciates. This growth is organic and is propelled by the CKB's economic model, which includes a well-structured issuance strategy and a system of state rent, as detailed in the CKB's cryptoeconomics [RFC](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0015-ckb-cryptoeconomics/0015-ckb-cryptoeconomics.md#6-the-economic-model-of-the-nervos-common-knowledge-base).
+
+### In essence, by providing the option to reclaim the CKBytes:
+-   Spore holders are assured that their digital assets are not just pure hype but hold tangible value within the network's economy.

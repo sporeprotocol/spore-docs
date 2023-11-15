@@ -4,7 +4,7 @@ sidebar_position: 11
 
 # Encode/decode SporeData
 
-In the recipe, you will learn how to use the utilities of [spore-sdk](/resources/spore-sdk) to encode/decode [SporeData](/basics/spore-tech-def#spore-cell) between JSON and binary bytes.
+In the recipe, you will learn how to use the utilities of [spore-sdk](/resources/spore-sdk) to encode/decode [SporeData](/basics/technical-design/#spore-cell) between JSON and binary bytes.
 
 ## Encode SporeData
 

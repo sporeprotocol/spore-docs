@@ -4,7 +4,7 @@ sidebar_position: 12
 
 # Encode/decode ClusterData
 
-In the recipe, you will learn how to use the utilities of [spore-sdk](/resources/spore-sdk) to encode/decode [ClusterData](/basics/spore-tech-def#cluster-cell) between JSON and binary bytes.
+In the recipe, you will learn how to use the utilities of [spore-sdk](/resources/spore-sdk) to encode/decode [ClusterData](/basics/technical-design/#cluster-cell) between JSON and binary bytes.
 
 ## Encode ClusterData
 
