@@ -1,0 +1,35 @@
+---
+sidebar_position: 3
+---
+# On-Chain Privacy
+
+
+Spore Protocol leverages the [UTXO-based cell model](https://medium.com/nervosnetwork/https-medium-com-nervosnetwork-cell-model-7323fca57571) of Nervos CKB, introduces a novel approach to digital asset management.
+
+At its core, Spore Protocol offers enhanced privacy and security features that are not inherent in account-based NFT protocols, particularly addressing the challenges faced by NFT holders.
+
+### Privacy through UTXO (Cell model)
+
+Unlike the account-based model, which links all transactions to a single address akin to a wallet, a UTXO-optimized wallet (e.g. [Neuron](https://neuron.magickbase.com/)) generates a new address, managed by the same pair of keys, for each transaction. The public blockchain tracks addresses and what’s in them but has no way of knowing which wallets—or whose keys—those addresses and UTXOs belong to. On Nervos CKB, this is achieved through the creation of independent cells, each functioning as an UTXO.
+
+This means that each spore, as an individual digital asset, can be associated with a unique address, effectively shielding the owner's identity and preserving privacy.
+
+### Security through “Eggs in Multiple Baskets”
+
+By not keeping digital assets (spores/NFTs) under a single, potentially exposed address or an ENS domain, spore holders mitigate the risk of becoming a target for malicious actors. The cell model and optimized wallets facilitate this distribution of assets across multiple addresses naturally, making it a default feature rather than an add-on, a more complex strategy as seen in account-based models when it’s too late.
+
+### Traceless by Fee-less Transfers
+
+A key feature of Spore Protocol is the ability to transfers spores without additional transaction fees. Unlike on Ethereum, where moving NFTs requires gas fees and often pre-loading each address with ETH, the Spore Protocol ensures that transfers can occur seamlessly, without sourcing for transaction fees.
+
+This not only simplifies the transaction process but also preserves privacy. You don't have to expose your funding sources to cover transaction costs, which can often be traced back to your main wallet or exchange accounts and then be analyzed to establish ownership patterns.
+
+### Privacy-First Flexibility
+
+Adopting a privacy-first approach, the Spore Protocol empowers users to maintain anonymity with the convenience of publicly showcasing their collection when desired. This privacy by default design, caters to users who value security and take pride in sharing their curated spores.
+
+### In summary, Spore Protocol boosts privacy and security by:
+
+- **Cell Model:** Each transaction can use a new address, obscuring the connection between your spores and your identity.
+- **Dispersed Ownership:** Each spores can have its own address, reducing the risk of targeted attacks.
+- **Zero-fee Transfers:** Moving spores doesn't require typical “fees”, avoiding the exposure of funding trails.
