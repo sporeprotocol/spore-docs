@@ -9,7 +9,7 @@ In this recipe, you’ll learn how to tag a [Cluster](/basics/spore-101#what-is-
 :::caution
 
 - You can only utilize a Cluster as a tag if it can be unlocked by you to use. 
-- You cannot tag a Spore after its creation; you'll need to destroy and then tag it during the creation process.
+- You cannot tag a Spore after its creation; you'll need to melt and then tag it during the creation process.
 - Each Spore can be associated with only one Cluster.
 
 :::

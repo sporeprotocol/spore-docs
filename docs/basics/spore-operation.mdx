@@ -5,12 +5,12 @@ sidebar_position: 4
 
 
 
-The operations of Spore encompass three fundamental types: **mint**, **transfer**, and **destroy**.
+The operations of Spore encompass three fundamental types: **mint**, **transfer**, and **melt**.
 
 It is important to follow these rules when operating:
 
 - An operation is a transaction that adhere to specific rules defined by Spore protocol;
-- The same Spore should not undergo more than one operation in a single transaction. For example, performing both transfer and destroy operation on a spore in a single transaction is not allowed;
+- The same Spore should not undergo more than one operation in a single transaction. For example, performing both transfer and melt operation on a spore in a single transaction is not allowed;
 - Each operation must include the rules governing the Input Cell, Output Cell, and CellDeps fields of a transaction.
 
 
@@ -48,9 +48,9 @@ To execute a transfer operation successfully, the following conditions must be s
 
 Additionally, it's important to note that a transfer operation modifies the lock script of a spore, particularly when dealing with dynamic content. Changes to parameters, such as block number and height, may influence the resulting output.
 
-## Destroy
+## Melt
 
-The destroy operation is like undoing the creation, consuming a specific spore cell and returning the capacity it held.
+The melt operation is like undoing the creation, consuming a specific spore cell and returning the capacity it held.
 
 It must follow:
 
