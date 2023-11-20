@@ -26,7 +26,7 @@ These examples serve as practical guides for developers, demonstrating how to im
 [CKB Default lock](https://www.notion.so/cryptape/examples/secp256k1) is the most commonly used lock script on [Nervos CKB](https://www.nervos.org/), also a great starting point for beginners due to its simplicity. Let's kick things off right here to start learning:
 
 - Create/transfer clusters with the [CKB Default lock](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c)
-- Create/transfer/destroy spores with the [CKB Default lock](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c)
+- Create/transfer/melt spores with the [CKB Default lock](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c)
 
 ### [Anyone-can-pay](https://github.com/sporeprotocol/spore-sdk/tree/beta/examples/acp)
 
