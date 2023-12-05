@@ -2,6 +2,7 @@
 sidebar_position: 1
 sidebar_label: Terms
 ---
+# Terms
 
 ## anyone-can-pay (ACP)
 
