@@ -25,7 +25,7 @@ These examples serve as practical guides for developers, demonstrating how to im
 
 [CKB default lock](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c) is the most commonly used lock script on [Nervos CKB](https://www.nervos.org/), also a great starting point for beginners due to its simplicity. Let's check out some examples using the CKB Default lock:
 
-- [Create Spore](https://github.com/sporeprotocol/spore-sdk/examples/secp256k1/apis/createSpore.ts) - Create a spore with CKBytes
+- [Create Spore](https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createSpore.ts) - Create a spore with CKBytes
 - [Transfer Spore](https://github.com/sporeprotocol/spore-sdk/examples/secp256k1/apis/transferSpore.ts) - Transfer the ownership of a spore from A to B
 - [Melt Spore](https://github.com/sporeprotocol/spore-sdk/examples/secp256k1/apis/meltSpore.ts) - Melt a spore and redeem occupied CKBytes
 - [Create Cluster](https://github.com/sporeprotocol/spore-sdk/examples/secp256k1/apis/createCluster.ts) - Create a cluster with CKBytes
