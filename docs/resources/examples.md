@@ -28,8 +28,8 @@ These examples serve as practical guides for developers, demonstrating how to im
 - [Create Spore](https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createSpore.ts) - Create a spore with CKBytes
 - [Transfer Spore](https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/transferSpore.ts) - Transfer the ownership of a spore from A to B
 - [Melt Spore](https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/meltSpore.ts) - Melt a spore and redeem occupied CKBytes
-- [Create Cluster](https://github.com/sporeprotocol/blob/beta/spore-sdk/examples/secp256k1/apis/createCluster.ts) - Create a cluster with CKBytes
-- [Transfer Cluster](https://github.com/sporeprotocol/blob/beta/spore-sdk/examples/secp256k1/apis/transferCluster.ts) - Transfer the ownership of a cluster from A to B
+- [Create Cluster](https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createCluster.ts) - Create a cluster with CKBytes
+- [Transfer Cluster](https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/transferCluster.ts) - Transfer the ownership of a cluster from A to B
 
 ### [Anyone-can-pay](https://github.com/sporeprotocol/spore-sdk/tree/beta/examples/acp)
 
