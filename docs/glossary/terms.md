@@ -24,7 +24,7 @@ A Spore cell, or Spore for short, can encompass almost any data forms, including
 Spore Protocol defines two cell types: Spore cell and Spore cluster cell. Spore cell type is the essential and only necessary building block, while the cell type of Spore cluster is optional, and may serve as an extension providing additional information of a Spore.
 
 ## cluster
-Denotes a series or collection of Spores, serving as an organizational tool that groups individual Spores. Each Spore can be linked to one cluster, and one cluster can encompass a single or multiple Spores.
+Denotes a series or collection of Spores, serving as an organizational tool that groups individual Spores. Each Spore can be linked to one cluster, and one cluster can be associated to a single or multiple Spores.
 Clusters are immortal. Once created, a cluster stays on-chain permanently and cannot be destroyed or removed even by the owner.
 
 **see also:** 
