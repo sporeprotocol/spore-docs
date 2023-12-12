@@ -220,7 +220,7 @@ A script establishing mandatory transaction conditions for a Spore cell to be us
 
 ## zero-fee transfer
 
-Mechanism allowing fee-free Spore transfers in native or non-native tokens. Each Spore is pre-fueled with the cost for future transfers, making all subsequent operations–including sending, receiving, and melting—completely fee-free.
+Mechanism allowing 0 cost Spore transfers. Each Spore is pre-fueled with the capacity to cover future transfers, making all subsequent operations–including sending, receiving, and melting—completely free.
 
 **see also:** 
 * [transfer](#trasnfer)
