@@ -12,7 +12,7 @@ For more details, visit [RFC0026: Anyone-Can-Pay Lock](https://github.com/nervos
 
 ## capacity
 
-Maximum storage space that a Spore cell can use on the underlying network. Measured in CKBytes.
+A unit of measurement for storage space and resource allocation on Nervos CKB. For Spore, it quantifies the size of data stored on the blockchain, measured in occupied CKBytes.
 
 **see also:** 
 * [mint](#mint)
