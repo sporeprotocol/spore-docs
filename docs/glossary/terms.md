@@ -25,7 +25,7 @@ Spore Protocol defines two cell types: Spore cell and Spore cluster cell. Spore 
 
 ## cluster
 Denotes a series or collection of Spores, serving as an organizational tool that groups individual Spores. Each Spore can be linked to one cluster, and one cluster can be associated to a single or multiple Spores.
-Clusters are immortal. Once created, a cluster stays on-chain permanently and cannot be destroyed or removed even by the owner.
+Clusters are immortal. Once created, a cluster stays on-chain permanently.
 
 **see also:** 
 * [public cluster](#public_cluster)
