@@ -197,7 +197,7 @@ Process that refreshes a Spore by consuming its cell and creating a new one with
 
 **see also:** 
 * [zero-fee transfer](#zero-fee_transfer)
-* [capacity](#capacity)
+* [Basic operation: Transfer](https://docs.spore.pro/basics/spore-operation#transfer)
 
 ## tokenomics
 
