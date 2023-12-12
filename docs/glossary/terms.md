@@ -167,7 +167,7 @@ Cryptographic information exclusively known to its owner or owners. Employed in 
 
 ## public cluster
 
-Cluster enabling anyone, besides the owner, to associate a Spore or multiple Spores when minting.
+A cluster that allows anyone, not just the owner, to associate a Spore or multiple Spores with it when minting Spores.
 
 **see also:**
 * [cluster](#clsuter)
