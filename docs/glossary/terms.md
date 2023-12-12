@@ -41,7 +41,8 @@ Refers to the field containing unique digital file or asset represented by the t
 * [Why combine content and content-type?](https://docs.spore.pro/basics/tech-faq#why-combine-content-and-content-type)
 
 ## content-type
-Describes the file format or type of the digital asset associated with the token. For instance, content-type like JPEG, MP3, MP4 specify that the content is an image, audio, or video, respectively, among other formats. This information helps determine how to handle and render the associated content. Its scheme and rules follows the [RFC of MIME](https://datatracker.ietf.org/doc/html/rfc1341) standard.
+The file format or type of the digital asset created as Spore. For example, if the content-type is JPEG, it means the digital asset is an image. If it's MP3 or MP4, the asset is an audio file or a video file, respectively. 
+Content-type helps in understanding how to correctly use or display the digital asset. The rules and structure of Spore's content-types follow the [MIME](https://datatracker.ietf.org/doc/html/rfc1341) standard, which is a widely accepted guideline for indicating the nature and format of a document, file, or assortment of bytes.
 
 **see also:**
 * [content](#content)
