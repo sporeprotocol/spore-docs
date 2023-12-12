@@ -34,7 +34,7 @@ Clusters are immortal. Once created, a cluster stays on-chain permanently and ca
 * [What is a Cluster?](https://docs.spore.pro/basics/spore-101#what-is-a-cluster)
 
 ## content
-Refers to the field containing unique digital file or asset represented by the token. Content can encompass a wide range of digital items, such as digital art, music files, videos, virtual real estate, collectibles.
+The unique digital item or asset that Spore represents. This could be anything like digital art, music, videos, virtual real estate, or collectibles.
 
 **see also:** 
 * [content-type](#content-type)
