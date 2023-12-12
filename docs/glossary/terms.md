@@ -193,7 +193,7 @@ A lock script code using the [secp256k1](https://en.bitcoin.it/wiki/Secp256k1) s
 
 ## transfer
 
-Process that refreshes a Spore by consuming its cell and creating a new one with the same Spore ID and unchanged fields. This operation costs no additional free, where the costs is deducted from the cell's capacity.
+The process of changing the ownership of a Spore or a Cluster. It's important to note that owning a cluster does not automatically grant ownership of the spores associated with that cluster. Each Spore and Cluster has its own distinct ownership rights that can be transferred separately.
 
 **see also:** 
 * [zero-fee transfer](#zero-fee_transfer)
