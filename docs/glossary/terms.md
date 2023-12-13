@@ -66,7 +66,7 @@ Collection of individual Spores associated together by a specific cluster.
 
 ## Immortal
 
-Extension making a spore or a cluster permanently indestructible on-chain, impossible to be destroyed or remove from the chain, even by their owners.
+An extension that makes the spore or cluster permanently on-chain, ensuring it cannot be destroyed/melted or removed, not even by its owner.
 
 ## Immutability
 
