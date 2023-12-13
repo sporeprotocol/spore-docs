@@ -140,7 +140,7 @@ Mutant has three operation modes, each mapped to three opcodes, whose values are
 
 Unique, indivisible digital assets representing ownership or proof of authenticity for specific items. Unlike cryptocurrencies, they cannot be exchanged on a one-to-one basis due to their unique properties and value.
 
-Spore is a special form of NFT where the content is entirely and permanently stored on-chain, intrinsically tied to the token value.
+Spore is a special standard for NFTs where the content is entirely stored on-chain and intrinsically tied to the token value.
 
 **see also:** 
 * [Is Spore an NFT?](https://spore-docs-9bn3yjbww-sporeprotocol.vercel.app/basics/tech-faq#is-spore-an-nft)
