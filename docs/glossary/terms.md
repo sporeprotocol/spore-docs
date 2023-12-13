@@ -115,7 +115,7 @@ Process of adding capacity to a Spore, locking it, and declaring its intrinsic v
 
 ## Melt
 
-Process of undoing the creation of a Spore cell or cluster, resulting in the restoration of its original capacity in CKBytes.
+Process of undoing the creation of a Spore, resulting in the recovery of the storage space (capacity), measured in CKBytes, that was originally used to create the Spore.
 
 **see also:** 
 * [Why is Spore‘s value redeemable?](https://docs.spore.pro/basics/tech-faq#why-is-spores-value-redeemable)
