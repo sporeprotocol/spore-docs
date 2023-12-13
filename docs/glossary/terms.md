@@ -52,7 +52,7 @@ Refer to the term [melt](#melt).
 
 ## Extension
 
-Specified as Spore [Mutant](#mutant), used to add extensional behavior or verify rules onto spore or cluster.
+As used in the context of Spore and referred to as a [Mutant](#mutant), indicates an additional feature or set of rules that can be applied to a spore or cluster. 
 
 **see also:** 
 * [mutant](#mutant)
