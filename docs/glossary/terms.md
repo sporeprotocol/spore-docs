@@ -70,7 +70,7 @@ An extension that makes the spore or cluster permanently on-chain, ensuring it c
 
 ## Immutability
 
-Quality of permanence and resistance to alteration. Once a Spore is minted, its essential attributes, including ownership, provenance, and metadata, become fixed and cannot be changed. This guarantees the security and integrity of these attributes on the blockchain.
+Quality of permanence and resistance to alteration. Once a Spore is minted, its essential attributes become fixed and cannot be changed. 
 
 **see also:**
 * [immutable data](https://docs.spore.pro/introduction/why-spore#immutable-data)
