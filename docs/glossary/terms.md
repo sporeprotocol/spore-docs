@@ -189,7 +189,7 @@ Cryptographic information openly shareable without compromising security. Utiliz
 
 ## Redeemability
 
-Ability of Spore users to destroy their Spores and instantly recover the remaining value at no cost. 
+Ability of Spore owners to melt their Spores and retrieve the occupied CKBytes. 
 
 **see also:**
 * [Why is Spore‘s value redeemable?](https://docs.spore.pro/basics/tech-faq#why-is-spores-value-redeemable)
