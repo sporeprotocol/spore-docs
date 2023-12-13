@@ -159,7 +159,7 @@ Publicly verifiable and indisputable record of ownership for digital assets insc
 
 ## Private Cluster
 
-Cluster permitting only the owner to associate a Spore or multiple Spores when minting.
+A cluster that can only be used by its owner to link a Spore or multiple Spores to it when minting these Spores.
 
 **see also:** 
 * [public cluster](#public_cluster)
