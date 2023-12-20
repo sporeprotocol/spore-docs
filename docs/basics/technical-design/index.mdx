@@ -60,7 +60,7 @@ lock:
 - `content-type` - Specifies the format of the `content` (like image/png) following [MIME standards](https://datatracker.ietf.org/doc/html/rfc2046). It can include parameters (e.g., `immortal=true` for indestructible NFTs). 
 - `content` - Holds the main content of the NFT.
 - `cluster_id` - An optional field for categorizing the NFT into a series or collection.
-- `type` - script is set to `SPORE_TYPE_DATA_HASH`  with SPORE_ID as an argument that follows the rules of [Type ID script](https://docs.spore.pro/glossary/terms#type-id): `SPORE_ID = hash(this_transaction.inputs[0]) | Output_Index_Of_This_Cell`.
+- `type` - Type script is set to `SPORE_TYPE_DATA_HASH`  with `SPORE_ID` as an argument that follows the rules of [Type ID script](https://docs.spore.pro/glossary/terms#type-id): SPORE_ID = hash(this_transaction.inputs[0]) | Output_Index_Of_This_Cell
 
 All the fields in a `Spore Cell` are immutable once created.
 
@@ -82,7 +82,7 @@ lock:
 
 - `name` - Represents the name of the Spore Cluster.
 - `description` - Provides a textual description of the Cluster.
-- `type` - script is set to `CLUSTER_TYPE_DATA_HASH`  with CLUSTER_ID as an argument that follows the rules of [Type ID script](https://docs.spore.pro/glossary/terms#type-id): `CLUSTER_ID = hash(this_transaction.inputs[0]) | Grouputput_index_of_this_cell`.
+- `type` - Type script is set to `CLUSTER_TYPE_DATA_HASH`  with `CLUSTER_ID` as an argument that follows the rules of [Type ID script](https://docs.spore.pro/glossary/terms#type-id): CLUSTER_ID = hash(this_transaction.inputs[0]) | Grouputput_index_of_this_cell
 
 A `Cluster Cell` is indestructible and immutable once created.
 
