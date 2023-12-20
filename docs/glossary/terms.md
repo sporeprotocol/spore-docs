@@ -208,7 +208,7 @@ The economic aspects and dynamics of cryptocurrency tokens, focusing on distribu
 
 Spore, benefits from CKB’s tokenomics, enables a win-win situation for both creators and buyers: creators are directly compensated from Spore sales and also benefit from using on-chain space, while buyers receive both the on-chain assets and the associated tokens.
 
-## TypeID
+## Type ID
 
 The unique identification scheme within the CKB blockchain, crucial for maintaining the security and integrity of smart contracts, particularly in situations where contracts might need to be updated or fixed after deployment, while still ensuring that their behavior remains predictable and secure. It's a balance between allowing updates (upgradability) and keeping the system reliable (determinism).
 
