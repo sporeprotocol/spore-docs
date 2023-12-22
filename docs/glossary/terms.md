@@ -204,13 +204,23 @@ The process of changing the ownership of a Spore or a Cluster. It's important to
 
 ## Tokenomics
 
-The economic aspects and dynamics of cryptocurrency tokens, analyzing factors such as distribution, supply, demand, utility, and economic incentives in blockchain ecosystems.
+The economic aspects and dynamics of cryptocurrency tokens, focusing on distribution, supply, demand, utility, and economic incentives in blockchain ecosystems.
 
-Spore's tokenomics encourages a mutually beneficial connection between creators and buyers. Creators gain direct compensation from Spore sales and benefit indirectly through on-chain space utilization. Buyers acquire tokens and lasting on-chain assets. 
+Spore, benefits from CKB’s tokenomics, enables a win-win situation for both creators and buyers: creators are directly compensated from Spore sales and also benefit from using on-chain space, while buyers receive both the on-chain assets and the associated tokens.
 
-## TypeID
+## Type ID
 
-A system script for on-chain validation and verification of specific script conditions. Its primary purpose is to define mandatory on-chain conditions and constraints to ensure secure and transparent cell management. Serving as a safety mechanism, TypeID verifies specific criteria related to the creation and handling of cells.
+The unique identification scheme within the CKB blockchain, crucial for maintaining the security and integrity of smart contracts, particularly in situations where contracts might need to be updated or fixed after deployment, while still ensuring that their behavior remains predictable and secure. It's a balance between allowing updates (upgradability) and keeping the system reliable (determinism).
+
+_Rule:_ `type_id = hash(hash(first_input), output_index)`
+
+  For example, with two input cells (Cell #1, Cell #2) and two output cells (Cell #3, Cell #4), 
+
+  - the Type ID for Cell #3 is `hash(hash(Cell#1) + 0)`
+
+  - the Type ID for Cell #4 is  `hash(hash(Cell#1) + 1)`
+
+**see also:** [Introduction to CKB Script Programming 6: Type ID](https://xuejie.space/2020_02_03_introduction_to_ckb_script_programming_type_id/)
 
 ## Type Script
 
