@@ -199,17 +199,33 @@ export async function signTransaction(
 
 This `signTransaction` function streamlines the process of signing transactions. It extracts `signingEntries` from the provided `txSkeleton` and signs the messages within using MetaMask. After signing, it handles the ECDSA recoveryID v parameter and uses `@ckb-lumos/lumos` methods to pack the signature into the Omnilock witness. This process results in the generation of a signed transaction that is ready to send to the Nervos CKB blockchain.
 
-**3. Create Cluster** 
+**3. Share SporeConfig**
+
+We will use the testnet config from the Spore SDK everywhere in the app, so it would be good if we can share the config variable across the environment. To do so, create a new file named `src/config.ts` with the following code:
+
+```ts title="/src/config.ts"
+import { predefinedSporeConfigs, setSporeConfig } from '@spore-sdk/core';
+import { config as lumosConfig } from '@ckb-lumos/lumos';
+
+const config = predefinedSporeConfigs.Testnet;
+
+lumosConfig.initializeConfig(config.lumos);
+setSporeConfig(config);
+
+export {
+  config,
+};
+
+```
+
+**4. Create Cluster**
 
 We will use the `createCluster` method from the Spore SDK in conjunction with the `signTransaction` function created earlier to build our blog site. In your `src/pages/index.tsx` file, include the following import statement:
 
 ```tsx title="/src/pages/index.tsx"
-import {
-  createCluster,
-  predefinedSporeConfigs,
-  unpackToRawClusterData,
-} from '@spore-sdk/core';
+import { createCluster, unpackToRawClusterData } from '@spore-sdk/core';
 import { signTransaction } from '@/utils/transaction';
+import { config } from '@/config';
 ```
 
 Create `handleCreateSite` function in `src/pages/index.tsx`:
@@ -233,7 +249,7 @@ export default function Home() {
       toLock: lock,
     });
     const tx = await signTransaction(txSkeleton);
-    const rpc = new RPC(predefinedSporeConfigs.Aggron4.ckbNodeUrl);
+    const rpc = new RPC(config.ckbNodeUrl);
     const hash = await rpc.sendTransaction(tx, 'passthrough');
     console.log(hash);
   };
@@ -277,11 +293,7 @@ Modify the code in `src/pages/index.tsx` to set up the input form:
 ```tsx title="/src/pages/index.tsx"
 import { Indexer, RPC } from '@ckb-lumos/lumos';
 import { useEffect, useState } from 'react';
-import {
-  createCluster,
-  predefinedSporeConfigs,
-  unpackToRawClusterData,
-} from '@spore-sdk/core';
+import { createCluster, unpackToRawClusterData, getSporeScript } from '@spore-sdk/core';
 import { signTransaction } from '@/utils/transaction';
 import useWallet from '@/hooks/useWallet';
 
@@ -351,13 +363,10 @@ Next, modify the code in `src/pages/index.tsx` to query and display successfully
 ```tsx title="/src/pages/index.tsx"
 import { Indexer, RPC } from '@ckb-lumos/lumos';
 import { useEffect, useState } from 'react';
-import {
-  createCluster,
-  predefinedSporeConfigs,
-  unpackToRawClusterData,
-} from '@spore-sdk/core';
+import { createCluster, unpackToRawClusterData, getSporeScript } from '@spore-sdk/core';
 import { signTransaction } from '@/utils/transaction';
 import useWallet from '@/hooks/useWallet';
+import { config } from '@/config';
 
 // highlight-start
 export type Site = {
@@ -384,8 +393,8 @@ export default function Home() {
     }
 
     (async () => {
-      const indexer = new Indexer(predefinedSporeConfigs.Aggron4.ckbIndexerUrl);
-      const { script } = predefinedSporeConfigs.Aggron4.scripts.Cluster;
+      const indexer = new Indexer(config.ckbIndexerUrl);
+      const { script } = getSporeScript(config, 'Cluster');
       const collector = indexer.collector({
         type: { ...script, args: '0x' },
         lock,
@@ -477,10 +486,11 @@ Create a new file named `src/pages/site/[id].tsx` within the "site" directory. T
 ```tsx title="/src/pages/site/[id].tsx"
 import useWallet from '@/hooks/useWallet';
 import { Indexer } from '@ckb-lumos/lumos';
-import { predefinedSporeConfigs, unpackToRawClusterData } from '@spore-sdk/core';
+import { getSporeScript, unpackToRawClusterData } from '@spore-sdk/core';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Site } from '..';
+import { config } from '@/config';
 
 export default function SitePage() {
   const router = useRouter();
@@ -494,8 +504,8 @@ export default function SitePage() {
     }
 
     (async () => {
-      const indexer = new Indexer(predefinedSporeConfigs.Aggron4.ckbIndexerUrl);
-      const { script } = predefinedSporeConfigs.Aggron4.scripts.Cluster;
+      const indexer = new Indexer(config.ckbIndexerUrl);
+      const { script } = getSporeScript(config, 'Cluster');
       const collector = indexer.collector({
         type: { ...script, args: id as string },
       });
