@@ -199,9 +199,9 @@ export async function signTransaction(
 
 This `signTransaction` function streamlines the process of signing transactions. It extracts `signingEntries` from the provided `txSkeleton` and signs the messages within using MetaMask. After signing, it handles the ECDSA recoveryID v parameter and uses `@ckb-lumos/lumos` methods to pack the signature into the Omnilock witness. This process results in the generation of a signed transaction that is ready to send to the Nervos CKB blockchain.
 
-**3. Share SporeConfig**
+**3. Export SporeConfig**
 
-We will use the testnet config from the Spore SDK everywhere in the app, so it would be good if we can share the config variable across the environment. To do so, create a new file named `src/config.ts` with the following code:
+We will use the testnet config from the Spore SDK everywhere in the app, so it would be good if we can export the config and share it across the environment. To do so, create a new file named `src/config.ts` with the following code:
 
 ```ts title="/src/config.ts"
 import { predefinedSporeConfigs, setSporeConfig } from '@spore-sdk/core';
