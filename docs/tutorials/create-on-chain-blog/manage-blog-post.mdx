@@ -38,9 +38,10 @@ Create `src/pages/post/new.tsx` and add the following code to generate a transac
 import useWallet from '@/hooks/useWallet';
 import { signTransaction } from '@/utils/transaction';
 import { RPC } from '@ckb-lumos/lumos';
-import { createSpore, predefinedSporeConfigs } from '@spore-sdk/core';
+import { createSpore } from '@spore-sdk/core';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { config } from '@/config';
 
 export default function NewPost() {
   const router = useRouter();
@@ -63,7 +64,7 @@ export default function NewPost() {
       toLock: lock,
     });
     const tx = await signTransaction(txSkeleton);
-    const rpc = new RPC(predefinedSporeConfigs.Aggron4.ckbNodeUrl);
+    const rpc = new RPC(config.ckbNodeUrl);
     const hash = await rpc.sendTransaction(tx, 'passthrough');
     setTitle('');
     setContent('');
@@ -173,8 +174,8 @@ import useWallet from '@/hooks/useWallet';
 import { Indexer } from '@ckb-lumos/lumos';
   // highlight-start
 import {
+  getSporeScript,
   bufferToRawString,
-  predefinedSporeConfigs,
   unpackToRawClusterData,
   unpackToRawSporeData,
 } from '@spore-sdk/core';
@@ -182,6 +183,7 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Site } from '..';
+import { config } from '@/config';
 // highlight-start
 import Link from 'next/link';
 
@@ -206,8 +208,8 @@ export default function SitePage() {
     }
 
     (async () => {
-      const indexer = new Indexer(predefinedSporeConfigs.Aggron4.ckbIndexerUrl);
-      const { script } = predefinedSporeConfigs.Aggron4.scripts.Cluster;
+      const indexer = new Indexer(config.ckbIndexerUrl);
+      const { script } = getSporeScript(config, 'Cluster');
       const collector = indexer.collector({
         type: { ...script, args: id as string },
       });
@@ -224,8 +226,8 @@ export default function SitePage() {
 
 		// highlight-start
     (async () => {
-      const indexer = new Indexer(predefinedSporeConfigs.Aggron4.ckbIndexerUrl);
-      const { script } = predefinedSporeConfigs.Aggron4.scripts.Spore;
+      const indexer = new Indexer(config.ckbIndexerUrl);
+      const { script } = getSporeScript(config, 'Spore');
       const collector = indexer.collector({
         type: { ...script, args: '0x' },
         lock,
@@ -315,12 +317,13 @@ import { Indexer } from '@ckb-lumos/lumos';
 import {
   SporeData,
   bufferToRawString,
-  predefinedSporeConfigs,
+  getSporeScript,
 } from '@spore-sdk/core';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRemark } from 'react-remark';
 import { Post } from '../site/[id]';
+import { config } from '@/config';
 
 export default function Post() {
   const router = useRouter();
@@ -334,8 +337,8 @@ export default function Post() {
     }
 
     (async () => {
-      const indexer = new Indexer(predefinedSporeConfigs.Aggron4.ckbIndexerUrl);
-      const { script } = predefinedSporeConfigs.Aggron4.scripts.Spore;
+      const indexer = new Indexer(config.ckbIndexerUrl);
+      const { script } = getSporeScript(config, 'Spore');
       const collector = indexer.collector({
         type: { ...script, args: id as string },
       });
@@ -440,9 +443,9 @@ import useWallet from '@/hooks/useWallet';
 	// highlight-start
 import { Indexer, OutPoint, RPC } from '@ckb-lumos/lumos';
 import {
-  bufferToRawString,
   meltSpore,
-  predefinedSporeConfigs,
+  getSporeScript,
+  bufferToRawString,
   unpackToRawClusterData,
   unpackToRawSporeData,
 } from '@spore-sdk/core';
@@ -451,6 +454,7 @@ import { useRouter } from 'next/router';
     // highlight-next-line
 import { useCallback, useEffect, useState } from 'react';
 import { Site } from '..';
+import { config } from '@/config';
 	// highlight-start
 import Link from 'next/link';
 import { signTransaction } from '@/utils/transaction';
@@ -474,8 +478,8 @@ export default function SitePage() {
 
     // highlight-start
   const fetchPosts = useCallback(async () => {
-    const indexer = new Indexer(predefinedSporeConfigs.Aggron4.ckbIndexerUrl);
-    const { script } = predefinedSporeConfigs.Aggron4.scripts.Spore;
+    const indexer = new Indexer(config.ckbIndexerUrl);
+    const { script } = getSporeScript(config, 'Spore');
     const collector = indexer.collector({
       type: { ...script, args: '0x' },
       lock,
@@ -511,8 +515,8 @@ export default function SitePage() {
     }
 
     (async () => {
-      const indexer = new Indexer(predefinedSporeConfigs.Aggron4.ckbIndexerUrl);
-      const { script } = predefinedSporeConfigs.Aggron4.scripts.Cluster;
+      const indexer = new Indexer(config.ckbIndexerUrl);
+      const { script } = getSporeScript(config, 'Cluster');
       const collector = indexer.collector({
         type: { ...script, args: id as string },
       });
@@ -542,7 +546,7 @@ export default function SitePage() {
       fromInfos: [address],
     });
     const tx = await signTransaction(txSkeleton);
-    const rpc = new RPC(predefinedSporeConfigs.Aggron4.ckbNodeUrl);
+    const rpc = new RPC(config.ckbNodeUrl);
     const hash = await rpc.sendTransaction(tx, 'passthrough');
     setTimeout(() => fetchPosts(), 1000);
     console.log(hash);
