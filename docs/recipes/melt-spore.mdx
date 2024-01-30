@@ -23,12 +23,12 @@ let { txSkeleton } = await meltSpore({
     txHash: '0x76cede56c91f8531df0e3084b3127686c485d08ad8e86ea948417094f3f023f9',
     index: '0x0',
   },
-  fromInfos: [SPONSOR_ADDRESS],
+  changeAddress: CHANGE_ADDRESS,
 });
 ```
 
 - `outPoint` - Specifies the spore you want to melt, identified by its transaction hash and index.
-- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
+- `changeAddress` - Specifies the destination address for receiving the capacity released from a melted spore. If not specified, the capacity will be returned to the spore's owner.
 
 ## Extras
 
