@@ -1,6 +1,7 @@
 ---
 sidebar_position: 5
 ---
+import EmbedCard from "@site/src/components/EmbedCard";
 
 # Create Clustered Spore
 
@@ -60,7 +61,8 @@ let { txSkeleton, outputIndex } = await createSpore({
     content: CONTENT_AS_BYTES,
     clusterId: CLUSTER_ID,
   },
-	clusterAgentOutPoint,
+  // highlight-next-line
+  clusterAgentOutPoint,
   toLock: OWNER_LOCK,
   fromInfos: [SPONSOR_ADDRESS],
 });
