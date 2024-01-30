@@ -27,6 +27,12 @@ Clusters are immortal. Once created, a cluster stays on-chain permanently.
 * [immortal](#immortal)
 * [What is a Cluster?](https://docs.spore.pro/basics/spore-101#what-is-a-cluster)
 
+## Cluster Agent
+ClusterAgent is a representative entity of a Cluster. Owner of ClusterAgent can reference it to create clustered Spores without requiring signatures or approvals from the owner of the Cluster it represents. This design allows for more flexible interactions and management of Spores.
+
+## Cluster Proxy
+A solution aimed at resolving ownership verification issues of the referenced Cluster during Spore creation. ClusterProxy enables the creation of ClusterAgents. If a minimum payment (minPayment) is defined for the ClusterProxy, anyone can make a payment to the ClusterProxy's owner and reference the ClusterProxy to create ClusterAgents.
+
 ## Content
 The unique digital item or asset that Spore represents. This could be anything like digital art, music, videos, virtual real estate, or collectibles.
 
