@@ -1,0 +1,72 @@
+---
+sidebar_position: 11
+---
+
+import EmbedCard from "@site/src/components/EmbedCard";
+
+# Melt Cluster Proxy/Agent
+
+In this recipe, you will learn how to [melt](/glossary/terms#melt) a [cluster proxy](/glossary/terms#cluster-proxy) and a [cluster agent](/glossary/terms#cluster-proxy) back into its [locked up CKBytes](/basics/spore-101#is-there-a-cost-to-mint-a-spore).
+
+:::caution
+[Clusters](/glossary/terms#cluster) cannot be melted.
+:::
+
+## Melt a Cluster Proxy
+
+You can melt a cluster proxy using the `meltClusterProxy` API from [spore-sdk](https://docs.spore.pro/resources/spore-sdk):
+```tsx
+import { meltClusterProxy, getClusterProxyById } from '@spore-sdk/core';
+
+const clusterProxyCell = await getClusterProxyById('0x<cluster_proxy_id>');
+
+let { txSkeleton } = await meltClusterProxy({
+  outPoint: clusterProxyOutPoint,
+  changeAddress: CHANGE_ADDRESS,
+});
+```
+
+- `outPoint` - Specifies the cluster proxy you want to melt, identified by its hash and index.
+- `changeAddress` - Specifies the destination address for receiving the capacity released from a melted spore. If not specified, the capacity will be returned to the cluster proxy's owner.
+
+## Melt a Cluster Agent
+
+You can melt a cluster agent using the `meltClusterAgent` API from [spore-sdk](https://docs.spore.pro/resources/spore-sdk):
+```tsx
+import { meltClusterAgent } from '@spore-sdk/core';
+
+let { txSkeleton } = await meltClusterAgent({
+  outPoint: {
+      txHash: '0x<transaction_hash>',
+      index: '0x<cluster_agent_output_index>',
+    },
+  changeAddress: CHANGE_ADDRESS,
+});
+```
+
+- `outPoint` - Specifies the cluster proxy you want to melt, identified by its transaction hash and index.
+- `changeAddress` - Specifies the destination address for receiving the capacity released from a melted spore. If not specified, the capacity will be returned to the cluster proxy's owner.
+
+
+## Extras
+
+### Code examples
+
+For a valid on-chain transaction, you'll need to sign the transaction skeleton and send it to the chain.
+
+Here are code examples for how to melt cluster proxy and cluster agent using [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c):
+
+<EmbedCard
+  title="meltClusterProxy.ts"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/meltClusterProxy.ts"
+  description="Melt a ClusterProxy"
+  className="margin-top--sm"
+/>
+
+
+<EmbedCard
+  title="meltClusterAgent.ts"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/meltClusterAgent.ts"
+  description="Melt a ClusterAgent"
+  className="margin-top--sm"
+/>

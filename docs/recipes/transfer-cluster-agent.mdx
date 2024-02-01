@@ -6,7 +6,7 @@ import EmbedCard from "@site/src/components/EmbedCard";
 
 # Transfer Cluster Agent
 
-In this recipe, you will learn how to transfer ownership of a [cluster agent](/glossary/terms#cluster-agent) using the [spore-sdk](https://docs.spore.pro/resources/spore-sdk). Owning a cluster proxy doesn’t grant ownership of the referenced [cluster proxy](/glossary/terms#cluster-proxy) or the associated cluster.
+In this recipe, you will learn how to transfer ownership of a [cluster agent](/glossary/terms#cluster-agent) using the [spore-sdk](https://docs.spore.pro/resources/spore-sdk). Owning a cluster proxy doesn’t grant ownership of the referenced [cluster proxy](/glossary/terms#cluster-proxy) or the associated [cluster](/glossary/terms#cluster).
 
 ## Transfer a Cluster Agent
 
@@ -16,7 +16,10 @@ You can execute a transfer using the `transferClusterAgent` API from spore-sd
 import { transferClusterAgent } from '@spore-sdk/core';
 
 let { txSkeleton } = await transferClusterAgent({
-  outPoint: clusterAgentOutPoint,
+  outPoint: {
+      txHash: '0x<transaction_hash>',
+      index: '0x<cluster_agent_output_index>',
+    },
   fromInfos: [SPONSOR_ADDRESS]
   toLock: RECEIVER_LOCK_SCRIPT,
 });
