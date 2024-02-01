@@ -1,0 +1,104 @@
+---
+sidebar_position: 6
+---
+
+import EmbedCard from "@site/src/components/EmbedCard";
+
+# Create Cluster Agent
+
+Cluster Proxy and Cluster Agents offer a solution to verify ownership when referencing a Cluster during simultaneous Spore creation.
+
+You will learn how to create a [Cluster Agent](/glossary/terms#cluster-agent), which serves as a representative for a Cluster. This enables the creation of [clustered spores](/recipes/create-clustered-spore) without requiring the signatures or approvals from the owner of the Cluster being represented.
+
+## Create a Cluster Agent
+
+### Method 1
+
+You can create a Cluster Agent by referencing a [ClusterProxy](/recipes/create-cluster-proxy) with the [`createClusterAgent` API](https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/core/composed-apis.md#createclusteragent) from spore-sdk:
+
+```tsx
+import { createClusterAgent } from '@spore-sdk/core';
+
+const referencedClusterProxyOutPoint: OutPoint = {
+  txHash: '0x...',
+  index: '0x...',
+};
+
+// Two methods to create a ClusterAgent
+// 'cell' - Reference ClusterProxy in the transaction
+// 'payment' - Pay the owner of the ClusterProxy in the transaction
+const referenceType: 'cell' | 'payment' = 'cell';
+
+const { txSkeleton, reference } = await createClusterAgent({
+  clusterProxyOutPoint: referencedClusterProxyOutPoint,
+  referenceType: referenceType,
+  fromInfos: [CHARLIE.address],
+  toLock: ALICE.lock,
+});
+```
+
+- `clusterProxyOutPoint` - Specifies the OutPoint data of the target ClusterProxy for creating the ClusterAgent.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
+- `toLock` - The lock script that specifies the ClusterAgent's ownership.
+
+### Method 2
+
+You can create a Cluster Agent by paying to the owner of the [`ClusterProxy`](/recipes/create-cluster-proxy) with the [`createClusterAgent` API](https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/core/composed-apis.md#createclusteragent) from spore-sdk:
+
+```tsx
+import { createClusterAgent } from '@spore-sdk/core';
+
+const referencedClusterProxyOutPoint: OutPoint = {
+  txHash: '0x...',
+  index: '0x...',
+};
+
+// Two methods to create a ClusterAgent
+// 'cell' - Reference ClusterProxy in the transaction
+// 'payment' - Pay the owner of the ClusterProxy in the transaction
+const referenceType: 'cell' | 'payment' = 'payment';
+
+// The amount of shannons pay to the owner of the ClusterProxy,
+// the amount will be `10^minPayment` required by the ClusterProxy.
+// optional, if undefined.
+const paymentAmount: BIish = BI.from(100_0000_0000);
+
+const { txSkeleton, reference } = await createClusterAgent({
+  clusterProxyOutPoint: referencedClusterProxyOutPoint,
+  referenceType: referenceType,
+// highlight-next-line
+  paymentAmount: paymentAmount,
+  fromInfos: [CHARLIE.address],
+  toLock: ALICE.lock,
+});
+
+```
+
+- `clusterProxyOutPoint` - Specifies the OutPoint data of the target ClusterProxy for creating the ClusterAgent.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
+- `toLock` - The lock script that specifies the ClusterAgent's ownership.
+- `paymentAmount` - The amount of shannons pay to the owner of the ClusterProxy. Optional, if undefined. If defined, the amount will be **10^minPayment** shannons required by the ClusterProxy.
+
+## Extras
+
+### Code example
+
+<EmbedCard
+title="createClusterAgent.ts"
+href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createClusterAgent.ts"
+description="Create a Cluster Agent"
+className="margin-top--sm"
+/>
+
+### Data Structure
+
+Cluster Agent Cell:
+
+```yaml
+Data: Type Hash of Referenced Cluster Proxy
+Type:
+    code_hash: CLUSTER_AGENT_TYPE_HASH
+    args: REFERENCED_CLUSTER_ID
+Lock:
+    <user_defined>
+```
