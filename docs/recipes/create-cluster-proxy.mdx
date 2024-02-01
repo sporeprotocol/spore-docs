@@ -24,16 +24,16 @@ const referencedClusterOutPoint: OutPoint = {
 
 let { txSkeleton, reference } = await createClusterProxy({
   clusterOutPoint: referencedClusterOutPoint,
-  minPayment: 10, // Optional payment
-  fromInfos: [CHARLIE.address],
-  toLock: CHARLIE.lock,
+  minPayment: n, // Optional payment
+  fromInfos: [SPONSOR_ADDRESS],
+  toLock: RECEIVER_LOCK_SCRIPT,
 });
 ```
 
 - `clusterOutPoint` - Specifies the OutPoint data of the target cluster for which you are creating the ClusterProxy.
 - `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
 - `toLock` - The lock script that specifies the ClusterProxy's ownership.
-- `minPayment` - An optional payment feature. If undefined, it's disabled. If defined, a minimum of 10^minPayment shannons is required as payment directed to `toLock` for using this ClusterProxy
+- `minPayment` - An optional payment feature. If undefined, it's disabled. If defined, a minimum of 10^minPayment shannons is required as payment directed to `toLock` for using this ClusterProxy.
 
 ## Extras
 

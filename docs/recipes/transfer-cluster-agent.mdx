@@ -1,0 +1,43 @@
+---
+sidebar_position: 9
+---
+
+import EmbedCard from "@site/src/components/EmbedCard";
+
+# Transfer Cluster Agent
+
+In this recipe, you will learn how to transfer ownership of a [cluster agent](/glossary/terms#cluster-agent) using the [spore-sdk](https://docs.spore.pro/resources/spore-sdk). Owning a cluster proxy doesn’t grant ownership of the referenced [cluster proxy](/glossary/terms#cluster-proxy) or the associated cluster.
+
+## Transfer a Cluster Agent
+
+You can execute a transfer using the `transferClusterAgent` API from spore-sdk:
+
+```tsx
+import { transferClusterAgent } from '@spore-sdk/core';
+
+let { txSkeleton } = await transferClusterAgent({
+  outPoint: clusterAgentOutPoint,
+  fromInfos: [SPONSOR_ADDRESS]
+  toLock: RECEIVER_LOCK_SCRIPT,
+});
+```
+
+- `outPoint` - Specifies the target cluster agent for the transfer, identified by its transaction hash and index.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
+- `toLock` - The lock script of the new owner/recipient of the cluster agent.
+
+## Extras
+
+### Code example
+
+For a valid on-chain transaction, you'll need to sign the transaction and send it to the chain.
+
+Here's a code example for how to transfer a cluster agent with [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c):
+
+<EmbedCard
+  title="transferClusterAgent.ts"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/transferClusterAgent.ts"
+  description="Transfer a Cluster Agent "
+  className="margin-top--sm"
+/>
+

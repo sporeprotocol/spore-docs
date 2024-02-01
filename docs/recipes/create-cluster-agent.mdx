@@ -32,8 +32,8 @@ const referenceType: 'cell' | 'payment' = 'cell';
 const { txSkeleton, reference } = await createClusterAgent({
   clusterProxyOutPoint: referencedClusterProxyOutPoint,
   referenceType: referenceType,
-  fromInfos: [CHARLIE.address],
-  toLock: ALICE.lock,
+  fromInfos: [SPONSOR_ADDRESS],
+  toLock: OWNER_LOCK,
 });
 ```
 
@@ -67,9 +67,9 @@ const { txSkeleton, reference } = await createClusterAgent({
   clusterProxyOutPoint: referencedClusterProxyOutPoint,
   referenceType: referenceType,
 // highlight-next-line
-  paymentAmount: paymentAmount,
-  fromInfos: [CHARLIE.address],
-  toLock: ALICE.lock,
+  paymentAmount: n,
+  fromInfos: [SPONSOR_ADDRESS],
+  toLock: OWNER_LOCK,
 });
 
 ```

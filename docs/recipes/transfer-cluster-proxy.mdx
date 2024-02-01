@@ -1,0 +1,47 @@
+---
+sidebar_position: 8
+---
+
+import EmbedCard from "@site/src/components/EmbedCard";
+
+# Transfer Cluster Proxy
+
+In this recipe, you will learn how to transfer ownership of a [cluster proxy](/glossary/terms#cluster-proxy) using the [spore-sdk](https://docs.spore.pro/resources/spore-sdk). Owning a cluster proxy doesn’t grant ownership of the referenced cluster or the [cluster agents](/glossary/terms#cluster-agent) created from it.
+
+## Transfer a Cluster Proxy
+
+You can execute a transfer using the `transferClusterProxy` API from spore-sdk:
+
+```tsx
+import { transferClusterProxy, getClusterProxyById } from '@spore-sdk/core';
+
+const clusterProxyCell = await getClusterProxyById('0x<cluster_proxy_id>');
+
+let { txSkeleton } = await transferClusterProxy({
+  outPoint: clusterProxyCellOutPoint,
+  minPayment: n, // Optional & modifiable
+  fromInfos: [SPONSOR_ADDRESS]
+  toLock: RECEIVER_LOCK_SCRIPT,
+});
+```
+
+- `outPoint` - Specifies the target cluster proxy for the transfer, identified by its transaction hash and index.
+- `minPayment` - An optional payment feature. If undefined, it's disabled. If defined, a minimum of 10^minPayment shannons is required as payment directed to `toLock` for using this ClusterProxy.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
+- `toLock` - The lock script of the new owner/recipient of the cluster proxy.
+
+## Extras
+
+### Code example
+
+For a valid on-chain transaction, you'll need to sign the transaction and send it to the chain.
+
+Here's a code example for how to transfer a cluster proxy with [`CKB default lock`](https://github.com/nervosnetwork/ckb-system-scripts/blob/master/c/secp256k1_blake160_sighash_all.c):
+
+<EmbedCard
+  title="transferClusterProxy.ts"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/transferClusterProxy.ts"
+  description="Transfer a Cluster Proxy "
+  className="margin-top--sm"
+/>
+
