@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 9
 ---
 
 import EmbedCard from "@site/src/components/EmbedCard";
@@ -17,7 +17,7 @@ import { transferCluster } from '@spore-sdk/core';
 
 let { txSkeleton } = await transferCluster({
   outPoint: {
-    txHash: '0xb1f94d7d8e8441bfdf1fc76639d12f4c3c391b8c8a18ed558e299674095290c3',
+    txHash: '0x<transaction_hash>',
     index: '0x0',
   },
   toLock: RECEIVER_LOCK_SCRIPT,
@@ -37,7 +37,7 @@ Here's a code example for how to transfer a cluster with [`CKB default lock`](h
 
 <EmbedCard
   title="transferCluster.ts"
-  href="https://github.com/sporeprotocol/spore-sdk/blob/b3e5e9c8f0243567d6eb06f1b759b3e4829bacb9/examples/secp256k1/apis/transferCluster.ts"
+  href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/transferCluster.ts"
   description="Transfer a Cluster "
   className="margin-top--sm"
 />
