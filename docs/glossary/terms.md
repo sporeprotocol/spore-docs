@@ -22,8 +22,8 @@ Denotes a series or collection of Spores, serving as an organizational tool that
 Clusters are immortal. Once created, a cluster stays on-chain permanently.
 
 **see also:** 
-* [public cluster](#public_cluster)
-* [private cluster](#private_cluster)
+* [public cluster](#public-cluster)
+* [private cluster](#private-cluster)
 * [immortal](#immortal)
 * [What is a Cluster?](https://docs.spore.pro/basics/spore-101#what-is-a-cluster)
 
@@ -117,7 +117,7 @@ Process of adding capacity to a Spore, locking it, and declaring its intrinsic v
 
 **see also:** 
 * [capacity](#capacity)
-* [zero-fee](#zero-fee)
+* [zero-fee](#zero-fee-transfer)
 
 ## Melt
 
@@ -168,7 +168,7 @@ Publicly verifiable and indisputable record of ownership for digital assets insc
 A cluster that can only be used by its owner to link a Spore or multiple Spores to it when minting these Spores.
 
 **see also:** 
-* [public cluster](#public_cluster)
+* [public cluster](#public-cluster)
 * [cluster](#cluster)
 
 ## Private Key
@@ -176,7 +176,7 @@ A cluster that can only be used by its owner to link a Spore or multiple Spores 
 Cryptographic information exclusively known to its owner or owners. Employed in conjunction with an algorithm for both encryption and decryption, ensuring the confidentiality and security of sensitive information.
 
 **see also:** 
-* [public key](#public_key)
+* [public key](#public-key)
 
 ## Public Cluster
 
@@ -184,14 +184,14 @@ A cluster that allows anyone, not just the owner, to associate a Spore or multip
 
 **see also:**
 * [cluster](#clsuter)
-* [private cluster](#private_cluster)
+* [private cluster](#private-cluster)
 
 ## Public Key
 
 Cryptographic information openly shareable without compromising security. Utilized for message encryption to ensure that only the corresponding private key holder can decrypt. Also employed for message authenticity verification, confirming authorization by the user possessing the corresponding private key.
 
 **see also:** 
-* [private key](#public_key)
+* [private key](#public-key)
 
 ## Redeemability
 
@@ -205,7 +205,7 @@ Ability of Spore owners to melt their Spores and retrieve the occupied CKBytes.
 The process of changing the ownership of a Spore or a Cluster. It's important to note that owning a cluster does not automatically grant ownership of the spores associated with that cluster. Each Spore and Cluster has its own distinct ownership rights that can be transferred separately.
 
 **see also:** 
-* [zero-fee transfer](#zero-fee_transfer)
+* [zero-fee transfer](#zero-fee-transfer)
 * [Basic operation: Transfer](https://docs.spore.pro/basics/spore-operation#transfer)
 
 ## Tokenomics
@@ -242,5 +242,5 @@ A script establishing mandatory transaction conditions for a Spore cell to be us
 Mechanism allowing 0 cost Spore transfers. Each Spore is pre-fueled with the capacity to cover future transfers, making all subsequent operations–including sending, receiving, and melting—completely free.
 
 **see also:** 
-* [transfer](#trasnfer)
+* [transfer](#transfer)
 * [What is “Zero-fee Transfer“?](https://docs.spore.pro/basics/tech-faq#what-is-zero-fee-transfer)
