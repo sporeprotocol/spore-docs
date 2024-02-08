@@ -1,0 +1,68 @@
+---
+sidebar_position: 6
+---
+
+import EmbedCard from "@site/src/components/EmbedCard";
+
+# Create Cluster Proxy
+
+Cluster Proxy and Cluster Agents offer a solution to verify ownership when referencing a [cluster](/glossary/terms#cluster) during simultaneous spore creation.
+
+This recipe will guide you through the process of creating a [Cluster Proxy](/glossary/terms#cluster-proxy), which can be utilized by you or others (for a fee) to generate [Cluster Agents](/glossary/terms#cluster-agent).
+
+## Create a Cluster Proxy
+
+You can create a Cluster Proxy with the [`createClusterProxy` API](https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/core/composed-apis.md#createclusterproxy) from spore-sdk:
+
+```tsx
+import { createClusterProxy } from '@spore-sdk/core';
+
+const referencedClusterOutPoint: OutPoint = {
+  txHash: '0x...',
+  index: '0x...',
+};
+
+let { txSkeleton, reference } = await createClusterProxy({
+  clusterOutPoint: referencedClusterOutPoint,
+  minPayment: n, // Optional payment
+  fromInfos: [SPONSOR_ADDRESS],
+  toLock: RECEIVER_LOCK_SCRIPT,
+});
+```
+
+- `clusterOutPoint` - Specifies the OutPoint data of the target cluster for which you are creating the ClusterProxy.
+- `fromInfos` - The transaction's sponsors, specifies where to collect capacity from.
+- `toLock` - The lock script that specifies the ClusterProxy's ownership.
+- `minPayment` - An optional payment feature. If undefined, it's disabled. If defined, a minimum of 10^minPayment shannons is required as payment directed to `toLock` for using this ClusterProxy.
+
+## Extras
+
+### Code example
+
+<EmbedCard
+title="createClusterProxy.ts"
+href="https://github.com/sporeprotocol/spore-sdk/blob/beta/examples/secp256k1/apis/createClusterProxy.ts"
+description="Create a Cluster Proxy"
+className="margin-top--sm"
+/>
+
+### Data Structure
+Cluster Proxy Cell:
+
+```yaml
+Data: REFERENCED_CLUSTER_ID
+Type:
+    code_hash: CLUSTER_PROXY_TYPE_HASH
+    args: <cluster_proxy_id> [<min_payment>]
+Lock:
+    <user_defined>
+```
+
+The Type args can be:
+
+- args: <cluster_proxy_id>
+- args: <cluster_proxy_id> <minimal payment in 10^n ckbytes: uint8>
+
+Where `cluster_proxy_id = hash(Inputs[0], Output_Index)`
+
+
