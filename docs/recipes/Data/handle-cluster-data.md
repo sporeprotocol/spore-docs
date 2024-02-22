@@ -31,9 +31,9 @@ console.log(bytes.hexify(packed));
 // 0x3a0000000c0000001c0000000c000000636c7573746572206e616d651a0000006465736372697074696f6e206f662074686520636c7573746572
 ```
 
-## Decode SporeData
+## Decode ClusterData
 
-You can unpack SporeData from bytes/hex to JSON with the `unpackToRawSporeData` API:
+You can unpack ClusterData from bytes/hex to JSON with the `unpackToRawClusterData` API:
 
 ```tsx
 import { unpackToRawClusterData } from '@spore-sdk/core';
