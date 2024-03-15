@@ -57,9 +57,9 @@ lock:
     <user_defined>
 ```
 
-- `content-type` - Specifies the format of the `content` (like image/png) following [MIME standards](https://datatracker.ietf.org/doc/html/rfc2046). It can include parameters (e.g., `immortal=true` for indestructible NFTs). 
-- `content` - Holds the main content of the NFT.
-- `cluster_id` - An optional field for categorizing the NFT into a series or collection.
+- `content-type` - Specifies the format of the `content` (like image/png) following [MIME standards](https://datatracker.ietf.org/doc/html/rfc2046). It can include parameters (e.g., `immortal=true` for indestructible spore). 
+- `content` - Holds the main content of the Spore.
+- `cluster_id` - An optional field for categorizing the Spore into a series or collection.
 - `type` - Type script is set to `SPORE_TYPE_DATA_HASH`  with `SPORE_ID` as an argument that follows the rules of [Type ID script](/glossary/terms#type-id)
     - SPORE_ID = hash(this_transaction.inputs[0]) | Output_Index_Of_This_Cell
 
