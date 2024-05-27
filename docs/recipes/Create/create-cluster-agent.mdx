@@ -8,13 +8,13 @@ import EmbedCard from "@site/src/components/EmbedCard";
 
 Cluster Proxy and Cluster Agents offer a solution to verify ownership when referencing a [cluster](/glossary/terms#cluster) during simultaneous spore creation.
 
-You will learn how to create a [Cluster Agent](/glossary/terms#cluster-agent), which serves as a representative for a Cluster. This enables the creation of [clustered spores](/recipes/create-clustered-spore) without requiring the signatures or approvals from the owner of the Cluster being represented.
+You will learn how to create a [Cluster Agent](/glossary/terms#cluster-agent), which serves as a representative for a Cluster. This enables the creation of [clustered spores](/recipes/Create/create-clustered-spore) without requiring the signatures or approvals from the owner of the Cluster being represented.
 
 ## Create a Cluster Agent
 
 ### Method 1
 
-You can create a Cluster Agent by referencing a [ClusterProxy](/recipes/create-cluster-proxy) with the [`createClusterAgent` API](https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/core/composed-apis.md#createclusteragent) from spore-sdk:
+You can create a Cluster Agent by referencing a [ClusterProxy](/recipes/Create/create-cluster-proxy) with the [`createClusterAgent` API](https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/core/composed-apis.md#createclusteragent) from spore-sdk:
 
 ```tsx
 import { createClusterAgent } from '@spore-sdk/core';
@@ -43,7 +43,7 @@ const { txSkeleton, reference } = await createClusterAgent({
 
 ### Method 2
 
-You can create a Cluster Agent by paying to the owner of the [`ClusterProxy`](/recipes/create-cluster-proxy) with the [`createClusterAgent` API](https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/core/composed-apis.md#createclusteragent) from spore-sdk:
+You can create a Cluster Agent by paying to the owner of the [`ClusterProxy`](/recipes/Create/create-cluster-proxy) with the [`createClusterAgent` API](https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/core/composed-apis.md#createclusteragent) from spore-sdk:
 
 ```tsx
 import { createClusterAgent } from '@spore-sdk/core';
