@@ -1,12 +1,12 @@
 # DOB/0 Protocol
 
-# Introduction
+## Introduction
 
 The first step in the DOB protocol family. The DOB/0 protocol specifies the configuration method and interface format of the decoder on DOB and provides a universal decoder to reduce the development workload of most applications.
 
-# DOB/0 Decoder
+## DOB/0 Decoder
 
-## Configuration Method
+### Configuration Method
 
 In the DOB/0 protocol, the issuer should store the decoder configuration information in the `description` field of the Spore Cluster. This piece of configuration information should be a JSON object encoded in UTF-8 format, with the following format:
 
@@ -68,7 +68,7 @@ const { txSkeleton, outputIndex } = await createCluster({
 // sign for txSkeleton
 ```
 
-## Interface Format
+### Interface Format
 
 Server will provide two parameters, `DNA` and `Pattern` to the DOB/0 decoder:
 
@@ -91,14 +91,14 @@ When the corresponding `traits` under a `name` has only one element, the parser 
 
 Each element in `traits` should have one and only one key-value pair representing its type and value. The case of multiple key-value pairs is an undefined behaviour.
 
-# DOB/0 Universal Decoder
+## DOB/0 Universal Decoder
 
-## Links
+### Links
 
 - DOB/0 Decoder Interface https://github.com/sporeprotocol/spore-dob-0
 - DOB/0 Universal Decoder https://github.com/sporeprotocol/decoder-template-rust
 
-## DNA Definition
+### DNA Definition
 
 In the DOB/0 protocol, DNA should be stored in the `content` field of the DOB. DNA is in JSON format and can be a string, the first element in an array, or a property in an object:
 
@@ -143,7 +143,7 @@ const { txSkeleton, outputIndex } = await createSpore({
 // sign for txSkeleton
 ```
 
-## Pattern Definition
+### Pattern Definition
 
 For the comprehensive consideration of ease of use, readability and reducing CKB occupancy, the universal decoder accepts a JSON array type as a pattern:
 
@@ -223,7 +223,7 @@ The meanings of the elements in each subarray from top to bottom are:
 
 `args`: Optional array type. The function is as above.
 
-## Universal Decoder Deployments
+### Universal Decoder Deployments
 
 ```jsx
 {
