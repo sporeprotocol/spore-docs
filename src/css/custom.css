@@ -93,6 +93,10 @@ nav.menu {
   font-weight: 700;
 }
 
+code {
+  tab-size: 2;
+}
+
 /* Docs Table of Contents */
 .table-of-contents__link:hover {
   color: var(--ifm-link-color);
