@@ -1,26 +1,26 @@
 # DOB/0 Protocol
 
-# Introduction
+## Introduction
 
 The first step in the DOB protocol family. The DOB/0 protocol specifies the configuration method and interface format of the decoder on DOB and provides a universal decoder to reduce the development workload of most applications.
 
-# DOB/0 Decoder
+## DOB/0 Decoder
 
-## Configuration Method
+### Configuration Method
 
 In the DOB/0 protocol, the issuer should store the decoder configuration information in the `description` field of the Spore Cluster. This piece of configuration information should be a JSON object encoded in UTF-8 format, with the following format:
 
 ```json
 {
-	"description": "This is the description for cluster",
-	"dobs": {
-		"ver": 0,
-		"decoder": {
-			"type": "code_hash",  // or "type_id"
-			"hash": "...",
-		},
-		"pattern": []  // Any type
-	}
+  "description": "This is the description for cluster",
+  "dobs": {
+    "ver": 0,
+    "decoder": {
+      "type": "code_hash",  // or "type_id"
+      "hash": "...",
+    },
+  "pattern": []  // Any type
+  }
 }
 ```
 
@@ -45,15 +45,15 @@ import { bytifyRawString } from '@spore-sdk/helpers/buffer';
 
 const account = ...;
 const dob_metadata = {
-	description: 'this is the description for cluster',
-	dobs: {
-		ver: 0,
-		decoder: {
-			type: 'code_hash',
-			hash: '...',
-		},
-		pattern: [["Age", "number", 1, 1, "range", [0, 100]]],
-	}
+  description: 'this is the description for cluster',
+  dobs: {
+    ver: 0,
+    decoder: {
+      type: 'code_hash',
+      hash: '...',
+    },
+  	pattern: [["Age", "number", 1, 1, "range", [0, 100]]],
+  }
 };
 
 const { txSkeleton, outputIndex } = await createCluster({
@@ -68,7 +68,7 @@ const { txSkeleton, outputIndex } = await createCluster({
 // sign for txSkeleton
 ```
 
-## Interface Format
+### Interface Format
 
 Server will provide two parameters, `DNA` and `Pattern` to the DOB/0 decoder:
 
@@ -91,14 +91,14 @@ When the corresponding `traits` under a `name` has only one element, the parser 
 
 Each element in `traits` should have one and only one key-value pair representing its type and value. The case of multiple key-value pairs is an undefined behaviour.
 
-# DOB/0 Universal Decoder
+## DOB/0 Universal Decoder
 
-## Links
+### Links
 
 - DOB/0 Decoder Interface https://github.com/sporeprotocol/spore-dob-0
 - DOB/0 Universal Decoder https://github.com/sporeprotocol/decoder-template-rust
 
-## DNA Definition
+### DNA Definition
 
 In the DOB/0 protocol, DNA should be stored in the `content` field of the DOB. DNA is in JSON format and can be a string, the first element in an array, or a property in an object:
 
@@ -127,7 +127,7 @@ import { bytifyRawString } from '@spore-sdk/helpers/buffer';
 const account = ...;
 const dob_cluster_id = ...;
 const dob_content = {
-	dna: 'df4ffcb5e7a283ea7e6f09a504d0e256'
+  dna: 'df4ffcb5e7a283ea7e6f09a504d0e256'
 };
 
 const { txSkeleton, outputIndex } = await createSpore({
@@ -143,7 +143,7 @@ const { txSkeleton, outputIndex } = await createSpore({
 // sign for txSkeleton
 ```
 
-## Pattern Definition
+### Pattern Definition
 
 For the comprehensive consideration of ease of use, readability and reducing CKB occupancy, the universal decoder accepts a JSON array type as a pattern:
 
@@ -223,17 +223,17 @@ The meanings of the elements in each subarray from top to bottom are:
 
 `args`: Optional array type. The function is as above.
 
-## Universal Decoder Deployments
+### Universal Decoder Deployments
 
 ```jsx
 {
   // CKB Testnet
-	decoder: {
-	  type: 'code_hash',
-	  hash: '0x32f29aba4b17f3d05bec8cec55d50ef86766fd0bf82fdedaa14269f344d3784a',
-		tx_hash: '0x987cf95d129a2dcc2cdf7bd387c1bd888fa407e3c5a3d511fd80c80dcf6c6b67',
-	  out_index: 0,
-	}
+  decoder: {
+	 type: 'code_hash',
+	 hash: '0x32f29aba4b17f3d05bec8cec55d50ef86766fd0bf82fdedaa14269f344d3784a',
+	 tx_hash: '0x987cf95d129a2dcc2cdf7bd387c1bd888fa407e3c5a3d511fd80c80dcf6c6b67',
+	 out_index: 0,
+  }
 }
 ```
 
@@ -247,48 +247,48 @@ const CKB_HASH_PERSONALIZATION: &[u8] = b"ckb-default-hash";
 // By Block Number and Cell Id
 let block_number = 12559090u64;
 let cell_id = {
-    let tx_hash =
-        h256!("0xe0cc0c77de31483b27384753ec36a1f413bbbf79535c7605a882d490357de97b");
-    let out_index = 0u32;
-    let mut hash = Blake2bBuilder::new(8)
-        .personal(CKB_HASH_PERSONALIZATION)
-        .build();
-    hash.update(tx_hash.as_bytes());
-    hash.update(&out_index.to_le_bytes());
-    let mut cell_id = [0u8; 8];
-    hash.finalize(&mut cell_id);
-    u64::from_le_bytes(cell_id)
+  let tx_hash =
+		h256!("0xe0cc0c77de31483b27384753ec36a1f413bbbf79535c7605a882d490357de97b");
+  let out_index = 0u32;
+  let mut hash = Blake2bBuilder::new(8)
+		.personal(CKB_HASH_PERSONALIZATION)
+		.build();
+  hash.update(tx_hash.as_bytes());
+  hash.update(&out_index.to_le_bytes());
+  let mut cell_id = [0u8; 8];
+  hash.finalize(&mut cell_id);
+  u64::from_le_bytes(cell_id)
 };
 let dna = {
-    let mut hash = Blake2bBuilder::new(12)
-        .personal(CKB_HASH_PERSONALIZATION)
-        .build();
-    hash.update(&block_number.to_le_bytes());
-    hash.update(&cell_id.to_le_bytes());
-    let mut dna = [0u8; 12];
-    hash.finalize(&mut dna);
-    dna.to_vec()
+  let mut hash = Blake2bBuilder::new(12)
+			.personal(CKB_HASH_PERSONALIZATION)
+			.build();
+  hash.update(&block_number.to_le_bytes());
+  hash.update(&cell_id.to_le_bytes());
+  let mut dna = [0u8; 12];
+  hash.finalize(&mut dna);
+  dna.to_vec()
 };
 
 // By Block Hash and Outpoint（More random）
 let block_hash = h256!("0xb140a915e5fdb9fff472376b82ebcc23b6f0b2508f58ed03fdeed4d563c8eca4");
 let out_point = {
-		let tx_hash =
-        h256!("0xe0cc0c77de31483b27384753ec36a1f413bbbf79535c7605a882d490357de97b");
-    let out_index = 0u32;
-		OutPoint::new_builder()
-				.tx_hash(tx_hash.pack())
-				.index(out_index.pack())
-				.build()
+  let tx_hash =
+			h256!("0xe0cc0c77de31483b27384753ec36a1f413bbbf79535c7605a882d490357de97b");
+  let out_index = 0u32;
+  OutPoint::new_builder()
+			.tx_hash(tx_hash.pack())
+			.index(out_index.pack())
+			.build()
 };
 let dna = {
-    let mut hash = Blake2bBuilder::new(12)
-        .personal(CKB_HASH_PERSONALIZATION)
-        .build();
-    hash.update(&block_hash);
-    hash.update(&out_point.as_bytes());
-    let mut dna = [0u8; 12];
-    hash.finalize(&mut dna);
-    dna.to_vec()
+  let mut hash = Blake2bBuilder::new(12)
+  .personal(CKB_HASH_PERSONALIZATION)
+  .build();
+  hash.update(&block_hash);
+  hash.update(&out_point.as_bytes());
+  let mut dna = [0u8; 12];
+  hash.finalize(&mut dna);
+  dna.to_vec()
 };
 ```

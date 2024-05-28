@@ -32,15 +32,15 @@ import { bytifyRawString } from '@spore-sdk/helpers/buffer';
 
 const account = ...;
 const dob_metadata = {
-	description: 'this is the description for cluster',
-	dobs: {
-		ver: 0,
-		decoder: {
-			type: 'code_hash',
-			hash: '...',
-		},
-		pattern: [["Age", "number", 1, 1, "range", [0, 100]]],
-	}
+  description: 'this is the description for cluster',
+  dobs: {
+    ver: 0,
+    decoder: {
+      type: 'code_hash',
+      hash: '...',
+    },
+    pattern: [["Age", "number", 1, 1, "range", [0, 100]]],
+  }
 };
 
 const { txSkeleton, outputIndex } = await createCluster({
@@ -64,7 +64,7 @@ import { bytifyRawString } from '@spore-sdk/helpers/buffer';
 const account = ...;
 const dob_cluster_id = ...;
 const dob_content = {
-	dna: 'df4ffcb5e7a283ea7e6f09a504d0e256'
+  dna: 'df4ffcb5e7a283ea7e6f09a504d0e256'
 };
 
 const { txSkeleton, outputIndex } = await createSpore({
@@ -95,12 +95,12 @@ After starting the server, decode a specified Spore DOB by the following request
 
 ```bash
 $ echo '{
-    "id": 2,
-    "jsonrpc": "2.0",
-    "method": "dob_decode",
-    "params": [
-        "<spore_id in hex format without 0x prefix>"
-    ]
+  "id": 2,
+  "jsonrpc": "2.0",
+  "method": "dob_decode",
+  "params": [
+      "<spore_id in hex format without 0x prefix>"
+  ]
 }' \
 | curl -H 'content-type: application/json' -d @- \
 http://localhost:8090
