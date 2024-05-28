@@ -57,12 +57,12 @@ const dob_metadata = {
 };
 
 const { txSkeleton, outputIndex } = await createCluster({
-	data: {
-		name: 'My First DOB Cluster',
-		description: bytifyRawString(JSON.strinify(dob_metadata)),
-	},
-	fromInfos: [account.address],
-	toLock: account.lock
+  data: {
+    name: 'My First DOB Cluster',
+    description: bytifyRawString(JSON.strinify(dob_metadata)),
+  },
+  fromInfos: [account.address],
+  toLock: account.lock
 });
 
 // sign for txSkeleton
@@ -127,7 +127,7 @@ import { bytifyRawString } from '@spore-sdk/helpers/buffer';
 const account = ...;
 const dob_cluster_id = ...;
 const dob_content = {
-	dna: 'df4ffcb5e7a283ea7e6f09a504d0e256'
+  dna: 'df4ffcb5e7a283ea7e6f09a504d0e256'
 };
 
 const { txSkeleton, outputIndex } = await createSpore({

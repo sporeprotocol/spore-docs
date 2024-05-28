@@ -93,8 +93,11 @@ nav.menu {
   font-weight: 700;
 }
 
-code {
-  tab-size: 2;
+pre, code {
+  tab-size: 2; /* Set your desired tab size here */
+  -moz-tab-size: 2; /* For Firefox */
+  -o-tab-size: 2; /* For Opera */
+  -webkit-tab-size: 2; /* For WebKit browsers */
 }
 
 /* Docs Table of Contents */
