@@ -100,20 +100,16 @@ Each element in `traits` should have one and only one key-value pair representin
 
 ### DNA Definition
 
-In the DOB/0 protocol, DNA should be stored in the `content` field of the DOB. DNA is in JSON format and can be a string, the first element in an array, or a property in an object:
+In the DOB/0 protocol, DNA should be stored in the `content` field of the DOB. DNA can be a UTF-8 encoded JSON format of a string, the first element in an array, or a property in an object, or it can also be raw bytes prefixed with 0:
 
-```json
-"df4ffcb5e7a283ea7e6f09a504d0e256"
-
+```javascript
+bytifyRawString(JSON.strinify("df4ffcb5e7a283ea7e6f09a504d0e256"))
 // or
-
-["df4ffcb5e7a283ea7e6f09a504d0e256"]
-
+bytifyRawString(JSON.strinify(["df4ffcb5e7a283ea7e6f09a504d0e256"]))
 // or
-
-{
-	"dna": "df4ffcb5e7a283ea7e6f09a504d0e256"
-}
+bytifyRawString(JSON.strinify({	"dna": "df4ffcb5e7a283ea7e6f09a504d0e256" }))
+// or
+[0, 223, 79, 252, 181, 231, 162, 131, 234, 126, 111, 9, 165, 4, 208, 226, 86]
 ```
 
 DNA is an unprefixed hexadecimal string type.
@@ -211,7 +207,7 @@ The meanings of the elements in each subarray from top to bottom are:
 
 `type`: String type, the type of attribute.
 
-`offset` and `len`: Numeric types, which together specify a segment in DNA, to derive data based on pattern
+`offset` and `len`: Numeric types, which together specify a segment in DNA, to derive data based on pattern. Segments that exceed the DNA's length will be trimmed.
 
 `pattern`: String type, optional:
 
