@@ -13,7 +13,7 @@ In the DOB/0 protocol, the issuer should store the decoder configuration informa
 ```json
 {
   "description": "This is the description for cluster",
-  "dobs": {
+  "dob": {
     "ver": 0,
     "decoder": {
       "type": "code_hash",  // or "type_id"
@@ -26,16 +26,16 @@ In the DOB/0 protocol, the issuer should store the decoder configuration informa
 
 `description`: String type, description information for the Spore cluster.
 
-`dobs.ver`: Numeric type, representing the DOB protocol version number, which should always be 0 in DOB/0.
+`dob.ver`: Numeric type, representing the DOB protocol version number, which should always be 0 in DOB/0.
 
-`dobs.decoder.type`: String type, specifying the way to find a decoder:
+`dob.decoder.type`: String type, specifying the way to find a decoder:
 
-- `code_hash`: Find the cell whose CKB hash value of its data is `dobs.decoder.hash`.
-- `type_id`: Find the cell whose `type_script.args` is `dobs.decoder.hash`. Cell's type script must be [Type ID](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0022-transaction-structure/0022-transaction-structure.md#type-id).
+- `code_hash`: Find the cell whose CKB hash value of its data is `dob.decoder.hash`.
+- `type_id`: Find the cell whose `type_script.args` is `dob.decoder.hash`. Cell's type script must be [Type ID](https://github.com/nervosnetwork/rfcs/blob/master/rfcs/0022-transaction-structure/0022-transaction-structure.md#type-id).
 
-`dobs.decoder.hash`: Prefixed hexadecimal string type. See above.
+`dob.decoder.hash`: Prefixed hexadecimal string type. See above.
 
-`dobs.pattern`: Any type, determined by the decoder.
+`dob.pattern`: Any type, determined by the decoder.
 
 Create a DOB/0 cluster via Spore SDK:
 
@@ -46,7 +46,7 @@ import { bytifyRawString } from '@spore-sdk/helpers/buffer';
 const account = ...;
 const dob_metadata = {
   description: 'this is the description for cluster',
-  dobs: {
+  dob: {
     ver: 0,
     decoder: {
       type: 'code_hash',
