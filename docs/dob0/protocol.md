@@ -221,14 +221,24 @@ The meanings of the elements in each subarray from top to bottom are:
 
 ### Universal Decoder Deployments
 
-```jsx
+```js
 {
   // CKB Testnet
   decoder: {
-	 type: 'code_hash',
-	 hash: '0x32f29aba4b17f3d05bec8cec55d50ef86766fd0bf82fdedaa14269f344d3784a',
-	 tx_hash: '0x987cf95d129a2dcc2cdf7bd387c1bd888fa407e3c5a3d511fd80c80dcf6c6b67',
-	 out_index: 0,
+    type: 'code_hash',
+    hash: '0x1c84212ebd817e9de09d2a79f85cc421b684eda63409cfa75688f98716e77b5f',
+    tx_hash: '0xc877aca405da6a3038054cb5da20f2db0ed46bb643007d4e0b1d3fe7da155bf0',
+    out_index: 0,
+  }
+}
+
+{
+  // CKB Mainnet
+  decoder: {
+    type: 'code_hash',
+    hash: '0x1c84212ebd817e9de09d2a79f85cc421b684eda63409cfa75688f98716e77b5f',
+    tx_hash: '0xa84f9426f378109dfa717cb3a29fb79b764bf466a7c2588aebcdecc874bcc984',
+    out_index: 0,
   }
 }
 ```
