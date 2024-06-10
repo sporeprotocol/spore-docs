@@ -100,20 +100,16 @@ Each element in `traits` should have one and only one key-value pair representin
 
 ### DNA Definition
 
-In the DOB/0 protocol, DNA should be stored in the `content` field of the DOB. DNA is in JSON format and can be a string, the first element in an array, or a property in an object:
+In the DOB/0 protocol, DNA should be stored in the `content` field of the DOB. DNA can be a UTF-8 encoded JSON format of a string, the first element in an array, or a property in an object, or it can also be raw bytes prefixed with 0:
 
-```json
-"df4ffcb5e7a283ea7e6f09a504d0e256"
-
+```javascript
+bytifyRawString(JSON.strinify("df4ffcb5e7a283ea7e6f09a504d0e256"))
 // or
-
-["df4ffcb5e7a283ea7e6f09a504d0e256"]
-
+bytifyRawString(JSON.strinify(["df4ffcb5e7a283ea7e6f09a504d0e256"]))
 // or
-
-{
-	"dna": "df4ffcb5e7a283ea7e6f09a504d0e256"
-}
+bytifyRawString(JSON.strinify({	"dna": "df4ffcb5e7a283ea7e6f09a504d0e256" }))
+// or
+[0, 223, 79, 252, 181, 231, 162, 131, 234, 126, 111, 9, 165, 4, 208, 226, 86]
 ```
 
 DNA is an unprefixed hexadecimal string type.
@@ -211,7 +207,7 @@ The meanings of the elements in each subarray from top to bottom are:
 
 `type`: String type, the type of attribute.
 
-`offset` and `len`: Numeric types, which together specify a segment in DNA, to derive data based on pattern
+`offset` and `len`: Numeric types, which together specify a segment in DNA, to derive data based on pattern. Segments that exceed the DNA's length will be trimmed.
 
 `pattern`: String type, optional:
 
@@ -225,14 +221,24 @@ The meanings of the elements in each subarray from top to bottom are:
 
 ### Universal Decoder Deployments
 
-```jsx
+```js
 {
   // CKB Testnet
   decoder: {
-	 type: 'code_hash',
-	 hash: '0x32f29aba4b17f3d05bec8cec55d50ef86766fd0bf82fdedaa14269f344d3784a',
-	 tx_hash: '0x987cf95d129a2dcc2cdf7bd387c1bd888fa407e3c5a3d511fd80c80dcf6c6b67',
-	 out_index: 0,
+    type: 'code_hash',
+    hash: '0x1c84212ebd817e9de09d2a79f85cc421b684eda63409cfa75688f98716e77b5f',
+    tx_hash: '0xc877aca405da6a3038054cb5da20f2db0ed46bb643007d4e0b1d3fe7da155bf0',
+    out_index: 0,
+  }
+}
+
+{
+  // CKB Mainnet
+  decoder: {
+    type: 'code_hash',
+    hash: '0x1c84212ebd817e9de09d2a79f85cc421b684eda63409cfa75688f98716e77b5f',
+    tx_hash: '0xa84f9426f378109dfa717cb3a29fb79b764bf466a7c2588aebcdecc874bcc984',
+    out_index: 0,
   }
 }
 ```
