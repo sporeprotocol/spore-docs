@@ -103,11 +103,11 @@ Each element in `traits` should have one and only one key-value pair representin
 In the DOB/0 protocol, DNA should be stored in the `content` field of the DOB. DNA can be a UTF-8 encoded JSON format of a string, the first element in an array, or a property in an object, or it can also be raw bytes prefixed with 0:
 
 ```javascript
-bytifyRawString(JSON.strinify("df4ffcb5e7a283ea7e6f09a504d0e256"))
+bytifyRawString(JSON.stringify("df4ffcb5e7a283ea7e6f09a504d0e256"))
 // or
-bytifyRawString(JSON.strinify(["df4ffcb5e7a283ea7e6f09a504d0e256"]))
+bytifyRawString(JSON.stringify(["df4ffcb5e7a283ea7e6f09a504d0e256"]))
 // or
-bytifyRawString(JSON.strinify({	"dna": "df4ffcb5e7a283ea7e6f09a504d0e256" }))
+bytifyRawString(JSON.stringify({ "dna": "df4ffcb5e7a283ea7e6f09a504d0e256" }))
 // or
 [0, 223, 79, 252, 181, 231, 162, 131, 234, 126, 111, 9, 165, 4, 208, 226, 86]
 ```
