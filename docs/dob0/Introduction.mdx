@@ -69,9 +69,9 @@ const dob_content = {
 
 const { txSkeleton, outputIndex } = await createSpore({
   data: {
-    content_type: 'dob/0',
+    contentType: 'dob/0',
     content: bytifyRawString(JSON.strinify(dob_content)),
-    cluster_id: dob_cluster_id
+    clusterId: dob_cluster_id
   },
   fromInfos: [account.address],
   toLock: account.lock
