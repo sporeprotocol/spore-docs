@@ -52,7 +52,7 @@ const dob_metadata = {
       type: 'code_hash',
       hash: '...',
     },
-  	pattern: [["Age", "number", 1, 1, "range", [0, 100]]],
+  	pattern: [["Age", "Number", 1, 1, "range", [0, 100]]],
   }
 };
 
@@ -155,7 +155,7 @@ For the comprehensive consideration of ease of use, readability and reducing CKB
 	], */
 	[
 		"Face",
-		"string",
+		"String",
 		0,
 		1,
 		"options",
@@ -163,7 +163,7 @@ For the comprehensive consideration of ease of use, readability and reducing CKB
 	],
 	[
 		"Age",
-		"number",
+		"Number",
 		1,
 		1,
 		"range",
@@ -171,7 +171,7 @@ For the comprehensive consideration of ease of use, readability and reducing CKB
 	],
 	[
 		"BirthMonth",
-		"number",
+		"Number",
 		2,
 		1,
 		"options",
@@ -179,21 +179,21 @@ For the comprehensive consideration of ease of use, readability and reducing CKB
 	],
 	[
 		"Lucky Number",
-		"number",
+		"Number",
 		1,
 		1, // From same the DNA of the age. Your lucky number and age are related.
 		"raw"
 	],
 	[
 		"DNA",
-		"string",
+		"String",
 		0,
 		3,
 		"raw"
 	],
 	[
 		"Bio",
-		"string",
+		"String",
 		3,
 		512,
 		"utf8"
@@ -212,10 +212,10 @@ The meanings of the elements in each subarray from top to bottom are:
 `pattern`: String type, optional:
 
 - `options`: Limited options. Randomly select one from the args array as the value of the attribute.
-- `range`: The `type` field must be `number`. Randomly selecting a number within [args[0], args[1]).
-- `utf8` : The `type` field must be `string`. The DNA segment is parsed according to UTF-8 encoding, ignoring all 0x00 at the end.
+- `range`: The `type` field must be `Number`. Randomly selecting a number within [args[0], args[1]).
+- `utf8` : The `type` field must be `String`. The DNA segment is parsed according to UTF-8 encoding, ignoring all 0x00 at the end.
 - `raw` and `type: number`: Parse the DNA into an unsigned number in little-endian order.
-- `raw` and `type: string`: Prefixed hex string data for DNA.
+- `raw` and `type: String`: Prefixed hex string data for DNA.
 
 `args`: Optional array type. The function is as above.
 
@@ -226,8 +226,8 @@ The meanings of the elements in each subarray from top to bottom are:
   // CKB Testnet
   decoder: {
     type: 'code_hash',
-    hash: '0x1c84212ebd817e9de09d2a79f85cc421b684eda63409cfa75688f98716e77b5f',
-    tx_hash: '0xc877aca405da6a3038054cb5da20f2db0ed46bb643007d4e0b1d3fe7da155bf0',
+    hash: '0x13cac78ad8482202f18f9df4ea707611c35f994375fa03ae79121312dda9925c',
+    tx_hash: '0x4a8a0d079f8438bed89e0ece1b14e67ab68e2aa7688a5f4917a59a185e0f8fd5',
     out_index: 0,
   }
 }
@@ -236,8 +236,8 @@ The meanings of the elements in each subarray from top to bottom are:
   // CKB Mainnet
   decoder: {
     type: 'code_hash',
-    hash: '0x1c84212ebd817e9de09d2a79f85cc421b684eda63409cfa75688f98716e77b5f',
-    tx_hash: '0xa84f9426f378109dfa717cb3a29fb79b764bf466a7c2588aebcdecc874bcc984',
+    hash: '0x13cac78ad8482202f18f9df4ea707611c35f994375fa03ae79121312dda9925c',
+    tx_hash: '0x71023885a2178648be6a7f138ee49379000a82cda98dd8adabee99eaaca42fde',
     out_index: 0,
   }
 }
