@@ -501,7 +501,7 @@ The result of rendering the DOB is shown below:
 2. spore-dob-0: https://github.com/sporeprotocol/spore-dob-0
 3. spore-dob-1: https://github.com/sporeprotocol/spore-dob-1
 
-## Latest On-chain Information
+## Latest DOB/1 Decoder On-chain Information
 
 `code_hash`: 0xda3525549b72970b4c95f5b5749357f20d1293d335710b674f09c32f7d54b6dc
 
