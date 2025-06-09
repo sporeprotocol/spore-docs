@@ -83,7 +83,7 @@ const config = {
             items: [
               {
                 label: 'Discord',
-                href: 'https://discord.gg/X7D7xG7YeX',
+                href: 'https://discord.gg/Ncc3AcBcMU',
               },
               {
                 label: 'Email',
